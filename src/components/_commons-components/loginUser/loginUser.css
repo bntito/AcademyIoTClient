@@ -1,0 +1,34 @@
+.login-token {
+  display: flex;
+  justify-content: space-between
+}
+
+.token {
+  font-size: xx-small;
+  font-weight: 100;
+}
+
+.login {
+  color: darkblue;
+}
+
+.logged {
+  color: green;
+}
+
+.login-link {
+  font-size: 1em;
+  font-weight: 400;
+  color: darkblue;
+  text-decoration: none;
+  z-index: 0;
+}
+
+.login-link:hover {
+  color: rgb(78, 78, 255);
+  text-shadow: 
+  1px 0 0 darkblue,  
+  1px 0 0 darkblue,
+  0 1px 0 darkblue,
+  0 1px 0 darkblue;
+}

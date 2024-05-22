@@ -1,0 +1,10 @@
+.btn-back {
+  color: blue;
+  font-size: 2em;
+  cursor: pointer;
+}
+
+.btn-back:hover {
+  color: darkblue;
+  transform: scale(1.1);
+}

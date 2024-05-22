@@ -1,0 +1,241 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: rgb(232, 232, 236);
+  font-size: 1rem;
+}
+
+main {
+  margin: 3em;
+  display: flex;
+}
+
+.user-icon {
+  display: flex;
+  margin: auto;
+  margin-top: .5em;
+  font-size: 4em;
+}
+
+.user-container {
+  width: auto;
+}
+
+.login-form {
+  width: 100%;
+  padding: 1em 2em;
+}
+
+/* Etiquetas personalizadas */
+.w-300px {
+  width: 300px;
+  margin: auto;
+}
+
+.div-form {
+  padding: 3%;
+  background-color: rgb(221, 219, 243);
+  box-shadow: 0 0 10px 8px rgba(45, 15, 54, 0.575);
+  border-radius: 8px;
+  width: 100%;
+}
+
+.icon {
+  color: rgb(34, 34, 34);
+  font-size: 1.4em;
+  cursor: pointer;
+}
+
+.icon:hover {
+  color: black;
+  transform: scale(1.1);
+}
+
+.container-flex-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.m-auto {
+  margin: auto;
+}
+
+.div-flex {
+  display: flex;
+}
+
+.div-center {
+  justify-content: center;
+}
+
+.div-space-bt {
+  justify-content: space-between;
+}
+
+.div-30 {
+  width: 30%;
+}
+
+.div-70 {
+  width: 70%;
+}
+
+/* Cursos */
+.div-upload {
+  background-color: rgb(236, 233, 250);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: auto;
+  max-width: 300px;
+  height: 200px;
+}
+
+.uploadImg {
+  margin-bottom: 3em;
+  width: 200px;
+}
+
+.icon-add-professor {
+  margin: 0 .5em;
+  font-size: 2em;
+  cursor: pointer;
+}
+
+.icon-add-professor:hover {
+  transform: scale(1.1);
+}
+
+.container-teacher {
+  padding: 1em;
+  max-width: 220px;
+  background-color: rgb(202, 199, 230);
+  border: 1px solid rgb(132, 130, 151);
+  border-radius: 8px;
+  box-shadow: 0 0 4px 3px rgba(132, 130, 151, 0.507);
+}
+
+.delete-teacher {
+  font-size: 1.6em;
+  display: flex;
+  margin-left: auto;
+  margin-right: 10%;
+  cursor: pointer;
+}
+
+.delete-teacher:hover {
+  transform: scale(1.1);
+}
+
+.div-prominent {
+  padding: .5em;
+  background-color: rgb(202, 199, 230);
+  border: 1px solid rgb(132, 130, 151);
+  border-radius: 8px;
+  box-shadow: 0 0 4px 3px rgba(132, 130, 151, 0.507);
+  width: 160px;
+  margin: auto;
+  text-align: center;
+}
+
+/* Componentes Formulario */
+label {
+  margin-left: .8em;
+  font-size: 16px;
+  font-weight: 600;
+  font-style: italic;
+}
+
+input {
+  width: 100%;
+  padding: .5em .2em;
+  border-radius: 5px;
+}
+
+select {
+  width: 100%;
+  padding: .5em .2em;
+  border-radius: 5px;
+}
+
+.form-container {
+  margin: 2%;
+  padding: 2%;
+  background-color: rgb(193, 191, 214);
+  border: 2px solid black;
+  box-shadow: 0 0 10px 4px rgba(72, 58, 73, 0.349);
+  border-radius: 8px;
+}
+
+.form-container h3 {
+  margin-bottom: 1.5em;
+}
+
+form {
+  padding: 3%;
+  background-color: rgb(221, 219, 243);
+  box-shadow: 0 0 10px 8px rgba(45, 15, 54, 0.575);
+  border-radius: 8px;
+  width: 100%;
+}
+
+.add {
+  text-align: right;
+}
+
+.btn-add {
+  color: blue;
+  margin: .5em;
+  font-size: 2em;
+  cursor: pointer;
+}
+
+.btn-add:hover {
+  color: darkblue;
+  transform: scale(1.1);
+}
+
+.td-icon {
+  text-align: center;
+  width: 5em;
+}
+
+.carousel-container {
+  margin-left: -10%;
+  width: 120%;
+  background-color: #5e627269;
+}
+
+/* Listas */
+.lists {
+  border: 2px solid black;
+  box-shadow: 0 0 10px 8px rgba(45, 15, 54, 0.575);
+  border-radius: 8px;
+  padding: 1em;
+}
+
+/* Media query para pantallas de hasta 850px de ancho */
+@media (min-width: 850px) {
+  .user-container {
+    width: 50%;
+  }
+}
+@media (max-width: 850px) {
+  .media850-col {
+    display: flex;
+    flex-direction: column;
+  }
+  .user-container {
+    width: 80%;
+  }
+}
+@media (min-width: 1000px) {
+  .user-container {
+    width: 40%;
+  }
+}

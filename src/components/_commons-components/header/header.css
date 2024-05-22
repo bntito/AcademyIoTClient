@@ -1,0 +1,77 @@
+header {
+  background-color: #333333;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
+}
+
+body {
+  margin-top: 75px;
+}
+
+.subtitle-menu-icon-container {
+  display: flex;
+  align-items: center;
+}
+
+.menu-icon-container {
+  font-size: 26px;
+  color: aqua;
+  margin-right: auto;
+  margin-top: -10px;
+}
+
+.h2-header {
+  margin-left: 2%;
+  font-size: 30px;
+  font-family: fantasy;
+  color: rgb(255, 255, 255);
+  text-shadow: 
+  -1px -1px 0 #000,  
+  1px -1px 0 #000,
+  -1px 1px 0 #000,
+  1px 1px 0 #000;
+}
+
+.iot {
+  color: rgb(177, 81, 255);
+}
+
+.h3-header {
+  margin-right: auto;
+  font-size: 20px;
+  font-weight: 500;
+  font-style: oblique;
+  color: rgb(99, 35, 248);
+  text-shadow: 
+  -1px -1px 0 aqua,
+  1px -1px 0 aqua,
+  -1px 1px 0 #fff,
+  1px 1px 0 #fff;
+}
+
+.menu-icon {
+  cursor: pointer;
+  margin-left: .5em;
+}
+
+@media (max-width: 850px) {
+  .h2-header {
+    font-size: 24px;
+  }
+
+  .h3-header {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 450px) {
+  .h2-header {
+    font-size: 18px;
+  }
+
+  .h3-header {
+    font-size: 10px;
+  }
+}

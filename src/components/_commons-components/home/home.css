@@ -1,0 +1,57 @@
+.img-mainsection {
+  width: 90%;
+}
+
+.section-container {
+  display: flex;
+}
+
+.aside-img {
+  text-align: center;
+}
+
+.title-b2 {
+  font-size: 24px;
+  font-weight: 600;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  color: rgb(16, 16, 83);
+}
+
+.title-h1 {
+  font-family: fantasy;
+  color: rgb(81, 35, 141);
+  text-shadow: 
+  -1px -1px 0 aqua,
+  1px -1px 0 aqua,
+  -1px 1px 0 #fff,
+  1px 1px 0 #fff;
+}
+
+.section-aside {
+  font-weight: 600;
+}
+
+.p-home {
+  font-style: italic;
+  color: darkblue;
+}
+
+.link-home:hover {
+  color: rgb(22, 22, 71);
+}
+
+@media (max-width: 850px) {
+  .login-token h3 {
+    font-size: 16px;
+  }
+  .title-mainsection {
+    font-size: 20px;
+  }
+  .section-container {
+    display: inline;
+    font-size: 14px;
+  }
+  .img-mainsection {
+    width: 50%;
+  }
+}

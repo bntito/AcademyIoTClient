@@ -1,0 +1,49 @@
+/* Ver Cursos */
+.courses-container-view {
+  display: flex;
+  justify-content: center;
+}
+
+.container-view {
+  width: 60%;
+}
+
+.login-user-container {
+  margin-top: .3em;
+  text-align: right;
+}
+
+.card-background {
+  background-color: rgba(202, 199, 230, 0.493);
+}
+
+/* Ver Curso */
+.header-view {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.img-view {
+  width: 250px;
+  margin-right: 1em;
+}
+
+.title-container{
+  display: flex;
+  align-items: center;
+}
+
+.description-view {
+  margin: 2em 4em;
+  padding: 1.5em 2em;
+  background-color: rgb(202, 199, 230);
+}
+
+.activ {
+  color: rgba(0, 128, 0, 0.8);
+}
+
+.inactive {
+  color: rgba(255, 0, 0, 0.8);
+}
