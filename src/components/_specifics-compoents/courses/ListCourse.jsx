@@ -16,7 +16,7 @@ import { FaRegEdit } from "react-icons/fa";
 import { RiDeleteBin6Line } from "react-icons/ri";
 
 export default function ListCourse({ title }) {
-  const hostServer = import.meta.env.VITE_REACT_APP_SERVER_HOST;
+  const hostServer = import.meta.env.REACT_APP_SERVER_HOST;
   const api = `${hostServer}/api/courses`;
   const { usersContext, navigateContext } = useUsersContext();
   const token = usersContext.token;
