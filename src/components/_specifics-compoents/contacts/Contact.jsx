@@ -124,7 +124,7 @@ export default function Contact({ contact, edit, reviewList }) {
             onSubmit={handleSubmit}
           >
             <div className='div-flex gap-2'>
-              <div className='w-50'>
+              <div className='w-100'>
                 <label htmlFor='name'>Nombre Completo</label>
                 <input
                   type='text'
@@ -135,7 +135,7 @@ export default function Contact({ contact, edit, reviewList }) {
                   className='form-control'
                 />
               </div>
-              <div className='w-50'>
+              <div className='w-100'>
                 <label htmlFor='email'>Correo Electrónico</label>
                 <input
                   type='email'
@@ -148,7 +148,7 @@ export default function Contact({ contact, edit, reviewList }) {
               </div>
             </div>
             <div>
-              <div className='div-30'>
+              <div className='div-70'>
                 <label htmlFor='phone'>Número de celular</label>
                 <input
                   type='text'
@@ -159,7 +159,7 @@ export default function Contact({ contact, edit, reviewList }) {
                   className='form-control'
                 />
               </div>
-              <div className='div-30'>
+              <div className='div-70'>
                 <label htmlFor='city'>Ciudad</label>
                 <input
                   type='text'
@@ -172,7 +172,7 @@ export default function Contact({ contact, edit, reviewList }) {
               </div>
             </div>
             <div>
-              <div className='div-70'>
+              <div className='w-50'>
                 <label htmlFor='course'>Nuestros Cursos Disponibles</label>
                 <select
                   name='course'
@@ -194,7 +194,7 @@ export default function Contact({ contact, edit, reviewList }) {
                 </select>
               </div>
             </div>
-            <div className='mt-3 mx-5'>
+            <div className='mt-3 mx-4'>
               <label htmlFor='message'>Dejanos tus Comentarios</label>
               <textarea 
                 rows={5}
@@ -205,7 +205,7 @@ export default function Contact({ contact, edit, reviewList }) {
                 className='form-control' 
               />
             </div>
-            <div className='w-300px mt-5'>
+            <div className='m-auto div-70 mt-5'>
               {
                 edit ? (
                   <button type='submit' className='btn btn-primary w-100'>Actualizar</button>

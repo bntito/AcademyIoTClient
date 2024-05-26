@@ -23,7 +23,6 @@ import { IoLogInOutline } from "react-icons/io5";
 import { BiLogOut } from "react-icons/bi";
 import { TbPasswordUser } from "react-icons/tb";
 import { FaUsers } from "react-icons/fa6";
-import { FaRegEye } from "react-icons/fa6";
 import { GiSixEyes } from "react-icons/gi";
 
 import './menu.css';
@@ -93,7 +92,6 @@ function Menu({ closeMenu }) {
         { icon: <BiBookAdd />, title: 'Registro', route: '/addCourse'},
         { icon: <MdOutlineFormatListBulleted />, title: 'Listado', route: '/coursesList'},
         { icon: <RiProfileLine />, title: 'Perfil', route: '/courseProfile'},
-        { icon: <FaRegEye />, title: 'Ver curso', route: '/courseView'},
         { icon: <GiSixEyes />, title: 'Ver cursos', route: '/coursesView'}
       ]
     },

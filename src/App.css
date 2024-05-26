@@ -225,6 +225,7 @@ form {
     width: 50%;
   }
 }
+
 @media (max-width: 850px) {
   .media850-col {
     display: flex;
@@ -233,7 +234,11 @@ form {
   .user-container {
     width: 80%;
   }
+  main {
+    margin: 0;
+  }
 }
+
 @media (min-width: 1000px) {
   .user-container {
     width: 40%;
