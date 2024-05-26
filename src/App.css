@@ -237,6 +237,9 @@ form {
   main {
     margin: 0;
   }
+  .media-column {
+    flex-direction: column;
+  }
 }
 
 @media (min-width: 1000px) {

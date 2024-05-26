@@ -122,7 +122,7 @@ export default function Contact() {
           <form
             onSubmit={handleSubmit}
           >
-            <div className='div-flex gap-2'>
+            <div className='div-flex gap-2 media-column'>
               <div className='w-100'>
                 <label htmlFor='name'>Nombre Completo</label>
                 <input
