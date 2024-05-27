@@ -17,7 +17,7 @@ function Footer() {
         <section className='footer-container'>
           <div className='div-footer'>
             <h3 className='title-footer'>Puntos de contacto</h3>
-            <h5 className='line'>____________________</h5>
+            <hr className='line'/>
             <p>
               <PiMapPinLine className="icon-color" /> {''}
               Shopping Punta Carretas - Piso 1 - Local 11
@@ -33,7 +33,7 @@ function Footer() {
           </div>
           <div className='div-footer footer2'>
             <h3 className='title-footer'>Acerca de</h3>
-            <h5 className='line'>____________________</h5>
+            <hr className='line'/>
             <p>
               Tu opinión es importante para nosotros.
               Descubre más sobre nuestra misión, visión y valores. Conoce quiénes somos, qué hacemos y por qué lo hacemos.
@@ -45,7 +45,7 @@ function Footer() {
           </div>
           <div className='div-footer'>
             <h3 className='title-footer'>Puedes ubicarnos</h3>
-            <h5 className='line'>____________________</h5>
+            <hr className='line'/>
             <h6><ImWhatsapp className="icon-color"  /> Whtasapp</h6>
             <br />
             <h6><SlSocialInstagram className="icon-color"  /> Instagram</h6>
