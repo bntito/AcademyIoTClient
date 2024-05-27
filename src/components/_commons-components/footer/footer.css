@@ -7,12 +7,17 @@ footer {
 }
 
 .footer-container {
+  padding: 1em;
   width: 100%;
+}
+
+.footer-container p {
+  margin: 2em;
 }
 
 .div-footer {
   margin: 1em;
-  padding: 1em;
+  padding: .5em 0;
   width: 100%;
 }
 
@@ -23,12 +28,19 @@ footer {
 }
 
 .line {
-  color: aqua;
+  border: none;
+  height: 3px;
+  background-color: aqua;
+  margin-right: 10%;
 }
 
 section {
   display: flex;
   justify-content: space-between;
+}
+
+.icons-container {
+  margin-top: 2em;
 }
 
 .icon-color {

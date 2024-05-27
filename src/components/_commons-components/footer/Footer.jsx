@@ -38,7 +38,6 @@ function Footer() {
               Tu opinión es importante para nosotros.
               Descubre más sobre nuestra misión, visión y valores. Conoce quiénes somos, qué hacemos y por qué lo hacemos.
             </p>
-            <br />
             <p>
               ¡Explora nuestra historia y conéctate con nuestra pasión por lo que hacemos!
             </p>
@@ -46,11 +45,13 @@ function Footer() {
           <div className='div-footer'>
             <h3 className='title-footer'>Puedes ubicarnos</h3>
             <hr className='line'/>
-            <h6><ImWhatsapp className="icon-color"  /> Whtasapp</h6>
-            <br />
-            <h6><SlSocialInstagram className="icon-color"  /> Instagram</h6>
-            <br />
-            <h6><TfiEmail className="icon-color"  /> Correo electrónico</h6>
+            <div className='icons-container'>
+              <h6><ImWhatsapp className="icon-color"  /> Whtasapp</h6>
+              <br />
+              <h6><SlSocialInstagram className="icon-color"  /> Instagram</h6>
+              <br />
+              <h6><TfiEmail className="icon-color"  /> Correo electrónico</h6>
+            </div>
           </div>
         </section>
         <section className='copyright'>
