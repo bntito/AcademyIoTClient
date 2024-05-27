@@ -11,8 +11,7 @@ body {
 }
 
 main {
-  margin: 3em;
-  display: flex;
+  padding: 0 5% 0 5%;
 }
 
 .user-icon {
@@ -206,8 +205,6 @@ form {
 }
 
 .carousel-container {
-  margin-left: -10%;
-  width: 120%;
   background-color: #5e627269;
 }
 

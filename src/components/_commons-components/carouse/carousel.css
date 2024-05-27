@@ -20,6 +20,7 @@
 .carousel-item img {
   max-height: 200px;
   margin: 0 auto;
+  width: auto;
 }
 
 .carousel-caption {
@@ -46,10 +47,4 @@
   font-size: 14px;
   font-weight: 500;
   font-style: italic;
-}
-
-.carousel-item img {
-  max-height: 200px;
-  margin: 0 auto;
-  width: auto;
 }
