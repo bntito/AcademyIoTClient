@@ -14,6 +14,7 @@
   -1px 1px 0 #000,
   1px 1px 0 #000;
 }
+
 .iot {
   color: rgb(177, 81, 255);
 }
@@ -34,8 +35,9 @@
   position: absolute;
   display: flex;
   align-items: center;
+  top: 1.1em;
   left: 5px;
-  font-size: 24px;
+  font-size: 28px;
   color: rgba(0, 255, 255, 0.856);
 }
 
