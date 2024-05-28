@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useUsersContext } from '../../../hooks/UserContext';
 import { Link } from 'react-router-dom';
 import { IoHomeOutline } from "react-icons/io5";
 import { SiGoogleclassroom } from "react-icons/si";
@@ -27,7 +28,7 @@ import { GiSixEyes } from "react-icons/gi";
 
 import './menu.css';
 
-function MenuItem({ item, closeMenu }) {
+function MenuItem({ item, closeMenu, userRole }) {
   const [isOpen, setIsOpen] = useState(false);
 
   const handleToggle = () => {
@@ -37,6 +38,10 @@ function MenuItem({ item, closeMenu }) {
   const handleClick = () => {
     closeMenu();
   };
+
+  const filteredSubItems = item.subItems.filter(subItem =>
+    subItem.roles.length === 0 || subItem.roles.includes(userRole)
+  );
 
   return (
     <div className='menu-item'>
@@ -56,7 +61,7 @@ function MenuItem({ item, closeMenu }) {
         isOpen && (
           <ul>
             {
-              item.subItems.map((subItem) => (
+              filteredSubItems.map((subItem) => (
                 <li
                   key={subItem.title}
                   onClick={handleClick}
@@ -78,107 +83,127 @@ function MenuItem({ item, closeMenu }) {
 }
 
 function Menu({ closeMenu }) {
+  const { usersContext } = useUsersContext();
+
+  const userRole = usersContext.role;
+
   const menuItems = [
     {
       icon: <IoHomeOutline />,
       title: 'Home',
       route: '/',
-      subItems: []
+      subItems: [],
+      roles: []
     },
     {
       icon: <SiGoogleclassroom />,
       title: 'Cursos',
       subItems: [
-        { icon: <BiBookAdd />, title: 'Registro', route: '/addCourse'},
-        { icon: <MdOutlineFormatListBulleted />, title: 'Listado', route: '/coursesList'},
-        { icon: <RiProfileLine />, title: 'Perfil', route: '/courseProfile'},
-        { icon: <GiSixEyes />, title: 'Ver cursos', route: '/coursesView'}
-      ]
+        { icon: <BiBookAdd />, title: 'Registro', route: '/addCourse', roles: ['isAdmin'] },
+        { icon: <MdOutlineFormatListBulleted />, title: 'Listado', route: '/coursesList', roles: ['isStudent', 'isTeacher', 'isAdmin'] },
+        { icon: <RiProfileLine />, title: 'Perfil', route: '/courseProfile', roles: ['isAdmin'] },
+        { icon: <GiSixEyes />, title: 'Ver cursos', route: '/coursesView', roles: [] }
+      ],
+      roles: []
     },
     {
       icon: <PiStudentFill />,
       title: 'Estudiantes',
       subItems: [
-        { icon: <BiBookAdd />, title: 'Registro', route: '/addStudent'},
-        { icon: <MdOutlineFormatListBulleted />, title: 'Listado', route: '/studentsList'},
-        { icon: <RiProfileLine />, title: 'Perfil', route: '/studentProfile'}
-      ]
+        { icon: <BiBookAdd />, title: 'Registro', route: '/addStudent', roles: ['isStudent', 'isAdmin'] },
+        { icon: <MdOutlineFormatListBulleted />, title: 'Listado', route: '/studentsList', roles: ['isStudent', 'isAdmin'] },
+        { icon: <RiProfileLine />, title: 'Perfil', route: '/studentProfile', roles: ['isStudent', 'isAdmin'] }
+      ],
+      roles: ['isStudent', 'isTeacher', 'isAdmin']
     },
     {
       icon: <FaChalkboardTeacher />,
       title: 'Profesores',
       subItems: [
-        { icon: <BiBookAdd />, title: 'Registro', route: '/addProfessor'},
-        { icon: <MdOutlineFormatListBulleted />, title: 'Listado', route: '/professorsList'},
-        { icon: <RiProfileLine />, title: 'Perfil', route: '/professorProfile'}
-      ]
+        { icon: <BiBookAdd />, title: 'Registro', route: '/addProfessor', roles: ['isTeacher', 'isAdmin'] },
+        { icon: <MdOutlineFormatListBulleted />, title: 'Listado', route: '/professorsList', roles: [] },
+        { icon: <RiProfileLine />, title: 'Perfil', route: '/professorProfile', roles: ['isTeacher', 'isAdmin'] }
+      ],
+      roles: []
     },
     {
       icon: <MdOutlineAdminPanelSettings />,
       title: 'Administración',
       subItems: [
-        { icon: <BsJournalBookmarkFill />, title: 'Gestión de Cursos', route: '/coursesList'},
-        { icon: <FaChildren />, title: 'Gestión de Estudiantes', route: '/studentsList'},
-        { icon: <LiaChalkboardTeacherSolid />, title: 'Gestión de Profesores', route: '/professorsList'},
-        { icon: <LuContact2 />, title: 'Contacto', route: '/'}
-      ]
+        { icon: <BsJournalBookmarkFill />, title: 'Gestión de Cursos', route: '/coursesList', roles: [] },
+        { icon: <FaChildren />, title: 'Gestión de Estudiantes', route: '/studentsList', roles: [] },
+        { icon: <LiaChalkboardTeacherSolid />, title: 'Gestión de Profesores', route: '/professorsList', roles: [] },
+        { icon: <LuContact2 />, title: 'Contacto', route: '/addContact', roles: [] }
+      ],
+      roles: ['isAdmin']
     },
     {
       icon: <MdAppRegistration />,
       title: 'Matrículas',
       subItems: [
-        { icon: <BiBookAdd />, title: 'Registro', route: '/addEnrollments'},
-        { icon: <MdOutlineFormatListBulleted />, title: 'Listado', route: '/enrollmentsList'}
-      ]
+        { icon: <BiBookAdd />, title: 'Registro', route: '/addEnrollments', roles: ['isTeacher', 'isAdmin'] },
+        { icon: <MdOutlineFormatListBulleted />, title: 'Listado', route: '/enrollmentsList', roles: ['isStudent', 'isTeacher', 'isAdmin']}
+      ],
+      roles: ['isStudent', 'isTeacher', 'isAdmin']
     },
     {
       icon: <MdOutlineFormatListBulleted />,
       title: 'Listados',
       subItems: [
-        { icon: <FaClipboardList />, title: 'Cursos', route: '/coursesList'},
-        { icon: <CgUserList />, title: 'Estudiantes', route: '/studentsList'},
-        { icon: <FaListUl />, title: 'Profesores', route: '/professorsList'},
-        { icon: <TbRelationManyToMany />, title: 'Estudiantes por curso', route: '/enrollmentsList'}
-      ]
+        { icon: <FaClipboardList />, title: 'Cursos', route: '/coursesList', roles: [] },
+        { icon: <CgUserList />, title: 'Estudiantes', route: '/studentsList', roles: [] },
+        { icon: <FaListUl />, title: 'Profesores', route: '/professorsList', roles: [] },
+        { icon: <TbRelationManyToMany />, title: 'Estudiantes por curso', route: '/enrollmentsList', roles: ['isStudent', 'isTeacher', 'isAdmin'] }
+      ],
+      roles: []
     },
     {
       icon: <FaRegUser />,
       title: 'Usuarios',
       subItems: [
-        { icon: <IoLogInOutline />, title: 'Inicio Sesión', route: '/login'},
-        { icon: <BiLogOut />, title: 'Cerrar Sesión', route: '/logout'},
-        { icon: <TbPasswordUser />, title: 'Contraseñas', route: '/passwordchange'},
-        { icon: <MdOutlineFormatListBulleted />, title: 'Listado', route: '/usersList'},
-        { icon: <FaUsers />, title: 'Usuarios', route: '/addUser'}
-      ]
+        { icon: <IoLogInOutline />, title: 'Inicio Sesión', route: '/login', roles: [] },
+        { icon: <BiLogOut />, title: 'Cerrar Sesión', route: '/logout', roles: ['isStudent', 'isTeacher', 'isAdmin'] },
+        { icon: <TbPasswordUser />, title: 'Contraseñas', route: '/passwordchange', roles: ['isStudent', 'isTeacher', 'isAdmin'] },
+        { icon: <MdOutlineFormatListBulleted />, title: 'Listado', route: '/usersList', roles: ['isAdmin'] },
+        { icon: <FaUsers />, title: 'Usuarios', route: '/addUser', roles: [] }
+      ],
+      roles: []
     },
     {
       icon: <LuContact2 />,
       title: 'Contacto',
       subItems: [
-        { icon: <BiBookAdd />, title: 'Registro', route: '/addContact'},
-        { icon: <MdOutlineFormatListBulleted />, title: 'Listado', route: '/contactList'}
-      ]
+        { icon: <BiBookAdd />, title: 'Registro', route: '/addContact', roles: [] },
+        { icon: <MdOutlineFormatListBulleted />, title: 'Listado', route: '/contactList', roles: ['isTeacher', 'isAdmin'] }
+      ],
+      roles: []
     },
     {
       icon: <IoMdExit />,
       title: 'Salir',
       route: 'https://google.com',
-      subItems: []
+      subItems: [],
+      roles: []
     }
-  ]
+  ];
   
+  const filteredMenuItems = menuItems.filter(item =>
+    item.roles.length === 0 || item.roles.includes(userRole)
+  );
+
+
   return (
     <div
       onMouseLeave={closeMenu}
       className='a-menu'
     >
       {
-        menuItems.map((item) => (
+        filteredMenuItems.map((item) => (
           <MenuItem
             key={item.title}
             item={item}
             closeMenu={closeMenu}
+            userRole={userRole}
           />
         ))
       }
