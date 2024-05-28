@@ -79,7 +79,7 @@ export default function ViewCourses() {
     <h3 className='mt-4 mb-3'>Presentación de Cursos</h3>
     <div className='courses-container-view'>
       <div className='form-container container-view'>
-        <div className='div-30'>
+        <div className='div-70'>
           <label htmlFor='search'>Buscar Curso</label>
           <input 
             type='text'

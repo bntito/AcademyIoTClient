@@ -107,15 +107,6 @@ ul a {
 }
 
 @media (max-width: 450px) {
-  .menu-item {
-    margin: 0 1em .1em .02em;
-  }
-  .menu-container {
-    width: 160px;
-  }
-  .menu-item-route {
-    margin: .2em;
-  }
   a {
     font-size: 16px
   }
