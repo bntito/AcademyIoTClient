@@ -14,7 +14,7 @@
 .menu-container {
   position: fixed;
   overflow: hidden;
-  background-color: rgba(221, 219, 243, 0.8);
+  background-color: rgba(221, 219, 243, 0.9);
   border: 2px solid rgba(0, 0, 0, 0.5);
   box-shadow: 0 0 10px 4px rgba(72, 58, 73, 0.5);
   width: 250px;

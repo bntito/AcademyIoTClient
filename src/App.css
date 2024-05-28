@@ -217,19 +217,10 @@ form {
 }
 
 /* Media query para pantallas de hasta 850px de ancho */
-@media (min-width: 850px) {
-  .user-container {
-    width: 50%;
-  }
-}
-
 @media (max-width: 850px) {
   .media850-col {
     display: flex;
     flex-direction: column;
-  }
-  .user-container {
-    width: 80%;
   }
   main {
     margin: 0;
@@ -242,5 +233,23 @@ form {
 @media (min-width: 1000px) {
   .user-container {
     width: 40%;
+  }
+}
+
+@media (min-width: 850px) and (max-width: 999px) {
+  .user-container {
+    width: 50%;
+  }
+}
+
+@media (min-width: 451px) and (max-width: 849px) {
+  .user-container {
+    width: 80%;
+  }
+}
+
+@media (max-width: 450px) {
+  .user-container {
+    width: 100%;
   }
 }

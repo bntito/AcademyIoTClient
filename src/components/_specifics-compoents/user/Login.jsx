@@ -100,12 +100,12 @@ const Login = () => {
         <h3>Iniciar Sesión</h3>
         <form 
           onSubmit={handleSubmit}
-          className='mb-5 mt-1 login-form'
+          className='mb-2 login-form'
         >
           <CiUser
             className='user-icon'
           />
-          <div className='mt-3 mb-5'>
+          <div className='mt-2 mb-3'>
             <label htmlFor='email'>Dirección de Correo Electrónico</label>
             <input
               type='email'
@@ -116,7 +116,7 @@ const Login = () => {
               className='form-control'
             />
           </div>
-          <div className='mb-5'>
+          <div className='mb-3'>
             <label htmlFor='email'>Indique su Contraseña</label>
             <div className='div-flex'>
               <input
