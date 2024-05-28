@@ -221,22 +221,22 @@ export default function ListUser({ title }) {
                       selectedItems.map((user) => {
                         return (
                           <tr key={user.id}>
-                            <td>{user.id}</td>
-                            <td>{`${user.name} ${user.lastname}`}</td>
-                            <td>{user.email}</td>
-                            <td>{user.city}</td>
-                            <td className='td-icon'>
-                            <FaRegEdit
-                              onClick={() => handleEdit(user)}
-                              className='icon'
-                            />
-                          </td>
-                          <td className='td-icon'>
-                            <RiDeleteBin6Line
-                              onClick={() => handleDelete(user.id)}
-                              className='icon'
-                            />
-                          </td>                          
+                            <td data-label='#'>{user.id}</td>
+                            <td data-label='Nombre'>{`${user.name} ${user.lastname}`}</td>
+                            <td data-label='Correo Electrónico'>{user.email}</td>
+                            <td data-label='Ciudad'>{user.city}</td>
+                            <td data-label='Editar' className='td-icon'>
+                              <FaRegEdit
+                                onClick={() => handleEdit(user)}
+                                className='icon'
+                              />
+                            </td>
+                            <td data-label='Eliminar' className='td-icon'>
+                              <RiDeleteBin6Line
+                                onClick={() => handleDelete(user.id)}
+                                className='icon'
+                              />
+                            </td>                          
                           </tr>
                         );
                       })

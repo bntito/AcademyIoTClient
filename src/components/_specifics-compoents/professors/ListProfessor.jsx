@@ -10,11 +10,10 @@ import OpenModal from '../../_commons-components/modal/OpenModal';
 
 import Professor from '../../_specifics-compoents/professors/Professor';
 
-import './tableStyles.css';
 import Swal from 'sweetalert2';
-import { MdOutlineAddToPhotos } from "react-icons/md";
-import { FaRegEdit } from "react-icons/fa";
-import { RiDeleteBin6Line } from "react-icons/ri";
+import { MdOutlineAddToPhotos } from 'react-icons/md';
+import { FaRegEdit } from 'react-icons/fa';
+import { RiDeleteBin6Line } from 'react-icons/ri';
 
 export default function ListProfessor({ title }) {
   const hostServer = import.meta.env.VITE_REACT_APP_SERVER_HOST;
@@ -178,179 +177,87 @@ export default function ListProfessor({ title }) {
         <LoginUser />
       </div>
       <h3 className='mt-4 mb-3'>Listado de Profesores</h3>
-      {isLoading ? (
-        <h3>Cargando...</h3>
-      ) : (
-        selectedItems && (
-          <div className='lists'>
-            <div>
-              <div>{title}</div>
+      {
+        isLoading ? (
+          <h3>Cargando...</h3>
+        ) : (
+          selectedItems && (
+            <div className='lists'>
               <div>
-                <Searcher
-                  filters={filters}
-                  registers={dataServer?.dataServerResult?.dataApi}
-                  onChange={handlePageChange}
-                />
+                <div>{title}</div>
+                <div>
+                  <Searcher
+                    filters={filters}
+                    registers={dataServer?.dataServerResult?.dataApi}
+                    onChange={handlePageChange}
+                  />
+                </div>
+                <div className='add'>
+                  <MdOutlineAddToPhotos
+                    onClick={handleAdd}
+                    className='btn-add'
+                  />
+                </div>
               </div>
-              <div className='add'>
-                <MdOutlineAddToPhotos
-                  onClick={handleAdd}
-                  className='btn-add'
-                />
-              </div>
-            </div>
-            <table className='table table-striped table-bordered'>
-              <thead>
-                <tr className='table-dark'>
-                  <th scope='col'>#</th>
-                  <th scope='col'>Documento</th>
-                  <th scope='col'>Nombre</th>
-                  <th scope='col'>Correo Electrónico</th>
-                  <th scope='col'>Celular</th>
-                  <th scope='col' colSpan={3}>Acción</th>
-                </tr>
-              </thead>
-              <tbody>
-                {dataServer?.status === 500 ? (
-                  <tr>
-                    <td scope='col' colSpan={7}>
-                      <h3>No hay información para esta entidad</h3>
-                    </td>
+              <table className='table table-striped table-bordered'>
+                <thead>
+                  <tr className='table-dark'>
+                    <th scope='col'>#</th>
+                    <th scope='col'>Documento</th>
+                    <th scope='col'>Nombre</th>
+                    <th scope='col'>Correo Electrónico</th>
+                    <th scope='col'>Celular</th>
+                    <th scope='col' colSpan={3}>Acción</th>
                   </tr>
-                ) : (
-                  selectedItems.map((professor) => {
-                    return (
-                      <tr key={professor.id}>
-                        <td data-label="#"> {professor.id}</td>
-                        <td data-label="Documento">{professor.dni}</td>
-                        <td data-label="Nombre">{`${professor.name} ${professor.lastname}`}</td>
-                        <td data-label="Correo Electrónico">{professor.email}</td>
-                        <td data-label="Celular">{professor.phone}</td>
-                        <td data-label="Editar" className='td-icon'>
-                          <FaRegEdit
-                            onClick={() => handleEdit(professor)}
-                            className='icon'
-                          />
-                        </td>
-                        <td data-label="Eliminar" className='td-icon'>
-                          <RiDeleteBin6Line
-                            onClick={() => handleDelete(professor.id)}
-                            className='icon'
-                          />
-                        </td>
-                      </tr>
-                    );
-                  })
-                )}
-              </tbody>
-            </table>
-            {dataServer?.dataServerResult?.dataApi && (
-              <Pagination
-                items={dataServer?.dataServerResult?.dataApi}
-                page={page}
-                pagItems={itemsPage}
-                nextPage={nextPage}
-                onPageChange={handlePageChange}
-              />
-            )}
-          </div>
+                </thead>
+                <tbody>
+                  {dataServer?.status === 500 ? (
+                    <tr>
+                      <td scope='col' colSpan={7}>
+                        <h3>No hay información para esta entidad</h3>
+                      </td>
+                    </tr>
+                  ) : (
+                    selectedItems.map((professor) => {
+                      return (
+                        <tr key={professor.id}>
+                          <td data-label='#'>{professor.id}</td>
+                          <td data-label='Documento'>{professor.dni}</td>
+                          <td data-label='Nombre'>{`${professor.name} ${professor.lastname}`}</td>
+                          <td data-label='Correo Electrónico'>{professor.email}</td>
+                          <td data-label='Celular'>{professor.phone}</td>
+                          <td data-label='Editar' className='td-icon'>
+                            <FaRegEdit
+                              onClick={() => handleEdit(professor)}
+                              className='icon'
+                            />
+                          </td>
+                          <td data-label='Eliminar' className='td-icon'>
+                            <RiDeleteBin6Line
+                              onClick={() => handleDelete(professor.id)}
+                              className='icon'
+                            />
+                          </td>
+                        </tr>
+                      );
+                    })
+                  )}
+                </tbody>
+              </table>
+              {dataServer?.dataServerResult?.dataApi && (
+                <Pagination
+                  items={dataServer?.dataServerResult?.dataApi}
+                  page={page}
+                  pagItems={itemsPage}
+                  nextPage={nextPage}
+                  onPageChange={handlePageChange}
+                />
+              )}
+            </div>
+          )
         )
-      )}
+      }
     </>
   );
   
-
-  // return (
-  //   <>
-  //   <div className='login-user-container'>
-  //     <LoginUser/>
-  //   </div>
-  //   <h3 className='mt-4 mb-3'>Listado de Profesores</h3>
-  //   {
-  //     isLoading ? (
-  //       <h3>Cargando...</h3>
-  //     ) : (
-  //       selectedItems && (
-  //         <div className='lists'>
-  //           <div>
-  //             <div>{title}</div>
-  //             <div>
-  //               <Searcher
-  //                 filters={filters}
-  //                 registers={dataServer?.dataServerResult?.dataApi}
-  //                 onChange={handlePageChange}
-  //               />
-  //             </div>
-  //             <div className='add'>
-  //               <MdOutlineAddToPhotos
-  //                 onClick={handleAdd}
-  //                 className='btn-add'  
-  //               />                           
-  //             </div>
-  //           </div>
-  //           <table className='table table-striped table-bordered'>
-  //             <thead>
-  //               <tr className='table-dark'>
-  //                 <th scope='col'>#</th>
-  //                 <th scope='col'>Documento</th>
-  //                 <th scope='col'>Nombre</th>
-  //                 <th scope='col'>Correo Electrónico</th>
-  //                 <th scope='col'>Celular</th>
-  //                 <th scope='col' colSpan={3}>Acción</th>
-  //               </tr>
-  //             </thead>
-  //             <tbody>
-  //               {
-  //                 dataServer?.status === 500 ? (
-  //                   <tr>
-  //                     <td scope='col' colSpan={7}>
-  //                       <h3>No hay información para esta entidad</h3>
-  //                     </td>
-  //                   </tr>
-  //                 ) : (
-  //                   selectedItems.map((professor) => {
-  //                     return (
-  //                       <tr key={professor.id}>
-  //                         <td>{professor.id}</td>
-  //                         <td>{professor.dni}</td>
-  //                         <td>{`${professor.name} ${professor.lastname}`}</td>
-  //                         <td>{professor.email}</td>
-  //                         <td>{professor.phone}</td>
-  //                         <td className='td-icon'>
-  //                           <FaRegEdit
-  //                             onClick={() => handleEdit(professor)}
-  //                             className='icon'
-  //                           />
-  //                         </td>
-  //                         <td className='td-icon'>
-  //                           <RiDeleteBin6Line
-  //                             onClick={() => handleDelete(professor.id)}
-  //                             className='icon'
-  //                           />
-  //                         </td>                          
-  //                       </tr>
-  //                     );
-  //                   })
-  //                 )
-  //               }
-  //             </tbody>
-  //           </table>
-  //           {
-  //             dataServer?.dataServerResult?.dataApi && (
-  //               <Pagination
-  //                 items={dataServer?.dataServerResult?.dataApi}
-  //                 page={page}
-  //                 pagItems={itemsPage}
-  //                 nextPage={nextPage}
-  //                 onPageChange={handlePageChange}
-  //               />
-  //             )
-  //           }
-  //         </div>
-  //       )
-  //     )
-  //   }
-  //   </>
-  // );
-
 }

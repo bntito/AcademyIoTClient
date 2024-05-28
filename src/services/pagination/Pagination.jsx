@@ -18,7 +18,7 @@ const Pagination = ({ items, page, pagItems, nextPage, onPageChange }) => {
   const listItems = [];
 
   if (!items) {
-    return;
+    return null;
   }
 
   const totalPages = Math.ceil(items.length / pageSize);
@@ -76,6 +76,7 @@ const Pagination = ({ items, page, pagItems, nextPage, onPageChange }) => {
         id={`btn${index + 1}`}
         key={index}
         onClick={() => handlePageChange(index + 1)}
+        className={index + 1 === currentPage ? 'active' : ''}
       >
         {index + 1}
       </li>
@@ -98,7 +99,7 @@ const Pagination = ({ items, page, pagItems, nextPage, onPageChange }) => {
           <select
             onChange={(e) => onPageSizeChange(Number(e.target.value))}
             value={pageSize}
-            className='w-25 mx-2'
+            className='w-25 mx-2 select-pages'
           >
             <option value={8}>8</option>
             <option value={15}>15</option>

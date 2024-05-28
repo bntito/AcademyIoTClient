@@ -212,18 +212,18 @@ export default function ListEnrollment({ title }) {
                     selectedItems.map((enrollment) => {
                       return (
                         <tr key={enrollment.id}>
-                          <td>{enrollment.id}</td>
-                          <td>{enrollment.course}</td>
-                          <td>{`${enrollment.professor}`}</td>
-                          <td>{enrollment.student}</td>
-                          <td>{enrollment.shift}</td>
-                          <td className='td-icon'>
+                          <td data-label='#'>{enrollment.id}</td>
+                          <td data-label='Curso'>{enrollment.course}</td>
+                          <td data-label='Profesor'>{`${enrollment.professor}`}</td>
+                          <td data-label='Estudiante'>{enrollment.student}</td>
+                          <td data-label='Turno'>{enrollment.shift}</td>
+                          <td data-label='Editar' className='td-icon'>
                             <FaRegEdit
                               onClick={() => handleEdit(enrollment)}
                               className='icon'
                             />
                           </td>
-                          <td className='td-icon'>
+                          <td data-label='Eliminar' className='td-icon'>
                             <RiDeleteBin6Line
                               onClick={() => handleDelete(enrollment.id)}
                               className='icon'

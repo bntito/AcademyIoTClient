@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useFetch } from '../../../hooks/useFetch';
 import { useForm } from '../../../hooks/useForm';
 
@@ -12,6 +13,7 @@ import Swal from 'sweetalert2';
 export default function Contact() {
   const hostServer = import.meta.env.VITE_REACT_APP_SERVER_HOST;
   const api = `${hostServer}/api/contact`;
+  const navigate = useNavigate();
   const [error, setError] = useState(false);
   const [courses, setCourses] = useState([]);
   const [contact, setContact] = useState({});
@@ -84,6 +86,7 @@ export default function Contact() {
           showConfirmButton: false,
           timer: 2000
         });
+        navigate('/contactList');
       };
       if (dataServer?.status === 400 || dataServer?.status === 404) {
         Swal.fire({
@@ -103,6 +106,7 @@ export default function Contact() {
         showConfirmButton: false,
         timer: 2000
       });
+      navigate('/contactList');
     };
   }, [dataServer]);
 

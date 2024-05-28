@@ -1,28 +1,36 @@
 .pagination {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
+  padding: 10px;
 }
 
 .page-size {
   display: flex;
   justify-content: start;
   align-items: center;
+  margin-bottom: 10px;
+}
+
+.select-pages {
+  max-width: 3em;
 }
 
 .pagination > ul {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
 }
 
 .pagination > ul > li {
   list-style: none;
-  font-style: none;
   padding: 5px 10px;
   background-color: rgb(5, 78, 124);
   background: linear-gradient(to right, #cbc2ff, #3c3ffc);
-  margin: 0 5px;
+  margin: 5px;
   border: 1px solid rgb(52, 168, 189);
   border-radius: 5px;
   cursor: pointer;
@@ -33,15 +41,13 @@
 
 .pagination > ul > li:hover {
   background-color: white;
-  background: linear-gradient(to right, hsl(136, 95%, 85%), #349b5f);
+  background: linear-gradient(to right, #847ea7, #3033aa);
   border: 1px solid rgb(22, 220, 255);
-  color: black;
 }
 
-.pagination > ul > li:active {
-  background-color: rgb(189, 16, 99);
-  border: 1px solid rgb(189, 16, 99);
-  color: black;
+.pagination > ul > li.active {
+  border: 1px solid rgb(18, 4, 36);
+  color: aliceblue;
 }
 
 .reg-for-pag {
@@ -51,7 +57,7 @@
 .btns-pag {
   display: flex;
   align-items: center;
-  padding-right: 80px;
+  margin-bottom: 10px;
 }
 
 .btn-pag {
@@ -60,10 +66,37 @@
   padding: 5px 10px;
   cursor: pointer;
   border-radius: 50px;
-  margin: 0 5px;
+  margin: 5px;
   z-index: 0;
 }
 
 .btn-pag:hover {
-  color: rgb(22, 220, 255);
+  color: rgb(5, 78, 124);
+}
+
+.pag-view {
+  text-align: center;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+@media (max-width: 600px) {
+  .pagination {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .btns-pag {
+    justify-content: center;
+    margin-bottom: 5px;
+  }
+
+  .page-size {
+    justify-content: center;
+    margin-bottom: 5px;
+  }
+
+  .pagination > ul {
+    justify-content: center;
+  }
 }

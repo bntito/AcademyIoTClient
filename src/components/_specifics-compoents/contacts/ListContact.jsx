@@ -165,16 +165,16 @@ export default function ListContacts({ title }) {
                     selectedItems.map((contact) => {
                       return (
                         <tr key={contact.id}>
-                          <td>{contact.id}</td>
-                          <td>{contact.email}</td>
-                          <td>{contact.name}</td>
-                          <td className='td-icon'>
+                          <td data-label='#'>{contact.id}</td>
+                          <td data-label='Correo Electrónico'>{contact.email}</td>
+                          <td data-label='Nombre'>{contact.name}</td>
+                          <td data-label='Editar' className='td-icon'>
                             <FaRegEdit
                               onClick={() => handleEdit(contact)}
                               className='icon'
                             />
                           </td>
-                          <td className='td-icon'>
+                          <td data-label='Eliminar' className='td-icon'>
                             <RiDeleteBin6Line
                               onClick={() => handleDelete(contact.id)}
                               className='icon'

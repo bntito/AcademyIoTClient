@@ -46,7 +46,7 @@ const Searcher = ({ filters, registers, onChange }) => {
 
   return (
     <>
-      <div className='form-group m-auto w-50'>
+      <div className='form-group m-auto'>
         <form className='form-search'>
           <div className='input-search'>
             <label htmlFor='field' className='field-searcher'>Filtros:</label>

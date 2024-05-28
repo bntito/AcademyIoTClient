@@ -219,16 +219,16 @@ export default function ListCourse({ title }) {
                     selectedItems.map((course) => {
                       return (
                         <tr key={course.id}>
-                          <td>{course.id}</td>
-                          <td>{course.code}</td>
-                          <td>{course.name}</td>
-                          <td className='td-icon'>
+                          <td data-label='#'>{course.id}</td>
+                          <td data-label='Código'>{course.code}</td>
+                          <td data-label='Nombre'>{course.name}</td>
+                          <td data-label='Editar' className='td-icon'>
                             <FaRegEdit
                               onClick={() => handleEdit(course)}
                               className='icon'
                             />
                           </td>
-                          <td className='td-icon'>
+                          <td data-label='Eliminar' className='td-icon'>
                             <RiDeleteBin6Line
                               onClick={() => handleDelete(course.id)}
                               className='icon'

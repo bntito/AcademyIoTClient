@@ -216,6 +216,60 @@ form {
   padding: 1em;
 }
 
+/* Listas mediaqueries */
+@media (max-width: 710px) {
+  .table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  .table thead {
+    display: none;
+  }
+
+  .table tbody, .table tr, .table td {
+    display: block;
+    width: 100%;
+  }
+
+  .table tr {
+    margin-bottom: 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+  }
+
+  .table td {
+    text-align: right;
+    padding: 10px;
+    position: relative;
+  }
+
+  .table td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 10px;
+    font-weight: bold;
+    text-align: left;
+  }
+
+  .td-icon {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 10px;
+  }
+}
+
+@media (max-width: 500px) {
+  .table {
+    font-size: 14px;
+  }
+  .table td {
+    padding: 5px;
+  }
+}
+
+
 /* Media query para pantallas de hasta 850px de ancho */
 @media (max-width: 850px) {
   .media850-col {

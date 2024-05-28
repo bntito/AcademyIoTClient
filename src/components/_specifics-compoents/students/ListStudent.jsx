@@ -222,18 +222,18 @@ export default function ListStudent({ title }) {
                     selectedItems.map((student) => {
                       return (
                         <tr key={student.id}>
-                          <td>{student.id}</td>
-                          <td>{student.dni}</td>
-                          <td>{`${student.name} ${student.lastname}`}</td>
-                          <td>{student.email}</td>
-                          <td>{student.phone}</td>
-                          <td className='td-icon'>
+                          <td data-label='#'>{student.id}</td>
+                          <td data-label='Documento'>{student.dni}</td>
+                          <td data-label='Nombre'>{`${student.name} ${student.lastname}`}</td>
+                          <td data-label='Correo Electrónico'>{student.email}</td>
+                          <td data-label='Celular'>{student.phone}</td>
+                          <td data-label='Editar' className='td-icon'>
                             <FaRegEdit
                               onClick={() => handleEdit(student)}
                               className='icon'
                             />
                           </td>
-                          <td className='td-icon'>
+                          <td data-label='Eliminar' className='td-icon'>
                             <RiDeleteBin6Line
                               onClick={() => handleDelete(student.id)}
                               className='icon'
