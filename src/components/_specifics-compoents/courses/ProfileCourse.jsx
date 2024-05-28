@@ -461,7 +461,7 @@ export default function ProfileCourse() {
                 </div>
               </div>
             </section>
-            <div className='w-300px mt-5'>
+            <div className='m-auto div-70 mt-5'>
               <button 
                 onClick={handleSubmit}
                 className='btn btn-primary w-100'>Actualizar</button>

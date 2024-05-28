@@ -163,7 +163,7 @@ export default function Enrollment() {
             onSubmit={handleSubmit}
           >
             <div>           
-              <div className='div-30 mb-3'>
+              <div className='div-70 mb-3'>
                 <label htmlFor='course'>Nombre del Curso</label>
                 <select 
                   name='course'
@@ -183,8 +183,8 @@ export default function Enrollment() {
                   }
                 </select>
               </div>        
-              <div className='div-flex gap-2'>
-                <div className='w-50'>
+              <div className='div-flex gap-2 media850-col'>
+                <div className='w-100'>
                   <label htmlFor='professor'>Nombre del Profesor asignado al Curso</label>
                   <select 
                     name='professor'
@@ -204,7 +204,7 @@ export default function Enrollment() {
                     }
                   </select>
                 </div>
-                <div className='w-50'>
+                <div className='w-100'>
                 <label htmlFor='student'>Nombre del Alumno</label>
                   <select 
                     name='student'
@@ -241,8 +241,8 @@ export default function Enrollment() {
                 </select>                  
               </div>
             </div>
-            <div className='div-flex gap-2'>
-              <div className='w-50'>
+            <div className='div-flex gap-2 media850-col'>
+              <div className='w-100'>
                 <label htmlFor='startDate'>Fecha de Inicio</label>
                 <input
                   type='text'
@@ -253,7 +253,7 @@ export default function Enrollment() {
                   className='form-control'
                 />
               </div>
-              <div className='w-50'>
+              <div className='w-100'>
                 <label htmlFor='endDate'>Fecha de Finalización</label>
                 <input
                   type='text'
@@ -265,7 +265,7 @@ export default function Enrollment() {
                 />
               </div>
             </div>
-            <div className='w-300px mt-5'>
+            <div className='m-auto div-70 mt-5'>
               <button type='submit' className='btn btn-primary w-100'>Agregar</button>
             </div>
           </form>

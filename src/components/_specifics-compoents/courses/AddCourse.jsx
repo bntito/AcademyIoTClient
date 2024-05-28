@@ -464,7 +464,7 @@ export default function Course() {
                 onChange={onInputChange}
               />
             </div>
-            <div className='w-300px mt-5'>
+            <div className='m-auto div-70 mt-5'>
               <button type='submit' className='btn btn-primary w-100'>Agregar</button>
             </div>
           </form>

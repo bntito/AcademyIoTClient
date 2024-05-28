@@ -47,3 +47,15 @@
 .inactive {
   color: rgba(255, 0, 0, 0.8);
 }
+
+@media (min-width: 451px) and (max-width: 849px) {
+  .container-view {
+    width: 80%;
+  }
+}
+
+@media (max-width: 450px) {
+  .container-view {
+    width: 100%;
+  }
+}

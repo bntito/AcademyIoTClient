@@ -141,8 +141,8 @@ export default function User({ user, edit, reviewList, token, handleNavigate }) 
       ) : (
         <div className='p-5'>
           <form>
-            <div className='div-flex gap-2'>
-              <div className='w-50'>
+            <div className='div-flex gap-2 media850-col'>
+              <div className='w-100'>
                 <label htmlFor='name'>Nombre</label>
                 <input
                   type='text'
@@ -160,7 +160,7 @@ export default function User({ user, edit, reviewList, token, handleNavigate }) 
                   )
                 }
               </div>
-              <div className='w-50'>
+              <div className='w-100'>
                 <label htmlFor='lastname'>Apellidos</label>
                 <input
                   type='text'
@@ -260,8 +260,8 @@ export default function User({ user, edit, reviewList, token, handleNavigate }) 
                 }
               </div>
             </div>
-            <div className='div-flex gap-2'>
-              <div className='w-50'>
+            <div className='div-flex gap-2 media850-col'>
+              <div className='w-100'>
                 <label htmlFor='address'>Dirección</label>
                 <input
                   type='text'
@@ -271,7 +271,7 @@ export default function User({ user, edit, reviewList, token, handleNavigate }) 
                   className='form-control'
                 />
               </div>
-              <div className='w-50'>
+              <div className='w-100'>
                   <label htmlFor='city'>Ciudad</label>
                   <input
                     type='text'
@@ -283,7 +283,7 @@ export default function User({ user, edit, reviewList, token, handleNavigate }) 
               </div>
             </div>
             <div className='div-flex gap-2'>
-              <div className='div-30'>
+              <div className='div-70'>
                 <label htmlFor='phone'>Número de Celular</label>
                 <input 
                   type='text'

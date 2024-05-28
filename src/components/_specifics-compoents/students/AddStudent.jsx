@@ -137,7 +137,7 @@ export default function Student() {
               onSubmit={handleSubmit}
             >
               <div>
-                <div className='div-30'>
+                <div className='div-70'>
                   <label htmlFor='dni'>Número de Documento</label>
                   <input 
                     type='text'
@@ -155,8 +155,8 @@ export default function Student() {
                   }
                 </div>
               </div>
-              <div className='div-flex gap-2'>
-                <div className='w-50'>
+              <div className='div-flex gap-2 media850-col'>
+                <div className='w-100'>
                   <label htmlFor=''>Nombres</label>
                   <input 
                     type='text'
@@ -173,7 +173,7 @@ export default function Student() {
                     )
                   }
                 </div>
-                <div className='w-50'>
+                <div className='w-100'>
                   <label htmlFor=''>Apellidos</label>
                   <input 
                     type='text'
@@ -191,8 +191,8 @@ export default function Student() {
                   }
                 </div>
               </div>
-              <div className='div-flex gap-2'>
-                <div className='w-50'>
+              <div className='div-flex gap-2 media850-col'>
+                <div className='w-100'>
                   <label htmlFor=''>Correo electrónico</label>
                   <input 
                     type='email'
@@ -209,7 +209,7 @@ export default function Student() {
                     )
                   }
                 </div>
-                <div className='w-50'>
+                <div className='w-100'>
                   <label htmlFor=''>Número de Celular</label>
                   <input 
                     type='text'
@@ -227,8 +227,8 @@ export default function Student() {
                   }
                 </div>              
               </div>
-              <div className='div-flex gap-2'>
-                <div className='w-50'>
+              <div className='div-flex gap-2 media850-col'>
+                <div className='w-100'>
                   <label htmlFor=''>Contraseña</label>
                   <input 
                     type='password'
@@ -245,7 +245,7 @@ export default function Student() {
                     )
                   }
                 </div>
-                <div className='w-50'>
+                <div className='w-100'>
                   <label htmlFor=''>Confirmación de Contraseña</label>
                   <input 
                     type='text'
@@ -333,7 +333,7 @@ export default function Student() {
                   }
                 </div>
               </div>
-              <div className='w-300px mt-5'>
+              <div className='m-auto div-70 mt-5'>
                 <button type='submit' className='btn btn-primary w-100'>Agregar</button>
               </div>
             </form>
