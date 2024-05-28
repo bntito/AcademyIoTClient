@@ -101,9 +101,6 @@ ul a {
   .menu-container {
     width: 200px;
   }
-  .menu-item-route {
-    margin: .5em;
-  }
 }
 
 @media (max-width: 450px) {
