@@ -20,11 +20,11 @@ export default function Professor({ professor, edit, reviewList, token, handleNa
     name: professor ? professor.name : '',
     lastname: professor ? professor.lastname : '',
     email: professor ? professor.email : '',
+    phone: professor ? professor.phone : '',
     password: professor ? professor.password : '',
     confirmPassword: '',
     address: professor ? professor.address : '',
     city: professor ? professor.city : '',
-    phone: professor ? professor.phone : '',
     condition: professor ? professor.condition : ''
   };
 

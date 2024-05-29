@@ -143,6 +143,11 @@ main {
 }
 
 /* Componentes Formulario */
+.error {
+  font-size: 14px;
+  color: rgba(255, 0, 0, 0.8);
+}
+
 label {
   margin-left: .8em;
   font-size: 16px;

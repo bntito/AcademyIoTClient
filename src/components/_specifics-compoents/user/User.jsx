@@ -270,6 +270,13 @@ export default function User({ user, edit, reviewList, token, handleNavigate }) 
                   onChange={onInputChange}
                   className='form-control'
                 />
+                {
+                  errorsInput.address && (
+                    <ValidateErrors
+                      errors={errorsInput.address}
+                    />
+                  )
+                }                  
               </div>
               <div className='w-100'>
                   <label htmlFor='city'>Ciudad</label>
@@ -292,6 +299,13 @@ export default function User({ user, edit, reviewList, token, handleNavigate }) 
                   onChange={onInputChange}
                   className='form-control'
                 />
+                {
+                  errorsInput.phone && (
+                    <ValidateErrors
+                      errors={errorsInput.phone}
+                    />
+                  )
+                }                 
               </div>
             </div>
             <div className='div-30 mx-auto'>

@@ -21,13 +21,16 @@ export default function Professor() {
   const [professor, setProfessor] = useState({});
   const initialForm = {
     id: professor && professor.id ? professor.id : '',
-    code: professor && professor.code ? professor.code : '',
+    dni: professor && professor.dni ? professor.dni : '',
     name: professor && professor.name ? professor.name : '',
-    description: professor && professor.description ? professor.description : '',
-    cost: professor && professor.cost ? professor.cost : '',
-    condition: professor && professor.condition ? professor.condition : '',
-    duration: professor && professor.duration ? professor.duration : '',
-    qualification: professor && professor.qualification ? professor.qualification : ''
+    lastname: professor && professor.code ? professor.lastname : '',
+    email: professor && professor.email ? professor.email : '',
+    phone: professor && professor.phone ? professor.phone : '',
+    password: professor && professor.password ? professor.password : '',
+    confirmPassword: '',
+    address: professor && professor.address ? professor.address : '',
+    city: professor ? professor.city : '',
+    condition: professor && professor.condition ? professor.condition : ''
   };
 
   let {
@@ -36,7 +39,7 @@ export default function Professor() {
     validateForm,
     errorsInput,
     clearForm
-  } = useForm(initialForm);
+  } = useForm(initialForm, validationSchema);
 
   const { id, dni, name, lastname, email, password, confirmPassword, address, city, phone, condition } = formData;
 
