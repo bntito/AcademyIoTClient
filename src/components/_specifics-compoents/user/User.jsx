@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useFetch } from '../../../hooks/useFetch';
 import { useForm } from '../../../hooks/useForm';
 
+import { countries } from '../../../services/countries';
 import ValidateErrors from '../../../services/validations/ValidateErrors';
 import validationSchema from '../../../services/validations/validationSchema';
 
@@ -279,14 +280,24 @@ export default function User({ user, edit, reviewList, token, handleNavigate }) 
                 }                  
               </div>
               <div className='w-100'>
-                  <label htmlFor='city'>Ciudad</label>
-                  <input
-                    type='text'
-                    name='city'
-                    value={city}
-                    onChange={onInputChange}
-                    className='form-control'
-                  />
+                <label htmlFor=''>Ciudad</label>
+                <select
+                  name='city'
+                  value={city}
+                  onChange={onInputChange}
+                  className='form-control'
+                >
+                  <option>Selecione ciudad</option>
+                  {
+                    countries.map((country) => (
+                      <option 
+                        key={country.id}
+                        value={country.pais}
+                      >{country.pais}
+                      </option>
+                    ))
+                  }
+                </select>
               </div>
             </div>
             <div className='div-flex gap-2'>

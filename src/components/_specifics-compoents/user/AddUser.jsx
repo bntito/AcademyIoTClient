@@ -6,6 +6,7 @@ import { useForm } from '../../../hooks/useForm';
 import { useUsersContext } from '../../../hooks/UserContext';
 import LoginUser from '../../_commons-components/loginUser/LoginUser';
 
+import { countries } from '../../../services/countries';
 import ValidateErrors from '../../../services/validations/ValidateErrors';
 import validationSchema from '../../../services/validations/validationSchema';
 
@@ -257,14 +258,24 @@ export default function User() {
                 }                
               </div>
               <div className='w-100'>
-                  <label htmlFor='city'>Ciudad</label>
-                  <input
-                    type='text'
-                    name='city'
-                    value={city}
-                    onChange={onInputChange}
-                    className='form-control'
-                  />
+                <label htmlFor=''>Ciudad</label>
+                <select
+                  name='city'
+                  value={city}
+                  onChange={onInputChange}
+                  className='form-control'
+                >
+                  <option>Selecione ciudad</option>
+                  {
+                    countries.map((country) => (
+                      <option 
+                        key={country.id}
+                        value={country.pais}
+                      >{country.pais}
+                      </option>
+                    ))
+                  }
+                </select>
               </div>
             </div>
             <div className='div-flex gap-2'>
