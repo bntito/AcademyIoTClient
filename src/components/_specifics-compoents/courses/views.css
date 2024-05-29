@@ -19,13 +19,15 @@
 
 /* Ver Curso */
 .header-view {
+  margin: 0 2em;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
 .img-view {
-  width: 250px;
+  width: 80%;
+  height: 150px;
   margin-right: 1em;
 }
 
@@ -48,9 +50,30 @@
   color: rgba(255, 0, 0, 0.8);
 }
 
-@media (min-width: 451px) and (max-width: 849px) {
+@media (max-width: 650px) {
+  .header-view {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 849px) {
+  .img-view {
+    width: 60%;
+    height: 100px;
+  }
   .container-view {
     width: 80%;
+  }
+  .header-view h1 {
+    font-size: 24px;
+  }
+  .header-view h5 {
+    font-size: 16px;
+    margin-top: 1em;
+  }
+  .description-view {
+    margin: 1em 2em;
   }
 }
 
