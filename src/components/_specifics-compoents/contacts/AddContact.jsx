@@ -5,6 +5,7 @@ import { useForm } from '../../../hooks/useForm';
 
 import BackButton from '../../../services/backButton/BackButton';
 
+import { countries } from '../../../services/countries';
 import ValidateErrors from '../../../services/validations/ValidateErrors';
 import validationSchema from '../../../services/validations/validationSchema';
 
@@ -33,7 +34,7 @@ export default function Contact() {
     validateForm,
     errorsInput,
     clearForm
-  } = useForm(initialForm);
+  } = useForm(initialForm, validationSchema);
 
   const { id, name, email, phone, city, course, message } = formData;
 
@@ -137,6 +138,13 @@ export default function Contact() {
                   onChange={onInputChange}
                   className='form-control'
                 />
+                {
+                  errorsInput.name && (
+                    <ValidateErrors
+                      errors={errorsInput.name}
+                    />
+                  )
+                }                
               </div>
               <div className='w-100'>
                 <label htmlFor='email'>Correo Electrónico</label>
@@ -148,6 +156,13 @@ export default function Contact() {
                   onChange={onInputChange}
                   className='form-control'
                 />
+                {
+                  errorsInput.email && (
+                    <ValidateErrors
+                      errors={errorsInput.email}
+                    />
+                  )
+                }                
               </div>
             </div>
             <div>
@@ -161,17 +176,34 @@ export default function Contact() {
                   onChange={onInputChange}
                   className='form-control'
                 />
+                {
+                  errorsInput.phone && (
+                    <ValidateErrors
+                      errors={errorsInput.phone}
+                    />
+                  )
+                }                  
               </div>
               <div className='div-70'>
-                <label htmlFor='city'>Ciudad</label>
-                <input
-                  type='text'
+                <label htmlFor=''>Ciudad</label>
+                <select
                   name='city'
-                  placeholder='Ingrese ciudad'
                   value={city}
                   onChange={onInputChange}
                   className='form-control'
-                />
+                >
+                  <option>Selecione Ciudad</option>
+                  {
+                    countries.map((country) => (
+                      <option 
+                        key={country.id}
+                        value={country.pais}
+                      >
+                        {country.pais}
+                      </option>
+                    ))
+                  }
+                </select>
               </div>
             </div>
             <div>
@@ -207,6 +239,13 @@ export default function Contact() {
                 onChange={onInputChange}
                 className='form-control' 
               />
+              {
+                errorsInput.message && (
+                  <ValidateErrors
+                    errors={errorsInput.message}
+                  />
+                )
+              }                 
             </div>
             <div className='m-auto div-70 mt-5'> 
               <button type='submit' className='btn btn-primary w-100'>Agregar</button>

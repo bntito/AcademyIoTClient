@@ -294,7 +294,8 @@ export default function Professor() {
                       <option 
                         key={country.id}
                         value={country.pais}
-                      >{country.pais}
+                      >
+                        {country.pais}
                       </option>
                     ))
                   }

@@ -290,7 +290,8 @@ export default function Professor({ professor, edit, reviewList, token, handleNa
                       <option 
                         key={country.id}
                         value={country.pais}
-                      >{country.pais}
+                      >
+                        {country.pais}
                       </option>
                     ))
                   }

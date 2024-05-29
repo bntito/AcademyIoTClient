@@ -293,7 +293,8 @@ export default function User({ user, edit, reviewList, token, handleNavigate }) 
                       <option 
                         key={country.id}
                         value={country.pais}
-                      >{country.pais}
+                      >
+                        {country.pais}
                       </option>
                     ))
                   }

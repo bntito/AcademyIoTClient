@@ -271,7 +271,8 @@ export default function User() {
                       <option 
                         key={country.id}
                         value={country.pais}
-                      >{country.pais}
+                      >
+                        {country.pais}
                       </option>
                     ))
                   }

@@ -44,6 +44,10 @@ const validationSchema = {
   ],
   address: [
     (value) => value.trim() === "" ? "La dirección es requerida" : undefined
+  ],
+  message: [
+    (value) => value.trim() === "" ? "El comentario es requerido" : undefined,
+    (value) => value.length < 15 ? "El comentario debe tener almenos 15 caracteres" : undefined
   ]
 };
 

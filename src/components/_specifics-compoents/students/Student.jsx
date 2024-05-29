@@ -292,7 +292,8 @@ export default function Student({ student, edit, reviewList, token, handleNaviga
                       <option 
                         key={country.id}
                         value={country.pais}
-                      >{country.pais}
+                      >
+                        {country.pais}
                       </option>
                     ))
                   }
