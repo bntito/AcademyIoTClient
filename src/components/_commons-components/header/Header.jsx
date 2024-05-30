@@ -14,7 +14,8 @@ function Header({ menuview }) {
       </div>
       <div className='subtitle-menu-icon-container'>
         <div className='menu-icon-container'>
-          <IoMenu 
+          <IoMenu
+            onClick={menuview}
             onMouseEnter={menuview}
             className='menu-icon'
           />

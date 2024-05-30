@@ -173,7 +173,6 @@ export default function ProfileCourse() {
   const getCourses = async (event) => {
     let url = `${api}/code/${event.target.value}`;
     const resp = await getData(url);
-    console.log('resp....', resp)
     if (async () => resp) {
       setCourse(resp?.dataServerResult?.dataApi);
     } else {
