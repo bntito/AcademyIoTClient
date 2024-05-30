@@ -54,13 +54,15 @@ export default function Course() {
     setImageCourse(e.target.files[0]);
   };
 
+  const fieldsToSkipValidation = ['condition', 'professor'];
+  
   let {
     formData,
     onInputChange,
     validateForm,
     errorsInput,
     clearForm
-  } = useForm(initialForm, validationSchema);
+  } = useForm(initialForm, validationSchema, fieldsToSkipValidation);
 
   const { id, code, name, description, cost, condition, duration, qualification, prominent } = formData;
 
@@ -473,4 +475,4 @@ export default function Course() {
     }
     </>
   );
-};
+}

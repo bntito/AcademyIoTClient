@@ -40,7 +40,19 @@ const validationSchema = {
   ],
   password: [
     (value) => value.trim() === "" ? "La contraseña es requerida" : undefined,
-    (value) => value.length < 6 ? "La contraseña debe tener almenos 6 caracteres" : undefined,
+    (value) => value.length < 6 ? "La contraseña debe tener almenos 6 caracteres" : undefined
+  ],
+  confirmPassword: [
+    (value, formData) => value.trim() === "" ? "La confirmación de la contraseña es requerida" : undefined,
+    (value, formData) => value !== formData.password ? "Las contraseñas no coinciden" : undefined
+  ],
+  newPassword: [
+    (value) => value.trim() === "" ? "La contraseña es requerida" : undefined,
+    (value) => value.length < 6 ? "La contraseña debe tener almenos 6 caracteres" : undefined
+  ],
+  newConfirmPassword: [
+    (value, formData) => value.trim() === "" ? "La confirmación de la contraseña es requerida" : undefined,
+    (value, formData) => value !== formData.newPassword ? "Las contraseñas no coinciden" : undefined
   ],
   address: [
     (value) => value.trim() === "" ? "La dirección es requerida" : undefined

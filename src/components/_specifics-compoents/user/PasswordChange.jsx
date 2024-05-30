@@ -6,6 +6,9 @@ import { useForm } from '../../../hooks/useForm';
 import { useUsersContext } from '../../../hooks/UserContext';
 import LoginUser from '../../_commons-components/loginUser/LoginUser';
 
+import ValidateErrors from '../../../services/validations/ValidateErrors';
+import validationSchema from '../../../services/validations/validationSchema';
+
 import Swal from 'sweetalert2';
 import { MdOutlinePublishedWithChanges } from "react-icons/md";
 
@@ -30,7 +33,7 @@ export default function PasswordChange() {
     validateForm,
     errorsInput,
     clearForm
-  } = useForm(initialForm);
+  } = useForm(initialForm, validationSchema);
 
   let { id, email, oldPassword, newPassword,
     newConfirmPassword } = formData;
@@ -126,6 +129,13 @@ export default function PasswordChange() {
                   onChange={onInputChange}
                   className='form-control'
                 />
+                {
+                  errorsInput.email && (
+                    <ValidateErrors
+                      errors={errorsInput.email}
+                    />
+                  )
+                }                
               </div>
               <div className='mb-4'>
                 <label htmlFor='email'>Indique su Antigua Contraseña</label>
@@ -163,7 +173,7 @@ export default function PasswordChange() {
                     value={newPassword}
                     onChange={onInputChange}
                     className='form-control'
-                  />
+                  />                 
                   <button
                     type='button'
                     onClick={() => setVisible(!visible)}
@@ -178,6 +188,13 @@ export default function PasswordChange() {
                     }
                   </button>
                 </div>
+                {
+                  errorsInput.newPassword && (
+                    <ValidateErrors
+                      errors={errorsInput.newPassword}
+                    />
+                  )
+                } 
               </div>
               <div className='mb-4'>
                 <label htmlFor='email'>Confirmar Contraseña</label>
@@ -189,7 +206,7 @@ export default function PasswordChange() {
                     value={newConfirmPassword}
                     onChange={onInputChange}
                     className='form-control'
-                  />
+                  />            
                   <button
                     type='button'
                     onClick={() => setVisible(!visible)}
@@ -204,6 +221,13 @@ export default function PasswordChange() {
                     }
                   </button>
                 </div>
+                {
+                  errorsInput.newConfirmPassword && (
+                    <ValidateErrors
+                      errors={errorsInput.newConfirmPassword}
+                    />
+                  )
+                }      
               </div>                  
               <div className='m-auto div-70 mt-5 mb-5'>
                 <button

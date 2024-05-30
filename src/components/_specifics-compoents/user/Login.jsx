@@ -6,6 +6,9 @@ import { useForm } from '../../../hooks/useForm';
 import BackButton from '../../../services/backButton/BackButton';
 import { useUsersContext } from '../../../hooks/UserContext';
 
+import ValidateErrors from '../../../services/validations/ValidateErrors';
+import validationSchema from '../../../services/validations/validationSchema';
+
 import Swal from 'sweetalert2';
 import { CiUser } from "react-icons/ci";
 
@@ -21,13 +24,15 @@ const Login = () => {
     password: ''
   };
 
+  const fieldsToSkipValidation = ['password'];
+
   let {
     formData,
     onInputChange,
     validateForm,
     errorsInput,
     clearForm
-  } = useForm(initialForm);
+  } = useForm(initialForm, validationSchema, fieldsToSkipValidation);
 
   const { id, email, password } = formData;
 
@@ -115,6 +120,13 @@ const Login = () => {
               onChange={onInputChange}
               className='form-control'
             />
+            {
+              errorsInput.email && (
+                <ValidateErrors
+                  errors={errorsInput.email}
+                />
+              )
+            }            
           </div>
           <div className='mb-3'>
             <label htmlFor='email'>Indique su Contraseña</label>
@@ -154,6 +166,6 @@ const Login = () => {
       </div>
     </>
   );
-};
+}
 
 export default Login;

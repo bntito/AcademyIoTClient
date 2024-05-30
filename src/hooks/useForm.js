@@ -1,50 +1,46 @@
 import { useState } from 'react';
 
-export const useForm = (initialForm, validationSchema) => {
+export const useForm = (initialForm, validationSchema, fieldsToSkipValidation = []) => {
   const [formData, setFormData] = useState(initialForm);
   const [errorsInput, setErrorsInput] = useState({});
 
-  const onInputChange = (event) => {
-    const { name, value, type, checked, files } = event.target;
-    setFormData({
-      ...formData,
-      [name]: type === 'checkbox' ? checked : files ? files[0] : value
-    });
-    setErrorsInput({
-      ...errorsInput,
-      [name]: []
-    });
-    validateForm();
+  const validateField = (name, value) => {
+    if (fieldsToSkipValidation.includes(name)) return [];
+    const validators = validationSchema[name];
+    const errors = validators ? validators.map((validator) => validator(value, formData)).filter((error) => error !== undefined) : [];
+    return errors;
+  };
+
+  const onInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+    const fieldErrors = validateField(name, value);
+    setErrorsInput((prevErrors) => ({
+      ...prevErrors,
+      [name]: fieldErrors,
+    }));
   };
 
   const validateForm = () => {
-    const newErrors = {};
-    for (const key in validationSchema) {
-      const validationFn = validationSchema[key];
-      if (formData[key] != undefined) {
-        let value = formData[key];
-        const fieldErrors = validationFn
-          .map((fn) => fn(value))
-          .filter((error) => error !== undefined);
-        if (fieldErrors.length > 0) {
-          newErrors[key] = fieldErrors;
-        }
-      }
-    }
-    setErrorsInput(newErrors);
-    return Object.keys(newErrors).length;
+    let errors = {};
+    let numErrors = 0;
+    for (let field in formData) {
+      const fieldErrors = validateField(field, formData[field]);
+      if (fieldErrors.length > 0) {
+        errors[field] = fieldErrors;
+        numErrors += fieldErrors.length;
+      };
+    };
+    setErrorsInput(errors);
+    return numErrors;
   };
 
   const clearForm = () => {
     setFormData(initialForm);
     setErrorsInput({});
-  };
-
-  const fillForm = (data) => {
-    setFormData({
-      ...formData,
-      ...initialForm,
-    });
   };
 
   return {
@@ -53,6 +49,5 @@ export const useForm = (initialForm, validationSchema) => {
     validateForm,
     errorsInput,
     clearForm,
-    fillForm
   };
-}
+};
