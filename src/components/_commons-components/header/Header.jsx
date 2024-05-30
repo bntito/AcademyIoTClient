@@ -27,6 +27,6 @@ function Header({ menuview }) {
     </header>
     </>
   );
-}
+};
 
 export default Header;

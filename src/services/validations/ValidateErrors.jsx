@@ -14,6 +14,6 @@ function ValidateErrors({ errors }) {
       }
     </>
   );
-}
+};
 
 export default ValidateErrors;

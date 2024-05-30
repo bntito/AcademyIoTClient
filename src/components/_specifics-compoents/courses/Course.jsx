@@ -520,4 +520,4 @@ export default function Course({ course, edit, reviewList, token, handleNavigate
     }
     </>
   );
-}
+};

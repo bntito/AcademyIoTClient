@@ -349,4 +349,4 @@ export default function Student({ student, edit, reviewList, token, handleNaviga
     }
     </>
   );
-}
+};

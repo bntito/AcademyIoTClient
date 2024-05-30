@@ -86,6 +86,6 @@ const Searcher = ({ filters, registers, onChange }) => {
       </div>
     </>
   );
-}
+};
 
 export default Searcher;

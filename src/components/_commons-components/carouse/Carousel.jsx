@@ -50,6 +50,6 @@ function Carouse() {
     </div>
     </>
   );
-}
+};
 
 export default Carouse;

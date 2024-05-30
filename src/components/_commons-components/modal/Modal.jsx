@@ -61,6 +61,6 @@ function Modal({ children, title, size, bgChange }) {
       </div>
     </AppContextProvider>
   );
-}
+};
 
 export default Modal;

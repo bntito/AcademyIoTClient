@@ -6,8 +6,6 @@
 
 .card-img-top {
   height: 220px;
-  /* width: 100%;
-  object-fit: cover; */
 }
 
 .card-home {
@@ -38,12 +36,6 @@
     grid-template-columns: repeat(2, 1fr);
   }
 }
-
-/* @media (max-width: 850px) and (min-width: 451px) {
-  .cards {
-    grid-template-columns: repeat(2, 1fr);
-  }
-} */
 
 @media (max-width: 450px) {
   .cards-home {

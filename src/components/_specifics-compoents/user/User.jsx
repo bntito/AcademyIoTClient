@@ -358,4 +358,4 @@ export default function User({ user, edit, reviewList, token, handleNavigate }) 
     }
     </>
   );
-}
+};

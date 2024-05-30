@@ -70,6 +70,7 @@
   border: 0;
   cursor: pointer;
 }
+
 .closeButton:hover {
   color: rgb(56, 121, 219);
 }
@@ -98,6 +99,7 @@
 .modalBodyGrey {
   background-color: #5e5e5e;
 }
+
 .container-user {
   display: flex;
   gap: 1em;

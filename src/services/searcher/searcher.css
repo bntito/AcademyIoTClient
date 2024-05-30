@@ -72,13 +72,11 @@ button {
   .form-search {
     flex-wrap: nowrap;
   }
-
   .input-search {
     margin-right: 0;
     flex-grow: 0;
     flex-basis: auto;
   }
-
   .filter-searcher,
   .text-search {
     margin-bottom: 0;

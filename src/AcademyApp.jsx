@@ -47,6 +47,6 @@ const AcademyApp = () => {
       </UsersProvider>
     </Router>
   );
-}
+};
 
 export default AcademyApp;

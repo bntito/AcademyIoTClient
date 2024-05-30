@@ -6,6 +6,6 @@ function App() {
     <AcademyApp />
     </>
   );
-}
+};
 
 export default App;

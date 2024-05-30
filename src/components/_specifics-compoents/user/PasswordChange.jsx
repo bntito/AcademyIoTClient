@@ -9,7 +9,7 @@ import LoginUser from '../../_commons-components/loginUser/LoginUser';
 import Swal from 'sweetalert2';
 import { MdOutlinePublishedWithChanges } from "react-icons/md";
 
-export default function PasswordChange({ user }) {
+export default function PasswordChange() {
   const hostServer = import.meta.env.VITE_REACT_APP_SERVER_HOST;
   const api = `${hostServer}/api/user/changepassword`;
   const navigate = useNavigate();
@@ -52,7 +52,6 @@ export default function PasswordChange({ user }) {
         ...formData,
         token: usersContext.token
       };
-      console.log('nueva form data', formData)
       await createData(url, formData);
     } else {
       Swal.fire({

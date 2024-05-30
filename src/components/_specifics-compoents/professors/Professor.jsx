@@ -328,4 +328,4 @@ export default function Professor({ professor, edit, reviewList, token, handleNa
     }
     </>
   );
-}
+};

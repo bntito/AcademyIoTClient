@@ -473,4 +473,4 @@ export default function Course() {
     }
     </>
   );
-}
+};

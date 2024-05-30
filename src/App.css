@@ -14,6 +14,7 @@ main {
   padding: 0 5%;
 }
 
+/* Login */
 .user-icon {
   display: flex;
   margin: auto;
@@ -29,35 +30,30 @@ main {
   width: 100%;
   padding: 1em 2em;
 }
+/* Logout */
+.exit-text {
+  color: rgba(255, 0, 0, 0.8);
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif
+}
+
+.exit-icon {
+  display: flex;
+  margin: auto;
+  font-size: 5em;
+  margin-top: 10%;
+  margin-bottom: 10%;
+  color: rgba(255, 0, 0, 0.7);;
+}
+
+.exit-icon:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+}
 
 /* Etiquetas personalizadas */
 .w-300px {
   width: 300px;
   margin: auto;
-}
-
-.div-form {
-  padding: 3%;
-  background-color: rgb(221, 219, 243);
-  box-shadow: 0 0 10px 8px rgba(45, 15, 54, 0.575);
-  border-radius: 8px;
-  width: 100%;
-}
-
-.icon {
-  color: rgb(34, 34, 34);
-  font-size: 1.4em;
-  cursor: pointer;
-}
-
-.icon:hover {
-  color: black;
-  transform: scale(1.1);
-}
-
-.container-flex-column {
-  display: flex;
-  flex-direction: column;
 }
 
 .m-auto {
@@ -82,6 +78,30 @@ main {
 
 .div-70 {
   width: 70%;
+}
+
+.div-form {
+  padding: 3%;
+  background-color: rgb(221, 219, 243);
+  box-shadow: 0 0 10px 8px rgba(45, 15, 54, 0.575);
+  border-radius: 8px;
+  width: 100%;
+}
+
+.icon {
+  color: rgb(34, 34, 34);
+  font-size: 1.4em;
+  cursor: pointer;
+}
+
+.icon:hover {
+  color: black;
+  transform: scale(1.1);
+}
+
+.container-flex-column {
+  display: flex;
+  flex-direction: column;
 }
 
 /* Cursos */
@@ -221,7 +241,7 @@ form {
   padding: 1em;
 }
 
-/* Listas mediaqueries */
+/* Mediaqueries Listas */
 @media (max-width: 710px) {
   .table {
     display: block;
@@ -274,8 +294,7 @@ form {
   }
 }
 
-
-/* Media query para pantallas de hasta 850px de ancho */
+/* Mediaqueries Generales */
 @media (max-width: 850px) {
   .media850-col {
     display: flex;

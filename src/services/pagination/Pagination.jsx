@@ -145,6 +145,6 @@ const Pagination = ({ items, page, pagItems, nextPage, onPageChange }) => {
       </section>
     </>
   );
-}
+};
 
 export default Pagination;

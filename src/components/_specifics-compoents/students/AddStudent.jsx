@@ -347,5 +347,4 @@ export default function Student() {
       }
       </>
     );
-
-}
+};

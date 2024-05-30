@@ -209,6 +209,6 @@ function Menu({ closeMenu }) {
       }
     </div>
   );
-}
+};
 
 export default Menu;

@@ -258,6 +258,5 @@ export default function ListProfessor({ title }) {
         )
       }
     </>
-  );
-  
-}
+  ); 
+};

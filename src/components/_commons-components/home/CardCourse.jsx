@@ -83,6 +83,6 @@ function CardCourses() {
       }
     </>
   );
-}
+};
 
 export default CardCourses;

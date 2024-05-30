@@ -263,4 +263,4 @@ export default function ListStudent({ title }) {
     }
     </>
   );
-}
+};
