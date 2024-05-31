@@ -13,7 +13,7 @@ import './footer.css'
 function Footer() {
   const googleMapsUrl = 'https://www.google.com/maps/search/shop+cerca+de+Punta+Carretas,+Montevideo+Departamento+de+Montevideo/@-34.9214426,-56.160433,17z?entry=ttu';
   const emailAddress = 'iot_academy@correos.com';
-  const whatsappNum = '099951021';
+  const whatsappNum = '+59899951021';
   const instagramUrl = 'https://www.instagram.com/brunotito11';
 
   return (
