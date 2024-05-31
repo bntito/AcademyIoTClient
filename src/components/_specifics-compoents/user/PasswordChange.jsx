@@ -11,6 +11,8 @@ import validationSchema from '../../../services/validations/validationSchema';
 
 import Swal from 'sweetalert2';
 import { MdOutlinePublishedWithChanges } from "react-icons/md";
+import { FaRegEyeSlash } from "react-icons/fa6";
+import { FaRegEye } from "react-icons/fa6";
 
 export default function PasswordChange() {
   const hostServer = import.meta.env.VITE_REACT_APP_SERVER_HOST;
@@ -151,13 +153,13 @@ export default function PasswordChange() {
                   <button
                     type='button'
                     onClick={() => setVisible(!visible)}
-                    className='btn btn-outline-secondary'
+                    className='btn btn-outline-secondary btn-password'
                   >
                     {
                       visible ? (
-                        <span>Ocultar</span>
+                        <FaRegEyeSlash />
                       ) : (
-                        <span>Ver</span>
+                        <FaRegEye />
                       )
                     }
                   </button>
@@ -177,13 +179,13 @@ export default function PasswordChange() {
                   <button
                     type='button'
                     onClick={() => setVisible(!visible)}
-                    className='btn btn-outline-secondary'
+                    className='btn btn-outline-secondary btn-password'
                   >
                     {
                       visible ? (
-                        <span>Ocultar</span>
+                        <FaRegEyeSlash />
                       ) : (
-                        <span>Ver</span>
+                        <FaRegEye />
                       )
                     }
                   </button>
@@ -210,13 +212,13 @@ export default function PasswordChange() {
                   <button
                     type='button'
                     onClick={() => setVisible(!visible)}
-                    className='btn btn-outline-secondary'
+                    className='btn btn-outline-secondary btn-password'
                   >
                     {
                       visible ? (
-                        <span>Ocultar</span>
+                        <FaRegEyeSlash />
                       ) : (
-                        <span>Ver</span>
+                        <FaRegEye />
                       )
                     }
                   </button>

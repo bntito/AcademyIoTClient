@@ -13,14 +13,16 @@ export default function ViewCourses() {
   const navigate = useNavigate();
   const [courses, setCourses] = useState([]);
   const [filterCourses, setFilterCourses] = useState([]);
-  const initialForm = {
-    name: '',
+  const initialForm = { name: '' };
+  const [activeTab, setActiveTab] = useState('course');
+
+  const handleTabChange = (tab) => {
+    setActiveTab(tab);
   };
 
   let {
     formData,
-    onInputChange,
-    clearForm
+    onInputChange
   } = useForm(initialForm);
 
   const { name: nameCourse } = formData;
@@ -54,22 +56,23 @@ export default function ViewCourses() {
     };
   }, [dataServer]);
 
+  
+  useEffect(() => {
+    getCourses();
+  }, []);
+  
+  useEffect(() => {
+    setFilterCourses(
+      courses.filter((course) => course.name.toLowerCase().includes(nameCourse.toLowerCase()))
+    );
+  }, [nameCourse, courses]);
+  
   useEffect(() => {
     if (dataServer?.dataServerResult?.dataApi) {
       setCourses(dataServer.dataServerResult.dataApi);
       setFilterCourses(dataServer.dataServerResult.dataApi);
     }
   }, [dataServer]);
-
-  useEffect(() => {
-    getCourses();
-  }, []);
-
-  useEffect(() => {
-    setFilterCourses(
-      courses.filter((course) => course.name.toLowerCase().includes(nameCourse.toLowerCase()))
-    );
-  }, [nameCourse, courses]);
 
   return (
     <>
@@ -90,48 +93,115 @@ export default function ViewCourses() {
           />
         </div>
         <div className='form-container-inside mt-4'>
-          {
-            filterCourses.map((course, index) => (
-              <div
-                key={index}
-                className='mb-3'
-              >
-                <small>{`Código del Curso: ${course.code}`}</small>
-                <div className='card text-center'>
-                  <div className='card-header'>
-                    <ul className='nav nav-tabs card-header-tabs'>
-                      <li className='nav-item'>
-                        <a className='nav-link active' aria-current='true' href='#'>Curso</a>
-                      </li>
-                      <li className='nav-item'>
-                        <a className='nav-link' href='#'>Profesores</a>
-                      </li>
-                      <li className='nav-item'>
-                        <a className='nav-link disabled' href='#' tabIndex='-1' aria-disabled='true'>Precio</a>
-                      </li>
-                    </ul>
-                  </div>
-                  <div className='card-body card-background'>
-                    <div>
-                    <img 
-                      src={`${hostServer}${course.urlImg}`}
-                      alt={course.name}
-                      className='img-view'
-                    />
-                    </div>
-                    <h3 className='card-title'>{course.name}</h3>
-                    <p className='card-text'>{course.description}</p>
-                    <div
-                      href='#' className='btn btn-primary'
-                      onClick={() => handleCourseClick(course.id)}
-                    >
-                      Ver detalles del Curso
-                    </div>
-                  </div>
+        {
+          filterCourses.map((course, index) => (
+            <div key={index} className='mb-3'>
+              <small>{`Código del Curso: ${course.code}`}</small>
+              <div className='card text-center'>
+                <div className='card-header'>
+                  <ul className='nav nav-tabs card-header-tabs'>
+                    <li className='nav-item'>
+                      <a
+                        className={`nav-link ${activeTab === 'course' ? 'active' : ''}`}
+                        onClick={() => handleTabChange('course')}
+                        href='#'
+                      >
+                        Curso
+                      </a>
+                    </li>
+                    <li className='nav-item'>
+                      <a
+                        className={`nav-link ${activeTab === 'professors' ? 'active' : ''}`}
+                        onClick={() => handleTabChange('professors')}
+                        href='#'
+                      >
+                        Profesores
+                      </a>
+                    </li>
+                    <li className='nav-item'>
+                      <a
+                        className={`nav-link ${activeTab === 'price' ? 'active' : ''}`}
+                        onClick={() => handleTabChange('price')}
+                        href='#'
+                      >
+                        Precio
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <div className='card-body card-background'>
+                  {
+                    activeTab === 'course' && (
+                      <>
+                        <div>
+                          <img
+                            src={`${hostServer}${course.urlImg}`}
+                            alt={course.name}
+                            className='img-view'
+                          />
+                        </div>
+                        <h3 className='card-title'>{course.name}</h3>
+                        <p className='card-text'>{course.description}</p>
+                        <div
+                          href='#' className='btn btn-primary'
+                          onClick={() => handleCourseClick(course.id)}
+                        >
+                          Ver detalles del Curso
+                        </div>
+                      </>
+                    )
+                  }
+                  {
+                    activeTab === 'professors' && (
+                      <>
+                        <h3 className='card-title'>{`Profesores del curso ${course.name}`}</h3>
+                        <div className='mb-4'>
+                          {
+                            course.professors && course.professors.map((professor, index) => (
+                              <p
+                                key={index}
+                                className='mx-3'
+                              >
+                                {professor.professor}
+                              </p>
+                            ))
+                          }                          
+                        </div>
+                        <div
+                          href='#' className='btn btn-primary'
+                          onClick={() => handleCourseClick(course.id)}
+                        >
+                          Ver detalles del Curso
+                        </div>                      
+                      </>
+                    )
+                  }
+                  {
+                    activeTab === 'price' && (
+                      <>
+                        <div>
+                          <img
+                            src={`${hostServer}${course.urlImg}`}
+                            alt={course.name}
+                            className='img-view'
+                          />
+                        </div>
+                        <h3 className='card-title'>{course.name}</h3>
+                        <h5 className='card-text mb-4'>{`Precio del curso $${course.cost}`}</h5>
+                        <div
+                          href='#' className='btn btn-primary'
+                          onClick={() => handleCourseClick(course.id)}
+                        >
+                          Ver detalles del Curso
+                        </div>
+                      </>
+                    )
+                  }
                 </div>
               </div>
-            ))
-          }
+            </div>
+          ))
+        }
         </div>
       </div>
     </div>

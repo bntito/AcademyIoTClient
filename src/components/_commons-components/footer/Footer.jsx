@@ -8,7 +8,7 @@ import { TfiEmail } from 'react-icons/tfi';
 import { SlSocialInstagram } from 'react-icons/sl';
 import { ImWhatsapp } from 'react-icons/im';
 
-import './footer.css'
+import './footer.css';
 
 function Footer() {
   const googleMapsUrl = 'https://www.google.com/maps/search/shop+cerca+de+Punta+Carretas,+Montevideo+Departamento+de+Montevideo/@-34.9214426,-56.160433,17z?entry=ttu';

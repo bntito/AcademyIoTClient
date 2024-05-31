@@ -11,6 +11,8 @@ import validationSchema from '../../../services/validations/validationSchema';
 
 import Swal from 'sweetalert2';
 import { CiUser } from "react-icons/ci";
+import { FaRegEyeSlash } from "react-icons/fa6";
+import { FaRegEye } from "react-icons/fa6";
 
 const Login = () => {
   const hostServer = import.meta.env.VITE_REACT_APP_SERVER_HOST;
@@ -142,13 +144,13 @@ const Login = () => {
               <button
                 type='button'
                 onClick={() => setVisible(!visible)}
-                className='btn btn-outline-secondary'
+                className='btn btn-outline-secondary btn-password'
               >
                 {
                   visible ? (
-                    <span>Ocultar</span>
+                    <FaRegEyeSlash />
                   ) : (
-                    <span>Ver</span>
+                    <FaRegEye />
                   )
                 }
               </button>

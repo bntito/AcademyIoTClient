@@ -78,22 +78,42 @@ export default function ViewCourse() {
         </div>
         <h5 className={course.condition == 'Activo' ? 'activ' : 'inactive'}>Estado: {course.condition}</h5>
       </div>
-      <div className='description-view'>
+      <div className='header-view'>
+        <div className='w-100'>
+          <div className='description-view'>
+            <h6><i>Costo del Curso</i></h6>
+            <p className='mx-3'>{course.cost}</p>
+          </div>
+          <div className='description-view'>
+            <h6><i>Profesores del Curso</i></h6>
+            {
+              professors.map((professor, index) => (
+                <p
+                  key={index}
+                  className='mx-3'
+                >
+                  {professor.professor}
+                </p>
+              ))
+            }
+          </div>
+        </div>
+        <div className='w-100'>
+          <div className='description-view'>
+            <h6><i>Profesores del Curso</i></h6>
+            <p className='mx-3'>{course.cost}</p>
+          </div>
+          <div className='description-view'>
+            <h6><i>Duración</i></h6>
+            <p className='mx-3'>{course.duration}</p>
+            <h6><i>Calificación</i></h6>
+            <p className='mx-3'>{course.qualification}</p>
+          </div>
+        </div>
+      </div>
+      <div className='description-description-view'>
         <h6><i>Descripción del Curso</i></h6>
         <p className='mx-3'>{course.description}</p>
-      </div>
-      <div className='description-view'>
-        <h6><i>Profesores del Curso</i></h6>
-        {
-          professors.map((professor, index) => (
-            <p
-              key={index}
-              className='mx-3'
-            >
-              {professor.professor}
-            </p>
-          ))
-        }
       </div>
     </div>
     </>

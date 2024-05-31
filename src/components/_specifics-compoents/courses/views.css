@@ -19,15 +19,15 @@
 
 /* Ver Curso */
 .header-view {
-  margin: 0 2em;
+  margin: 0 5%;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
 .img-view {
-  width: 80%;
-  height: 150px;
+  width: 300px;
+  height: 200px;
   margin-right: 1em;
 }
 
@@ -37,9 +37,25 @@
 }
 
 .description-view {
+  display: flex;
+  flex-direction: column;
   margin: 2em 4em;
-  padding: 1.5em 2em;
-  background-color: rgb(202, 199, 230);
+  padding: 1.2em 1.5em;
+  height: 160px;
+  max-width: 300px;
+  background-color: rgb(220, 218, 236);
+  box-shadow: 0 0 10px 4px rgba(72, 58, 73, 0.349);
+  border: 1px solid blue;
+}
+
+.description-description-view {
+  display: flex;
+  flex-direction: column;
+  margin: 2em 4em;
+  padding: 1.2em 1.5em;
+  background-color: rgb(220, 218, 236);
+  box-shadow: 0 0 10px 4px rgba(72, 58, 73, 0.349);
+  border: 1px solid blue;
 }
 
 .activ {
@@ -54,6 +70,10 @@
   .header-view {
     display: flex;
     flex-direction: column;
+  }
+  .description-description-view {
+    margin: 1em 2em;
+    padding: auto;
   }
 }
 
