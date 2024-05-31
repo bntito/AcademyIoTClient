@@ -49,8 +49,14 @@ section {
   font-size: 1.4em;
   cursor: pointer;
 }
+
 .icon-color:hover {
   transform: scale(1.1);
+}
+
+.a-link {
+  color: #cfd6db;
+  text-decoration: none;
 }
 
 .copyright {

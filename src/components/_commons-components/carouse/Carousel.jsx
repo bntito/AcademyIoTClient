@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom'
 import banner1 from '../../../assets/main/banner1.jpg';
 import banner2 from '../../../assets/main/banner2.jpg';
 import banner3 from '../../../assets/main/banner3.jpg';
@@ -26,25 +27,31 @@ function Carousel() {
         </div>
         <div className="carousel-inner">
           <div className="carousel-item active" data-bs-interval="3500">
-            <img src={banner1} className="d-block w-100" alt="Banner 1"/>
-            <div className="carousel-caption d-none d-md-block">
-              <h5 className='title-caption'>Estudia Códigos!</h5>
-              <p className='sub-title-caption'>Todo en sistemas para dispositivos con códigos</p>
-            </div>
+            <Link to='/courseView/1'>
+              <img src={banner1} className="d-block w-100" alt="Banner 1"/>
+              <div className="carousel-caption d-none d-md-block">
+                <h5 className='title-caption'>Estudia Códigos!</h5>
+                <p className='sub-title-caption'>Todo en sistemas para dispositivos con códigos</p>
+              </div>
+            </Link>
           </div>
           <div className="carousel-item" data-bs-interval="3500">
-            <img src={banner2} className="d-block w-100" alt="Banner 2"/>
-            <div className="carousel-caption d-none d-md-block">
-              <h5 className='title-caption'>Estudia Desarrollo!</h5>
-              <p className='sub-title-caption'>Curso dedicado al manejo de las herramientas de la actualidad</p>
-            </div>
+            <Link to='/courseView/2'>
+              <img src={banner2} className="d-block w-100" alt="Banner 2"/>
+              <div className="carousel-caption d-none d-md-block">
+                <h5 className='title-caption'>Estudia Desarrollo!</h5>
+                <p className='sub-title-caption'>Curso dedicado al manejo de las herramientas de la actualidad</p>
+              </div>
+            </Link>
           </div>
           <div className="carousel-item" data-bs-interval="3500">
-            <img src={banner3} className="d-block w-100" alt="Banner 3"/>
-            <div className="carousel-caption d-none d-md-block">
-              <h5 className='title-caption'>Estudia Diseño del Desarrollo!</h5>
-              <p className='sub-title-caption'>Lleva tu imaginación al límite y registralo en la vida real</p>
-            </div>
+            <Link to='/courseView/3'>
+              <img src={banner3} className="d-block w-100" alt="Banner 3"/>
+              <div className="carousel-caption d-none d-md-block">
+                <h5 className='title-caption'>Estudia Diseño del Desarrollo!</h5>
+                <p className='sub-title-caption'>Lleva tu imaginación al límite y registralo en la vida real</p>
+              </div>
+            </Link>
           </div>
         </div>
         <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">

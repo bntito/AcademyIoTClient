@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { PiMapPinLine } from "react-icons/pi";
-import { BsTelephone } from "react-icons/bs";
-import { MdOutlineMarkEmailRead } from "react-icons/md";
+import { PiMapPinLine } from 'react-icons/pi';
+import { BsTelephone } from 'react-icons/bs';
+import { MdOutlineMarkEmailRead } from 'react-icons/md';
 
 import { TfiEmail } from 'react-icons/tfi';
 import { SlSocialInstagram } from 'react-icons/sl';
@@ -11,6 +11,11 @@ import { ImWhatsapp } from 'react-icons/im';
 import './footer.css'
 
 function Footer() {
+  const googleMapsUrl = 'https://www.google.com/maps/search/shop+cerca+de+Punta+Carretas,+Montevideo+Departamento+de+Montevideo/@-34.9214426,-56.160433,17z?entry=ttu';
+  const emailAddress = 'iot_academy@correos.com';
+  const whatsappNum = '099951021';
+  const instagramUrl = 'https://www.instagram.com/brunotito11';
+
   return (
     <>
       <footer>
@@ -19,16 +24,22 @@ function Footer() {
             <h3 className='title-footer'>Puntos de contacto</h3>
             <hr className='line'/>
             <p>
-              <PiMapPinLine className="icon-color" /> {''}
-              Shopping Punta Carretas - Piso 1 - Local 11
+              <a href={googleMapsUrl} target='_blank' rel='noopener noreferrer' className='a-link'>
+                <PiMapPinLine className='icon-color' /> {''}
+                Shopping Punta Carretas - Piso 1 - Local 11
+              </a>
             </p>
             <p>
-              <BsTelephone className="icon-color" /> {''}
-              ¡Conéctate con nosotros en nuestras redes sociales o envíanos un correo electrónico!
+              <a href={`https://wa.me/${whatsappNum}`} target='_blank' rel='noopener noreferrer' className='a-link'>
+                <BsTelephone className='icon-color' /> {''}
+                ¡Conéctate con nosotros en nuestras redes sociales o envíanos un correo electrónico!
+              </a>
             </p>
             <p>
-              <MdOutlineMarkEmailRead className="icon-color" /> {''}
-              academia_iot@correos.com
+              <a href={`mailto:${emailAddress}`} className='a-link'>
+                <MdOutlineMarkEmailRead className='icon-color' /> {''}
+                academia_iot@correos.com
+              </a>
             </p>
           </div>
           <div className='div-footer footer2'>
@@ -46,11 +57,23 @@ function Footer() {
             <h3 className='title-footer'>Puedes ubicarnos</h3>
             <hr className='line'/>
             <div className='icons-container'>
-              <h6><ImWhatsapp className="icon-color"  /> Whtasapp</h6>
+              <h6>
+                <a href={`https://wa.me/${whatsappNum}`} target='_blank' rel='noopener noreferrer' className='a-link'>
+                  <ImWhatsapp className='icon-color'  /> Whtasapp
+                </a>
+              </h6>
               <br />
-              <h6><SlSocialInstagram className="icon-color"  /> Instagram</h6>
+              <h6>
+                <a href={instagramUrl} target='_blank' rel='noopener noreferrer' className='a-link'>
+                  <SlSocialInstagram className='icon-color'  /> Instagram
+                </a>
+              </h6>
               <br />
-              <h6><TfiEmail className="icon-color"  /> Correo electrónico</h6>
+              <h6>
+                <a href={`mailto:${emailAddress}`} className='a-link'>
+                  <TfiEmail className='icon-color'  /> Correo electrónico
+                </a>
+              </h6>
             </div>
           </div>
         </section>

@@ -58,9 +58,7 @@ export default function ViewCourse() {
   if (!course) {
     return <div>Curso no encontrado</div>;
   };
-
-  console.log(dataServer.dataServerResult.dataApi)
-
+  
   return (
     <>
     <div className='login-user-container'>

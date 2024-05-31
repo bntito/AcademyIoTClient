@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useFetch } from '../../../hooks/useFetch';
+import { Link } from 'react-router-dom';
 
 import './cards.css';
 
@@ -12,9 +13,7 @@ function CardCourses() {
   let {
     dataServer,
     isLoading = false,
-    getData,
-    deleteData,
-    updateData
+    getData
   } = useFetch(`${api}`);
   
   const getCourses = async () => {
@@ -53,30 +52,33 @@ function CardCourses() {
         ) : (
           <div className='row'>
             <div className='cards cards-home'>
-              {cards.slice(startIndex, startIndex + 4).map((card) => (
-                <div
-                  key={card.id}
-                  className='card card-home h-100 card'
-                >
-                  <img
-                    src={`${hostServer}/${card.urlImg}`}
-                    alt={card.description}
-                    className='card-img-top'
-                  />
-                  <div className='card-body'>
-                    <h5 className='card-title'>{card.name}</h5>
-                    <p className='card-text'>{card.description}</p>
-                  </div>
-                  <div className='card-footer'>
-                    <div className='grup-footer'>
-                      <small className='text-muted'>{`Duración de los cursos ${card.duration}`}</small>
-                      <div>
-                        <span>{`Clasificación de ${card.qualification} Estrellas`}</span>
+              {
+                cards.slice(startIndex, startIndex + 4).map((card) => (
+                  <Link
+                    key={card.id}
+                    to={`/courseView/${card.id}`}
+                    className='card card-home h-100 card'
+                  >
+                    <img
+                      src={`${hostServer}/${card.urlImg}`}
+                      alt={card.description}
+                      className='card-img-top'
+                    />
+                    <div className='card-body'>
+                      <h5 className='card-title'>{card.name}</h5>
+                      <p className='card-text'>{card.description}</p>
+                    </div>
+                    <div className='card-footer'>
+                      <div className='grup-footer'>
+                        <small className='text-muted'>{`Duración de los cursos ${card.duration}`}</small>
+                        <div>
+                          <span>{`Clasificación de ${card.qualification} Estrellas`}</span>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </div>
-              ))}
+                  </Link>
+                ))
+              }
             </div>
           </div>
         )
