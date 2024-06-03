@@ -8,19 +8,20 @@ import Searcher from '../../../services/searcher/Searcher';
 import Pagination from '../../../services/pagination/Pagination';
 import OpenModal from '../../_commons-components/modal/OpenModal';
 
-import Enrollment from '../../_specifics-compoents/enrollments/Enrollments';
+import Student from '../../_specifics-components/students/Student';
 
 import Swal from 'sweetalert2';
 import { MdOutlineAddToPhotos } from "react-icons/md";
 import { FaRegEdit } from "react-icons/fa";
 import { RiDeleteBin6Line } from "react-icons/ri";
 
-export default function ListEnrollment({ title }) {
+export default function ListStudent({ title }) {
   const hostServer = import.meta.env.VITE_REACT_APP_SERVER_HOST;
-  const api = `${hostServer}/api/enrollments`;
-  const [selectedItems, setSelectedItems] = useState([]);
+  const api = `${hostServer}/api/students`;
   const { usersContext, navigateContext } = useUsersContext();
   const token = usersContext.token;
+  const [selectedItems, setSelectedItems] = useState([]);
+
   const [page, setPage] = useState(1);
   const [itemsPage, setItemsPage] = useState(8);
 
@@ -33,45 +34,19 @@ export default function ListEnrollment({ title }) {
   } = useFetch(`${api}`);
 
   const filters = [
-    { id: 1, name: 'course', description: 'Curso' },
-    { id: 2, name: 'professor', description: 'Profesor' },
-    { id: 3, name: 'student', description: 'Estudiante' },
-    { id: 4, name: 'shift', description: 'Turno' }
+    { id: 1, name: 'dni', description: 'Documento' },
+    { id: 2, name: 'lastname', description: 'Apellido' },
+    { id: 3, name: 'email', description: 'Email' },
+    { id: 4, name: 'phone', description: 'Celular' }
   ];
 
   function handleAdd() {
-    const title = 'Adición de Matrículas';
+    const title = 'Adición de Estudiante';
     if (token) {
       OpenModal(
-        <Enrollment
-          enrollment={''}
+        <Student
+          student={''}
           edit={false}
-          reviewList={updateList}
-          token={token}
-          handleNavigate={navigateTo}
-          />,
-        null,
-        'medium',
-        title
-      );
-    } else {
-      Swal.fire({
-        position: 'top',
-        icon: 'info',
-        title: 'Debe loguearse para utilizar esta función',
-        showConfirmButton: false,
-        timer: 2000
-      });
-    };
-  };
-
-  function handleEdit(enrollment) {
-    const title = 'Edición de Matrícula';
-    if (token) {
-      OpenModal(
-        <Enrollment
-          enrollment={enrollment}
-          edit={true}
           reviewList={updateList}
           token={token}
           handleNavigate={navigateTo}
@@ -87,7 +62,33 @@ export default function ListEnrollment({ title }) {
         title: 'Debe loguearse para utilizar esta función',
         showConfirmButton: false,
         timer: 2000
-      }); 
+      });
+    };
+  };
+
+  function handleEdit(student) {
+    const title = 'Edición de Estudiante';
+    if (token) {
+      OpenModal(
+        <Student
+          student={student}
+          edit={true}
+          reviewList={updateList}
+          token={token}
+          handleNavigate={navigateTo}
+        />,
+        null,
+        'medium',
+        title
+      );   
+    } else {
+      Swal.fire({
+        position: 'top',
+        icon: 'info',
+        title: 'Debe loguearse para utilizar esta función',
+        showConfirmButton: false,
+        timer: 2000
+      });
     };
   };
 
@@ -95,18 +96,18 @@ export default function ListEnrollment({ title }) {
     await navigateContext(rute);
   };
 
-  const getEnrollments = async () => {
-    const url = `${hostServer}/api/enrollments`;
+  const getStudents = async () => {
+    const url = `${hostServer}/api/students`;
     await getData(url);
   };
 
   const updateList = async () => {
-    await getEnrollments();
+    await getStudents();
   };
 
   const handleDelete = async (id) => {
     if (token) {
-      const url = `${hostServer}/api/enrollment`;
+      const url = `${hostServer}/api/student`;
       const deleteId = id;
       Swal.fire({
         title: 'Está seguro?',
@@ -120,11 +121,11 @@ export default function ListEnrollment({ title }) {
       .then((result) => {
         if (result.isConfirmed) {
           const del = async () => {
-            const resp = await deleteData(url, deleteId);
-            getEnrollments();
+            const resp = await deleteData(url, deleteId, token);
+            getStudents();
             await Swal.fire({
               title: 'Eliminado!',
-              text: 'La matrícula fue eliminado',
+              text: 'El estudiante fue eliminado',
               icon: 'success'
             });
           };
@@ -140,25 +141,34 @@ export default function ListEnrollment({ title }) {
         timer: 2000
       });
     };
-  }; 
+  };
 
   const nextPage = (pagItems, pageCurrent) => {
     setItemsPage(pagItems);
     setPage(pageCurrent);
   };
-  
+
   const handlePageChange = (newSelectedItems) => {
     setSelectedItems(newSelectedItems);
   };
-  
+
   useEffect(() => {
     if (dataServer?.message || dataServer?.message != undefined) {
       Swal.fire(dataServer?.message);
     };
+    if (dataServer?.status === 400 || dataServer?.status === 401) {
+      Swal.fire({
+        position: 'top',
+        icon: 'error',
+        title: dataServer?.dataServerResult.message,
+        showConfirmButton: false,
+        timer: 2000
+      });
+    };
   }, [dataServer]);
 
   useEffect(() => {
-    getEnrollments();
+    getStudents();
   }, []);
 
   return (
@@ -166,7 +176,7 @@ export default function ListEnrollment({ title }) {
     <div className='login-user-container'>
       <LoginUser/>
     </div>
-    <h3 className='mt-4 mb-3'>Listado de Matrículas</h3>
+    <h3 className='mt-4 mb-3'>Listado de Estudiantes</h3>
     {
       isLoading ? (
         <h3>Cargando...</h3>
@@ -193,11 +203,11 @@ export default function ListEnrollment({ title }) {
               <thead>
                 <tr className='table-dark'>
                   <th scope='col'>#</th>
-                  <th scope='col'>Curso</th>
-                  <th scope='col'>Profesor</th>
-                  <th scope='col'>Alumno</th>
-                  <th scope='col'>Turno</th>
-                  <th scope='col' colSpan={2}>Acción</th>
+                  <th scope='col'>Documento</th>
+                  <th scope='col'>Nombre</th>
+                  <th scope='col'>Correo Electrónico</th>
+                  <th scope='col'>Celular</th>
+                  <th scope='col' colSpan={3}>Acción</th>
                 </tr>
               </thead>
               <tbody>
@@ -209,23 +219,23 @@ export default function ListEnrollment({ title }) {
                       </td>
                     </tr>
                   ) : (
-                    selectedItems.map((enrollment) => {
+                    selectedItems.map((student) => {
                       return (
-                        <tr key={enrollment.id}>
-                          <td data-label='#'>{enrollment.id}</td>
-                          <td data-label='Curso'>{enrollment.course}</td>
-                          <td data-label='Profesor'>{`${enrollment.professor}`}</td>
-                          <td data-label='Estudiante'>{enrollment.student}</td>
-                          <td data-label='Turno'>{enrollment.shift}</td>
+                        <tr key={student.id}>
+                          <td data-label='#'>{student.id}</td>
+                          <td data-label='Documento'>{student.dni}</td>
+                          <td data-label='Nombre'>{`${student.name} ${student.lastname}`}</td>
+                          <td data-label='Correo Electrónico'>{student.email}</td>
+                          <td data-label='Celular'>{student.phone}</td>
                           <td data-label='Editar' className='td-icon'>
                             <FaRegEdit
-                              onClick={() => handleEdit(enrollment)}
+                              onClick={() => handleEdit(student)}
                               className='icon'
                             />
                           </td>
                           <td data-label='Eliminar' className='td-icon'>
                             <RiDeleteBin6Line
-                              onClick={() => handleDelete(enrollment.id)}
+                              onClick={() => handleDelete(student.id)}
                               className='icon'
                             />
                           </td>                          

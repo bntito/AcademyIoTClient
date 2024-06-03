@@ -8,7 +8,7 @@ import Searcher from '../../../services/searcher/Searcher';
 import Pagination from '../../../services/pagination/Pagination';
 import OpenModal from '../../_commons-components/modal/OpenModal';
 
-import Course from '../../_specifics-compoents/courses/Course';
+import Course from '../../_specifics-components/courses/Course';
 
 import Swal from 'sweetalert2';
 import { MdOutlineAddToPhotos } from "react-icons/md";

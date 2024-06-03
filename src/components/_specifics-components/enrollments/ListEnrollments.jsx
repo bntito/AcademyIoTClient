@@ -8,20 +8,19 @@ import Searcher from '../../../services/searcher/Searcher';
 import Pagination from '../../../services/pagination/Pagination';
 import OpenModal from '../../_commons-components/modal/OpenModal';
 
-import User from '../../_specifics-compoents/user/User';
+import Enrollment from '../../_specifics-components/enrollments/Enrollments';
 
 import Swal from 'sweetalert2';
 import { MdOutlineAddToPhotos } from "react-icons/md";
 import { FaRegEdit } from "react-icons/fa";
 import { RiDeleteBin6Line } from "react-icons/ri";
 
-export default function ListUser({ title }) {
+export default function ListEnrollment({ title }) {
   const hostServer = import.meta.env.VITE_REACT_APP_SERVER_HOST;
-  const api = `${hostServer}/api/users`;
+  const api = `${hostServer}/api/enrollments`;
+  const [selectedItems, setSelectedItems] = useState([]);
   const { usersContext, navigateContext } = useUsersContext();
   const token = usersContext.token;
-  const [selectedItems, setSelectedItems] = useState([]);
-
   const [page, setPage] = useState(1);
   const [itemsPage, setItemsPage] = useState(8);
 
@@ -34,22 +33,23 @@ export default function ListUser({ title }) {
   } = useFetch(`${api}`);
 
   const filters = [
-    { id: 1, name: 'name', description: 'Nombre' },
-    { id: 2, name: 'email', description: 'Email' },
-    { id: 3, name: 'phone', description: 'Celular' }
+    { id: 1, name: 'course', description: 'Curso' },
+    { id: 2, name: 'professor', description: 'Profesor' },
+    { id: 3, name: 'student', description: 'Estudiante' },
+    { id: 4, name: 'shift', description: 'Turno' }
   ];
 
   function handleAdd() {
-    const title = 'Adición de Usuarios';
+    const title = 'Adición de Matrículas';
     if (token) {
       OpenModal(
-        <User
-          user={''}
+        <Enrollment
+          enrollment={''}
           edit={false}
           reviewList={updateList}
           token={token}
           handleNavigate={navigateTo}
-        />,
+          />,
         null,
         'medium',
         title
@@ -65,12 +65,12 @@ export default function ListUser({ title }) {
     };
   };
 
-  function handleEdit(user) {
-    const title = 'Edición de Usuarios';
+  function handleEdit(enrollment) {
+    const title = 'Edición de Matrícula';
     if (token) {
       OpenModal(
-        <User
-          user={user}
+        <Enrollment
+          enrollment={enrollment}
           edit={true}
           reviewList={updateList}
           token={token}
@@ -87,7 +87,7 @@ export default function ListUser({ title }) {
         title: 'Debe loguearse para utilizar esta función',
         showConfirmButton: false,
         timer: 2000
-      });
+      }); 
     };
   };
 
@@ -95,18 +95,18 @@ export default function ListUser({ title }) {
     await navigateContext(rute);
   };
 
-  const getUsers = async () => {
-    const url = `${hostServer}/api/users`;
+  const getEnrollments = async () => {
+    const url = `${hostServer}/api/enrollments`;
     await getData(url);
   };
 
   const updateList = async () => {
-    await getUsers();
+    await getEnrollments();
   };
 
   const handleDelete = async (id) => {
     if (token) {
-      const url = `${hostServer}/api/user`;
+      const url = `${hostServer}/api/enrollment`;
       const deleteId = id;
       Swal.fire({
         title: 'Está seguro?',
@@ -120,11 +120,11 @@ export default function ListUser({ title }) {
       .then((result) => {
         if (result.isConfirmed) {
           const del = async () => {
-            const resp = await deleteData(url, deleteId, token);
-            getUsers();
+            const resp = await deleteData(url, deleteId);
+            getEnrollments();
             await Swal.fire({
               title: 'Eliminado!',
-              text: 'El usuario fue eliminado',
+              text: 'La matrícula fue eliminado',
               icon: 'success'
             });
           };
@@ -140,34 +140,25 @@ export default function ListUser({ title }) {
         timer: 2000
       });
     };
-  };
+  }; 
 
   const nextPage = (pagItems, pageCurrent) => {
     setItemsPage(pagItems);
     setPage(pageCurrent);
   };
-
+  
   const handlePageChange = (newSelectedItems) => {
     setSelectedItems(newSelectedItems);
   };
-
+  
   useEffect(() => {
     if (dataServer?.message || dataServer?.message != undefined) {
       Swal.fire(dataServer?.message);
     };
-    if (dataServer?.status === 400 || dataServer?.status === 401) {
-      Swal.fire({
-        position: 'top',
-        icon: 'error',
-        title: dataServer?.dataServerResult.message,
-        showConfirmButton: false,
-        timer: 2000
-      });
-    };
   }, [dataServer]);
 
   useEffect(() => {
-    getUsers();
+    getEnrollments();
   }, []);
 
   return (
@@ -175,7 +166,7 @@ export default function ListUser({ title }) {
     <div className='login-user-container'>
       <LoginUser/>
     </div>
-    <h3 className='mt-4 mb-3'>Listado de Usuarios</h3>
+    <h3 className='mt-4 mb-3'>Listado de Matrículas</h3>
     {
       isLoading ? (
         <h3>Cargando...</h3>
@@ -198,53 +189,53 @@ export default function ListUser({ title }) {
                 />                           
               </div>
             </div>
-            <div className='table-responsive'>
-              <table className='table table-striped table-bordered'>
-                <thead>
-                  <tr className='table-dark'>
-                    <th scope='col'>#</th>
-                    <th scope='col'>Nombre</th>
-                    <th scope='col'>Correo Electrónico</th>
-                    <th scope='col'>Ciudad</th>
-                    <th scope='col' colSpan={3}>Acción</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {
-                    dataServer?.status === 500 ? (
-                      <tr>
-                        <td scope='col' colSpan={7}>
-                          <h3 className='text-center'>No hay información para esta entidad</h3>
-                        </td>
-                      </tr>
-                    ) : (
-                      selectedItems.map((user) => {
-                        return (
-                          <tr key={user.id}>
-                            <td data-label='#'>{user.id}</td>
-                            <td data-label='Nombre'>{`${user.name} ${user.lastname}`}</td>
-                            <td data-label='Correo Electrónico'>{user.email}</td>
-                            <td data-label='Ciudad'>{user.city}</td>
-                            <td data-label='Editar' className='td-icon'>
-                              <FaRegEdit
-                                onClick={() => handleEdit(user)}
-                                className='icon'
-                              />
-                            </td>
-                            <td data-label='Eliminar' className='td-icon'>
-                              <RiDeleteBin6Line
-                                onClick={() => handleDelete(user.id)}
-                                className='icon'
-                              />
-                            </td>                          
-                          </tr>
-                        );
-                      })
-                    )
-                  }
-                </tbody>
-              </table>
-            </div>
+            <table className='table table-striped table-bordered'>
+              <thead>
+                <tr className='table-dark'>
+                  <th scope='col'>#</th>
+                  <th scope='col'>Curso</th>
+                  <th scope='col'>Profesor</th>
+                  <th scope='col'>Alumno</th>
+                  <th scope='col'>Turno</th>
+                  <th scope='col' colSpan={2}>Acción</th>
+                </tr>
+              </thead>
+              <tbody>
+                {
+                  dataServer?.status === 500 ? (
+                    <tr>
+                      <td scope='col' colSpan={7}>
+                        <h3>No hay información para esta entidad</h3>
+                      </td>
+                    </tr>
+                  ) : (
+                    selectedItems.map((enrollment) => {
+                      return (
+                        <tr key={enrollment.id}>
+                          <td data-label='#'>{enrollment.id}</td>
+                          <td data-label='Curso'>{enrollment.course}</td>
+                          <td data-label='Profesor'>{`${enrollment.professor}`}</td>
+                          <td data-label='Estudiante'>{enrollment.student}</td>
+                          <td data-label='Turno'>{enrollment.shift}</td>
+                          <td data-label='Editar' className='td-icon'>
+                            <FaRegEdit
+                              onClick={() => handleEdit(enrollment)}
+                              className='icon'
+                            />
+                          </td>
+                          <td data-label='Eliminar' className='td-icon'>
+                            <RiDeleteBin6Line
+                              onClick={() => handleDelete(enrollment.id)}
+                              className='icon'
+                            />
+                          </td>                          
+                        </tr>
+                      );
+                    })
+                  )
+                }
+              </tbody>
+            </table>
             {
               dataServer?.dataServerResult?.dataApi && (
                 <Pagination

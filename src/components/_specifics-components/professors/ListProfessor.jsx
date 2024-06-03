@@ -8,7 +8,7 @@ import Searcher from '../../../services/searcher/Searcher';
 import Pagination from '../../../services/pagination/Pagination';
 import OpenModal from '../../_commons-components/modal/OpenModal';
 
-import Professor from '../../_specifics-compoents/professors/Professor';
+import Professor from '../../_specifics-components/professors/Professor';
 
 import Swal from 'sweetalert2';
 import { MdOutlineAddToPhotos } from 'react-icons/md';

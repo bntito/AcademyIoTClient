@@ -8,16 +8,16 @@ import Searcher from '../../../services/searcher/Searcher';
 import Pagination from '../../../services/pagination/Pagination';
 import OpenModal from '../../_commons-components/modal/OpenModal';
 
-import Student from '../../_specifics-compoents/students/Student';
+import User from '../../_specifics-components/user/User';
 
 import Swal from 'sweetalert2';
 import { MdOutlineAddToPhotos } from "react-icons/md";
 import { FaRegEdit } from "react-icons/fa";
 import { RiDeleteBin6Line } from "react-icons/ri";
 
-export default function ListStudent({ title }) {
+export default function ListUser({ title }) {
   const hostServer = import.meta.env.VITE_REACT_APP_SERVER_HOST;
-  const api = `${hostServer}/api/students`;
+  const api = `${hostServer}/api/users`;
   const { usersContext, navigateContext } = useUsersContext();
   const token = usersContext.token;
   const [selectedItems, setSelectedItems] = useState([]);
@@ -34,18 +34,17 @@ export default function ListStudent({ title }) {
   } = useFetch(`${api}`);
 
   const filters = [
-    { id: 1, name: 'dni', description: 'Documento' },
-    { id: 2, name: 'lastname', description: 'Apellido' },
-    { id: 3, name: 'email', description: 'Email' },
-    { id: 4, name: 'phone', description: 'Celular' }
+    { id: 1, name: 'name', description: 'Nombre' },
+    { id: 2, name: 'email', description: 'Email' },
+    { id: 3, name: 'phone', description: 'Celular' }
   ];
 
   function handleAdd() {
-    const title = 'Adición de Estudiante';
+    const title = 'Adición de Usuarios';
     if (token) {
       OpenModal(
-        <Student
-          student={''}
+        <User
+          user={''}
           edit={false}
           reviewList={updateList}
           token={token}
@@ -66,12 +65,12 @@ export default function ListStudent({ title }) {
     };
   };
 
-  function handleEdit(student) {
-    const title = 'Edición de Estudiante';
+  function handleEdit(user) {
+    const title = 'Edición de Usuarios';
     if (token) {
       OpenModal(
-        <Student
-          student={student}
+        <User
+          user={user}
           edit={true}
           reviewList={updateList}
           token={token}
@@ -80,7 +79,7 @@ export default function ListStudent({ title }) {
         null,
         'medium',
         title
-      );   
+      );
     } else {
       Swal.fire({
         position: 'top',
@@ -96,18 +95,18 @@ export default function ListStudent({ title }) {
     await navigateContext(rute);
   };
 
-  const getStudents = async () => {
-    const url = `${hostServer}/api/students`;
+  const getUsers = async () => {
+    const url = `${hostServer}/api/users`;
     await getData(url);
   };
 
   const updateList = async () => {
-    await getStudents();
+    await getUsers();
   };
 
   const handleDelete = async (id) => {
     if (token) {
-      const url = `${hostServer}/api/student`;
+      const url = `${hostServer}/api/user`;
       const deleteId = id;
       Swal.fire({
         title: 'Está seguro?',
@@ -122,10 +121,10 @@ export default function ListStudent({ title }) {
         if (result.isConfirmed) {
           const del = async () => {
             const resp = await deleteData(url, deleteId, token);
-            getStudents();
+            getUsers();
             await Swal.fire({
               title: 'Eliminado!',
-              text: 'El estudiante fue eliminado',
+              text: 'El usuario fue eliminado',
               icon: 'success'
             });
           };
@@ -168,7 +167,7 @@ export default function ListStudent({ title }) {
   }, [dataServer]);
 
   useEffect(() => {
-    getStudents();
+    getUsers();
   }, []);
 
   return (
@@ -176,7 +175,7 @@ export default function ListStudent({ title }) {
     <div className='login-user-container'>
       <LoginUser/>
     </div>
-    <h3 className='mt-4 mb-3'>Listado de Estudiantes</h3>
+    <h3 className='mt-4 mb-3'>Listado de Usuarios</h3>
     {
       isLoading ? (
         <h3>Cargando...</h3>
@@ -199,53 +198,53 @@ export default function ListStudent({ title }) {
                 />                           
               </div>
             </div>
-            <table className='table table-striped table-bordered'>
-              <thead>
-                <tr className='table-dark'>
-                  <th scope='col'>#</th>
-                  <th scope='col'>Documento</th>
-                  <th scope='col'>Nombre</th>
-                  <th scope='col'>Correo Electrónico</th>
-                  <th scope='col'>Celular</th>
-                  <th scope='col' colSpan={3}>Acción</th>
-                </tr>
-              </thead>
-              <tbody>
-                {
-                  dataServer?.status === 500 ? (
-                    <tr>
-                      <td scope='col' colSpan={7}>
-                        <h3>No hay información para esta entidad</h3>
-                      </td>
-                    </tr>
-                  ) : (
-                    selectedItems.map((student) => {
-                      return (
-                        <tr key={student.id}>
-                          <td data-label='#'>{student.id}</td>
-                          <td data-label='Documento'>{student.dni}</td>
-                          <td data-label='Nombre'>{`${student.name} ${student.lastname}`}</td>
-                          <td data-label='Correo Electrónico'>{student.email}</td>
-                          <td data-label='Celular'>{student.phone}</td>
-                          <td data-label='Editar' className='td-icon'>
-                            <FaRegEdit
-                              onClick={() => handleEdit(student)}
-                              className='icon'
-                            />
-                          </td>
-                          <td data-label='Eliminar' className='td-icon'>
-                            <RiDeleteBin6Line
-                              onClick={() => handleDelete(student.id)}
-                              className='icon'
-                            />
-                          </td>                          
-                        </tr>
-                      );
-                    })
-                  )
-                }
-              </tbody>
-            </table>
+            <div className='table-responsive'>
+              <table className='table table-striped table-bordered'>
+                <thead>
+                  <tr className='table-dark'>
+                    <th scope='col'>#</th>
+                    <th scope='col'>Nombre</th>
+                    <th scope='col'>Correo Electrónico</th>
+                    <th scope='col'>Ciudad</th>
+                    <th scope='col' colSpan={3}>Acción</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {
+                    dataServer?.status === 500 ? (
+                      <tr>
+                        <td scope='col' colSpan={7}>
+                          <h3 className='text-center'>No hay información para esta entidad</h3>
+                        </td>
+                      </tr>
+                    ) : (
+                      selectedItems.map((user) => {
+                        return (
+                          <tr key={user.id}>
+                            <td data-label='#'>{user.id}</td>
+                            <td data-label='Nombre'>{`${user.name} ${user.lastname}`}</td>
+                            <td data-label='Correo Electrónico'>{user.email}</td>
+                            <td data-label='Ciudad'>{user.city}</td>
+                            <td data-label='Editar' className='td-icon'>
+                              <FaRegEdit
+                                onClick={() => handleEdit(user)}
+                                className='icon'
+                              />
+                            </td>
+                            <td data-label='Eliminar' className='td-icon'>
+                              <RiDeleteBin6Line
+                                onClick={() => handleDelete(user.id)}
+                                className='icon'
+                              />
+                            </td>                          
+                          </tr>
+                        );
+                      })
+                    )
+                  }
+                </tbody>
+              </table>
+            </div>
             {
               dataServer?.dataServerResult?.dataApi && (
                 <Pagination

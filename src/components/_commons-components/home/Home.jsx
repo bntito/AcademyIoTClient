@@ -2,7 +2,7 @@ import MainSection from './MainSection';
 import CardCourse from './CardCourse';
 import Carousel from '../carouse/Carousel';
 import LoginUser from '../../_commons-components/loginUser/LoginUser';
-import AddContact from '../../_specifics-compoents/contacts/AddContact';
+import AddContact from '../../_specifics-components/contacts/AddContact';
 import { Link } from 'react-router-dom';
 
 import './home.css';

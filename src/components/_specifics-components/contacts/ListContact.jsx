@@ -6,7 +6,7 @@ import Searcher from '../../../services/searcher/Searcher';
 import Pagination from '../../../services/pagination/Pagination';
 import OpenModal from '../../_commons-components/modal/OpenModal';
 
-import Contact from '../../_specifics-compoents/contacts/Contact';
+import Contact from '../../_specifics-components/contacts/Contact';
 
 import Swal from 'sweetalert2';
 import { MdOutlineAddToPhotos } from "react-icons/md";

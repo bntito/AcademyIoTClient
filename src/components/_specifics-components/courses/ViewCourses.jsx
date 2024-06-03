@@ -20,10 +20,13 @@ export default function ViewCourses() {
     setActiveTab(tab);
   };
 
+  const fieldsToSkipValidation = ['name'];
+
   let {
     formData,
     onInputChange
-  } = useForm(initialForm);
+  } = useForm(initialForm, fieldsToSkipValidation);
+
 
   const { name: nameCourse } = formData;
 
