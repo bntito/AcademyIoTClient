@@ -41,6 +41,7 @@ export default function Relations() {
           }
 
           const professorsMap = coursesMap.get(course);
+          // console.log(professorsMap)
 
           if (!professorsMap.has(professor)) {
             professorsMap.set(professor, []);
@@ -75,12 +76,12 @@ export default function Relations() {
         <LoginUser />
       </div>
       <h3 className='mt-4 mb-1'>Relaciones</h3>
-      <h5 className='mx-2 mb-4'>Estudiantes por Profesor por Curso</h5>
+      <h6 className='mx-2 mb-4'><b>Estudiantes</b> por <b>Profesor</b> en <b>Curso</b></h6>
       {isLoading ? (
         <h3>Cargando...</h3>
       ) : (
         <div className='lists'>
-          <Table>
+          <Table className='d-none d-md-table'>
             <thead className='thead-relation'>
               <tr className='tr-relation'>
                 <th>Curso</th>
@@ -117,6 +118,23 @@ export default function Relations() {
               ))}
             </tbody>
           </Table>
+          <div className='d-md-none'>
+            {enrollments.map(({ course, professors }, courseIndex) => (
+              <div key={courseIndex} className={`mb-4 ${courseIndex % 2 === 0 ? 'course-even p-2' : 'course-odd p-2'}`}>
+                <h5>{course}</h5>
+                {professors.map(({ professor, students }, profIndex) => (
+                  <div key={`${courseIndex}-${profIndex}`}>
+                    <h6>{professor}</h6>
+                    <ul>
+                      {students.map((student, studentIndex) => (
+                        <li key={`${courseIndex}-${profIndex}-${studentIndex}`}>{student}</li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
         </div>
       )}
     </>
