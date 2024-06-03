@@ -24,6 +24,7 @@ import AddUser from '../components/_specifics-components/user/AddUser';
 import AddContact from '../components/_specifics-components/contacts/AddContact';
 import Contact from '../components/_specifics-components/contacts/Contact';
 import ListContact from '../components/_specifics-components/contacts/ListContact';
+import Relations from '../components/_specifics-components/relations/Relations';
 
 const routes = [
   { 
@@ -97,6 +98,10 @@ const routes = [
   { 
     path: '/studentProfile',
     element: <ProfileStudent />
+  },
+  { 
+    path: '/relations',
+    element: <Relations />
   },
   {
     path: '/login',

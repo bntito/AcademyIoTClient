@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react';
 import { useFetch } from '../../../hooks/useFetch';
 import { useForm } from '../../../hooks/useForm';
 
-// import ValidateErrors from '../../../services/validations/ValidateErrors';
-// import validationSchema from '../../../services/validations/validationSchema';
+import ValidateErrors from '../../../services/validations/ValidateErrors';
+import validationSchema from '../../../services/validations/validationSchema';
 
 import { useAppContext } from '../../../hooks/AppContext';
 
@@ -33,7 +33,7 @@ export default function Enrollment({ enrollment, edit, reviewList, token, handle
     validateForm,
     errorsInput,
     clearForm
-  } = useForm(initialForm);
+  } = useForm(initialForm, validationSchema);
 
   const { id, course, professor, student, shift, startDate, endDate } = formData;
 
@@ -78,7 +78,6 @@ export default function Enrollment({ enrollment, edit, reviewList, token, handle
   };
 
   useEffect(() => {
-    console.log('data', dataServer)
     if (dataServer?.status == null) {
       return;
     };

@@ -153,7 +153,8 @@ function Menu({ closeMenu }) {
         { icon: <FaClipboardList />, title: 'Cursos', route: '/coursesList', roles: [] },
         { icon: <CgUserList />, title: 'Estudiantes', route: '/studentsList', roles: [] },
         { icon: <FaListUl />, title: 'Profesores', route: '/professorsList', roles: [] },
-        { icon: <TbRelationManyToMany />, title: 'Estudiantes por curso', route: '/enrollmentsList', roles: ['isStudent', 'isTeacher', 'isAdmin'] }
+        { icon: <TbRelationManyToMany />, title: 'Estudiantes por curso', route: '/enrollmentsList', roles: ['isStudent', 'isTeacher', 'isAdmin'] },
+        { icon: <TbRelationManyToMany />, title: 'Relación', route: '/relations', roles: [] }
       ],
       roles: []
     },
