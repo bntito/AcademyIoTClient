@@ -43,11 +43,19 @@ export const useForm = (initialForm, validationSchema, fieldsToSkipValidation = 
     setErrorsInput({});
   };
 
+  const fillForm = (data) => {
+    setFormData({
+      ...formData,
+      ...initialForm,
+    });
+  };
+
   return {
     formData,
     onInputChange,
     validateForm,
     errorsInput,
     clearForm,
+    fillForm
   };
 };
