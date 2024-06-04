@@ -68,7 +68,7 @@ function MenuItem({ item, closeMenu, userRole }) {
                 >
                   <Link 
                     to={subItem.route}
-                    className='item-icon-menu'
+                    className='subitem-icon-menu'
                   >
                     {subItem.icon}{subItem.title}
                   </Link>

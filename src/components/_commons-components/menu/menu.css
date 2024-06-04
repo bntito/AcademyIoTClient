@@ -14,14 +14,14 @@
 .menu-container {
   position: fixed;
   overflow: hidden;
-  background-color: rgba(221, 219, 243, 0.9);
+  background-color: #2d2e31ea;
   border: 2px solid rgba(0, 0, 0, 0.5);
-  box-shadow: 0 0 10px 4px rgba(72, 58, 73, 0.5);
+  box-shadow: 0 0 10px 4px rgba(91, 99, 116, 0.5);
   width: 250px;
   z-index: 3;
-  border-radius: 10px;
+  border-radius: 0 10px 10px 0;
   left: 0;
-  top: 4em;
+  top: 4.2em;
 }
 
 .menu-container::before {
@@ -31,7 +31,7 @@
   left: 0;
   width: 0%;
   height: 100%;
-  background: linear-gradient(to right, rgba(131, 131, 150, 0.116) 0%, rgba(124, 125, 151, 0.342) 95%, #6e7d91 100%);
+  background: linear-gradient(to right, rgba(103, 103, 105, 0.363) 0%, rgba(108, 108, 110, 0.781) 95%, rgb(129, 122, 133) 100%);
   background-position: 100% 0;
   background-size: auto 100%, 40px 100%;
   background-repeat: no-repeat;
@@ -57,6 +57,7 @@
 }
 
 .a-menu {
+  color: gainsboro;
   text-decoration: none;
   font-weight: 700;
   position: relative;
@@ -64,6 +65,7 @@
 }
 
 .item-icon-menu {
+  color: rgb(206, 206, 206);
   display: flex;
   align-items: center;
   gap: .5em;
@@ -71,9 +73,23 @@
 }
 
 .item-icon-menu:hover {
+  color: white;
   font-size: 18px;
   font-weight: 600;
-  color: rgb(249, 254, 255);
+}
+
+.subitem-icon-menu {
+  color: rgb(206, 206, 206);
+  display: flex;
+  align-items: center;
+  gap: .5em;
+  text-decoration: none;
+}
+
+.subitem-icon-menu:hover {
+  color: white;
+  font-size: 16px;
+  font-weight: 500;
 }
 
 li {
@@ -83,15 +99,10 @@ li {
 }
 
 li a {
-  color: rgb(43, 137, 252);
   font-weight: 500;
   font-size: 14px;
   position: relative;
   z-index: 1;
-}
-
-ul a {
-  color: rgb(57, 110, 224);
 }
 
 @media (max-width: 850px) {
