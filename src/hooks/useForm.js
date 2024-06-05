@@ -4,18 +4,12 @@ export const useForm = (initialForm, validationSchema, fieldsToSkipValidation = 
   const [formData, setFormData] = useState(initialForm);
   const [errorsInput, setErrorsInput] = useState({});
 
-  const validateField = (name, value) => {
-    if (fieldsToSkipValidation.includes(name)) return [];
-    const validators = validationSchema[name];
-    const errors = validators ? validators.map((validator) => validator(value, formData)).filter((error) => error !== undefined) : [];
-    return errors;
-  };
-
+  /* Manejo de valor input por evento (checkbox, files y value) */
   const onInputChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value, type, checked, files } = e.target;
     setFormData((prevData) => ({
       ...prevData,
-      [name]: value,
+      [name]: type === 'checkbox' ? checked : files ? files[0] : value,
     }));
     const fieldErrors = validateField(name, value);
     setErrorsInput((prevErrors) => ({
@@ -24,6 +18,15 @@ export const useForm = (initialForm, validationSchema, fieldsToSkipValidation = 
     }));
   };
 
+  /* Validación solo cuando ocurre un cambio */
+  const validateField = (name, value) => {
+    if (fieldsToSkipValidation.includes(name)) return [];
+    const validators = validationSchema[name];
+    const errors = validators ? validators.map((validator) => validator(value, formData)).filter((error) => error !== undefined) : [];
+    return errors;
+  };
+
+  /* Validación de campos para posterior envío */
   const validateForm = () => {
     let errors = {};
     let numErrors = 0;
