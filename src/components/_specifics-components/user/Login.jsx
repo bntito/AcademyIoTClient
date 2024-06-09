@@ -68,15 +68,44 @@ const Login = () => {
   };
 
   const handleLoginGoogle = async () => {
+    const url = `${hostServer}/api/user/logingoogle`;
+    let result;
     try {
-      const result = await signInWithPopup(auth, googleProvider);
-      const user = result.user;
+      const resultFirebase = await signInWithPopup(auth, googleProvider);
+      const user = resultFirebase.user;
       const userEmail = user.email;
-      console.log(user)
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ loginGoogleEmail: userEmail })
+      });
+      if (!response.ok) {
+        const errorResponse = await response.json();
+        throw new Error(errorResponse.message) || 'Error en el Login con Google';
+      }
+      result = await response.json();
+      Swal.fire({
+        position: 'top',
+        icon: 'success',
+        title: result.message,
+        showConfirmButton: false,
+        timer: 2000
+      })
+      setUsersContext(result.dataApi);
+      navigate('/');
     } catch (error) {
-      alert('Error al iniciar sesión con Google')
+      Swal.fire({
+        position: 'top',
+        icon: 'error',
+        title: error.message || 'Error al iniciar sesión con Google',
+        showConfirmButton: false,
+        timer: 2000
+      });
+      console.error('Error al iniciar sesión con Google', error);
     }
-  }
+  };
 
   useEffect(() => {
     if (dataServer?.status == null) {
