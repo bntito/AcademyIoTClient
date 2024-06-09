@@ -3,6 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import { useFetch } from '../../../hooks/useFetch';
 import { useForm } from '../../../hooks/useForm';
 
+import { signInWithPopup } from 'firebase/auth';
+import { auth, googleProvider } from '../../../firebase/config';
+
 import BackButton from '../../../services/backButton/BackButton';
 import { useUsersContext } from '../../../hooks/UserContext';
 
@@ -13,6 +16,7 @@ import Swal from 'sweetalert2';
 import { CiUser } from "react-icons/ci";
 import { FaRegEyeSlash } from "react-icons/fa6";
 import { FaRegEye } from "react-icons/fa6";
+import { FcGoogle } from "react-icons/fc";
 
 const Login = () => {
   const hostServer = import.meta.env.VITE_REACT_APP_SERVER_HOST;
@@ -62,6 +66,17 @@ const Login = () => {
       });
     }
   };
+
+  const handleLoginGoogle = async () => {
+    try {
+      const result = await signInWithPopup(auth, googleProvider);
+      const user = result.user;
+      const userEmail = user.email;
+      console.log(user)
+    } catch (error) {
+      alert('Error al iniciar sesión con Google')
+    }
+  }
 
   useEffect(() => {
     if (dataServer?.status == null) {
@@ -156,6 +171,15 @@ const Login = () => {
               </button>
             </div>
           </div>
+          <div className='mb-3 methods-log'>
+            <label htmlFor=''>Iniciar Sesión con</label>
+          </div>
+            <div className='div-method-icon'>
+              <FcGoogle 
+                onClick={handleLoginGoogle}
+                className='method-icon'
+              />
+            </div>
           <div className='m-auto div-70 mt-5 mb-5'>
             <button
               type='submit'
