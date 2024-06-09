@@ -18,7 +18,9 @@ export default function Student() {
   const navigate = useNavigate();
   const { usersContext } = useUsersContext();
   const token = usersContext.token;
+  const userId = usersContext.id;
   const [error, setError] = useState(false);
+  const [confirmPassword, setConfirmPassword] = useState();
   const [student, setStudent] = useState({});
   const initialForm = {
     id: student && student.id ? student.id : '',
@@ -26,13 +28,12 @@ export default function Student() {
     name: student && student.name ? student.name : '',
     lastname: student && student.lastname ? student.lastname : '',
     email: student && student.email ? student.email : '',
-    password: student && student.password ? student.password : '',
-    confirmPassword: '',
     address: student && student.address ? student.address : '',
     birthday: student && student.birthday ? student.birthday : '',
     city: student && student.city ? student.city : '',
     phone: student && student.phone ? student.phone : '',
-    condition: student && student.condition ? student.condition : ''
+    condition: student && student.condition ? student.condition : '',
+    password: ''
   };
 
   let {
@@ -43,8 +44,7 @@ export default function Student() {
     clearForm
   } = useForm(initialForm, validationSchema);
 
-  const { id, dni, name, lastname, email, password, confirmPassword,
-    address, birthday, city, phone, condition } = formData;
+  const { id, dni, name, lastname, email, address, birthday, city, phone, condition, password } = formData;
 
   let {
     dataServer,
@@ -54,8 +54,50 @@ export default function Student() {
     updateData
   } = useFetch(null);
 
+  const confirmUserPassword = async (e) => {
+    e.preventDefault();
+    const url = `${hostServer}/api/users/${userId}`;
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          userId: userId,
+          name: name,
+          lastname: lastname,
+          password: password
+        })
+      });
+      const result = await response.json();
+      if (response.ok) {
+        setConfirmPassword(true);
+      } else {
+        Swal.fire({
+          position: 'top',
+          icon: 'info',
+          title: result.message,
+          showCloseButton: false,
+          timer: 2000
+        });
+        setConfirmPassword(false);
+      }
+    } catch (error) {
+      Swal.fire({
+        position: 'top',
+        icon: 'info',
+        title: result,
+        showCloseButton: false,
+        timer: 2000
+      });
+      setConfirmPassword(false);
+    };
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    await confirmUserPassword(e);
     if (token) {
       const numError = validateForm();
       if (!numError) {
@@ -63,6 +105,9 @@ export default function Student() {
         formData = {
           ...formData,
           token
+        };
+        if (!confirmPassword) {
+          return;
         };
         await createData(url, formData);
       } else {
@@ -228,42 +273,6 @@ export default function Student() {
                   }
                 </div>              
               </div>
-              <div className='div-flex gap-2 media850-col'>
-                <div className='w-100'>
-                  <label htmlFor=''>Contraseña</label>
-                  <input 
-                    type='password'
-                    name='password'
-                    value={password}
-                    onChange={onInputChange}
-                    className='form-control'
-                  />
-                  {
-                    errorsInput.password && (
-                      <ValidateErrors
-                        errors={errorsInput.password}
-                      />
-                    )
-                  }
-                </div>
-                <div className='w-100'>
-                  <label htmlFor=''>Confirmación de Contraseña</label>
-                  <input 
-                    type='text'
-                    name='confirmPassword'
-                    value={confirmPassword}
-                    onChange={onInputChange}
-                    className='form-control'
-                  />
-                  {
-                    errorsInput.confirmPassword && (
-                      <ValidateErrors
-                        errors={errorsInput.confirmPassword}
-                      />
-                    )
-                  }
-                </div>              
-              </div>
               <div className='div-70 mx-auto'>
                 <div>
                   <label htmlFor=''>Dirección</label>
@@ -302,6 +311,21 @@ export default function Student() {
                       ))
                     }
                   </select>
+                </div>
+              </div>
+              <div className='w-50 mx-auto mt-3'>
+                <div>
+                  <label htmlFor=''>Contraseña de Usuario</label>
+                  <input 
+                    type="password"
+                    autoComplete='on'
+                    name='password'
+                    placeholder='Indique su contraseña'
+                    value={password}
+                    onChange={onInputChange}
+                    onBlur={confirmUserPassword}
+                    className='form-control'
+                  />
                 </div>
               </div>
               <div className='div-flex div-center mt-3'>

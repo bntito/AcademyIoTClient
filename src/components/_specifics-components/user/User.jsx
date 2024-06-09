@@ -221,46 +221,48 @@ export default function User({ user, edit, reviewList, token, handleNavigate }) 
                 }
               </select>
             </div>
-            <div className='gap-2 m-auto'>
-              <div className='div-70 mx-auto'>
-                <label htmlFor='password'>Contraseña</label>
-                <input
-                  type='password'
-                  autoComplete='on'
-                  name='password'
-                  placeholder='Indique su contraseña'
-                  value={password}
-                  onChange={onInputChange}
-                  className='form-control'
-                />
-                {
-                  errorsInput.password && (
-                    <ValidateErrors
-                      errors={errorsInput.password}
-                    />
-                  )
-                }
+            {!edit && (
+              <div className='gap-2 m-auto'>
+                <div className='div-70 mx-auto'>
+                  <label htmlFor='password'>Contraseña</label>
+                  <input
+                    type='password'
+                    autoComplete='on'
+                    name='password'
+                    placeholder='Indique su contraseña'
+                    value={password}
+                    onChange={onInputChange}
+                    className='form-control'
+                  />
+                  {
+                    errorsInput.password && (
+                      <ValidateErrors
+                        errors={errorsInput.password}
+                      />
+                    )
+                  }
+                </div>
+                <div className='div-70 mx-auto'>
+                  <label htmlFor='confirmPassword'>Confirmación de Contraseña</label>
+                  <input
+                    type='password'
+                    autoComplete='on'
+                    name='confirmPassword'
+                    placeholder='Indique su contraseña'
+                    value={confirmPassword}
+                    onChange={onInputChange}
+                    className='form-control'
+                  />
+                  {
+                    errorsInput.confirmPassword && (
+                      <ValidateErrors
+                        errors={errorsInput.confirmPassword}
+                      />
+                    )
+                  }
+                </div>
               </div>
-              <div className='div-70 mx-auto'>
-                <label htmlFor='confirmPassword'>Confirmación de Contraseña</label>
-                <input
-                  type='password'
-                  autoComplete='on'
-                  name='confirmPassword'
-                  placeholder='Indique su contraseña'
-                  value={confirmPassword}
-                  onChange={onInputChange}
-                  className='form-control'
-                />
-                {
-                  errorsInput.confirmPassword && (
-                    <ValidateErrors
-                      errors={errorsInput.confirmPassword}
-                    />
-                  )
-                }
-              </div>
-            </div>
+            )}
             <div className='div-flex gap-2 media850-col'>
               <div className='w-100'>
                 <label htmlFor='address'>Dirección</label>

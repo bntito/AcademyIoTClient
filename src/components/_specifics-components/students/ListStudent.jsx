@@ -20,6 +20,7 @@ export default function ListStudent({ title }) {
   const api = `${hostServer}/api/students`;
   const { usersContext, navigateContext } = useUsersContext();
   const token = usersContext.token;
+  const userId = usersContext.id;
   const [selectedItems, setSelectedItems] = useState([]);
 
   const [page, setPage] = useState(1);
@@ -49,6 +50,7 @@ export default function ListStudent({ title }) {
           edit={false}
           reviewList={updateList}
           token={token}
+          userId={userId}
           handleNavigate={navigateTo}
         />,
         null,
@@ -75,6 +77,7 @@ export default function ListStudent({ title }) {
           edit={true}
           reviewList={updateList}
           token={token}
+          userId={userId}
           handleNavigate={navigateTo}
         />,
         null,

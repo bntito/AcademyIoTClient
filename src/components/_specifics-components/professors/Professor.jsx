@@ -10,11 +10,12 @@ import { useAppContext } from '../../../hooks/AppContext';
 
 import Swal from 'sweetalert2';
 
-export default function Professor({ professor, edit, reviewList, token, handleNavigate }) {
+export default function Professor({ professor, edit, reviewList, token, userId, handleNavigate }) {
   const hostServer = import.meta.env.VITE_REACT_APP_SERVER_HOST;
   const api = `${hostServer}/api/professor`;
   const { handleClose } = useAppContext();
   const [error, setError] = useState(false);
+  const [confirmPassword, setConfirmPassword] = useState();
   const initialForm = {
     id: professor ? professor.id : '',
     dni: professor ? professor.dni : '',
@@ -22,11 +23,10 @@ export default function Professor({ professor, edit, reviewList, token, handleNa
     lastname: professor ? professor.lastname : '',
     email: professor ? professor.email : '',
     phone: professor ? professor.phone : '',
-    password: professor ? professor.password : '',
-    confirmPassword: '',
     address: professor ? professor.address : '',
     city: professor ? professor.city : '',
-    condition: professor ? professor.condition : ''
+    condition: professor ? professor.condition : '',
+    password: ''
   };
 
   let {
@@ -37,7 +37,7 @@ export default function Professor({ professor, edit, reviewList, token, handleNa
     clearForm
   } = useForm(initialForm, validationSchema);
 
-  const { id, dni, name, lastname, email, password, confirmPassword, address, city, phone, condition } = formData;
+  const { id, dni, name, lastname, email, address, city, phone, condition, password } = formData;
 
   let {
     dataServer,
@@ -47,8 +47,50 @@ export default function Professor({ professor, edit, reviewList, token, handleNa
     updateData
   } = useFetch(null);
 
+  const confirmUserPassword = async (e) => {
+    e.preventDefault();
+    const url = `${hostServer}/api/users/${userId}`;
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          userId: userId,
+          name: name,
+          lastname: lastname,
+          password: password
+        })
+      });
+      const result = await response.json();
+      if (response.ok) {
+        setConfirmPassword(true);
+      } else {
+        Swal.fire({
+          position: 'top',
+          icon: 'info',
+          title: result.message,
+          showCloseButton: false,
+          timer: 2000
+        });
+        setConfirmPassword(false);
+      }
+    } catch (error) {
+      Swal.fire({
+        position: 'top',
+        icon: 'info',
+        title: result,
+        showCloseButton: false,
+        timer: 2000
+      });
+      setConfirmPassword(false);
+    };
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    await confirmUserPassword(e);
     if (token) {
       const numError = validateForm();
       if (!numError) {
@@ -56,6 +98,9 @@ export default function Professor({ professor, edit, reviewList, token, handleNa
         formData = {
           ...formData,
           token
+        };
+        if (!confirmPassword) {
+          return;
         };
         if (!edit) {
           await createData(url, formData);
@@ -222,42 +267,6 @@ export default function Professor({ professor, edit, reviewList, token, handleNa
                 }
               </div>              
             </div>
-            <div className='div-flex gap-2'>
-              <div className='w-50'>
-                <label htmlFor=''>Contraseña</label>
-                <input 
-                  type='password'
-                  name='password'
-                  value={password}
-                  onChange={onInputChange}
-                  className='form-control'
-                />
-                {
-                  errorsInput.password && (
-                    <ValidateErrors
-                      errors={errorsInput.password}
-                    />
-                  )
-                }
-              </div>
-              <div className='w-50'>
-                <label htmlFor=''>Confirmación de Contraseña</label>
-                <input 
-                  type='text'
-                  name='confirmPassword'
-                  value={confirmPassword}
-                  onChange={onInputChange}
-                  className='form-control'
-                />
-                {
-                  errorsInput.confirmPassword && (
-                    <ValidateErrors
-                      errors={errorsInput.confirmPassword}
-                    />
-                  )
-                }
-              </div>              
-            </div>
             <div className='div-70 mx-auto'>
               <div>
                 <label htmlFor=''>Dirección</label>
@@ -296,6 +305,21 @@ export default function Professor({ professor, edit, reviewList, token, handleNa
                     ))
                   }
                 </select>
+              </div>
+            </div>
+            <div className='w-50 mx-auto mt-3'>
+              <div>
+                <label htmlFor=''>Contraseña de Usuario</label>
+                <input 
+                  type="password"
+                  autoComplete='on'
+                  name='password'
+                  placeholder='Indique su contraseña'
+                  value={password}
+                  onChange={onInputChange}
+                  onBlur={confirmUserPassword}
+                  className='form-control'
+                />
               </div>
             </div>
             <div className='div-flex div-center mt-3'>
