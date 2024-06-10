@@ -12,6 +12,12 @@
   color: darkblue;
 }
 
+.div-login-user {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+}
+
 .logged {
   color: green;
 }

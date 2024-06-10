@@ -242,7 +242,7 @@ export default function User() {
                   )
                 }                  
               </div>
-            </div>
+            </div>      
             <div className='div-30 mx-auto'>
               <label htmlFor='status'>Condición de Usuario</label>
               <select 

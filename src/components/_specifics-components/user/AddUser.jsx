@@ -32,17 +32,17 @@ export default function User() {
   ];
 
   const initialForm = {
-    id: user ? user.id : '',
-    name: user ? user.name : '',
-    lastname: user ? user.lastname : '',
-    email: user ? user.email : '',
-    password: user ? user.password : '',
-    confirmPassword: user ? user.confirmPassword : '',
-    address: user ? user.address : '',
-    city: user ? user.city : '',
-    phone: user ? user.phone : '',
-    role: user ? user.role : '',
-    status: user ? user.status : '',
+    id: '',
+    name: '',
+    lastname: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+    address: '',
+    city: '',
+    phone: '',
+    role: '',
+    status: '',
     token: usersContext.token
   };
 

@@ -32,10 +32,7 @@ function Signup() {
   ];
 
   const initialForm = {
-    name: '',
-    lastname: '',
     email: '',
-    role: '',
     password: '',
     confirmPassword: ''
   };
@@ -48,7 +45,7 @@ function Signup() {
     clearForm
   } = useForm(initialForm, validationSchema);
 
-  const { id, name, lastname, email, role, password } = formData;
+  const { email, password } = formData;
 
   let {
     dataServer,
@@ -83,7 +80,7 @@ function Signup() {
       const user = resultFirebase.user;
       const userEmail = user.email;
       const userName = user.displayName;
-      const phoneNumber = user.phoneNumber;
+      const userPhoto = user.photoURL;
       const response = await fetch(url, {
         method: 'POST',
         headers: {
@@ -92,7 +89,7 @@ function Signup() {
         body: JSON.stringify({
           emailGoogle: userEmail,
           nameGoogle: userName,
-          phoneGoogle: phoneNumber,     
+          photoGoogle: userPhoto
         })
       });
       if (!response.ok) {
@@ -110,7 +107,7 @@ function Signup() {
       setUsersContext({
         userEmail,
         userName,
-        phoneNumber
+        userPhoto
       });
       navigate('/completeDataUser');
     } catch (error) {

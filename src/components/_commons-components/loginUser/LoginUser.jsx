@@ -2,6 +2,7 @@ import React from 'react';
 import { useUsersContext } from '../../../hooks/UserContext';
 import { Link } from 'react-router-dom';
 import BackButton from '../../../services/backButton/BackButton';
+import Avatar from '../../../services/avatar/Avatar';
 
 import './loginUser.css';
 
@@ -15,7 +16,12 @@ function LoginUser() {
         usersContext.name == undefined ? (
           <h3 className='login fst-italic fw-light'><Link to={'/login'} className='login-link'>Loguéate</Link> para tener una mayor expriencia</h3>
         ) : (
-          <h3 className='logged fst-italic fw-light'>{`Bienvenido, ${usersContext.name} ${usersContext.lastname}`}</h3>
+          <>
+            <div className='div-login-user'>
+              <Avatar />
+              <h3 className='mx-3 logged fst-italic fw-light'>{`Bienvenido, ${usersContext.name} ${usersContext.lastname}`}</h3>
+            </div>
+          </>
         )
       }
       {/* {
