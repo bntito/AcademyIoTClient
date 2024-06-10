@@ -25,6 +25,7 @@ import { BiLogOut } from "react-icons/bi";
 import { TbPasswordUser } from "react-icons/tb";
 import { FaUsers } from "react-icons/fa6";
 import { GiSixEyes } from "react-icons/gi";
+import { FaUserCheck } from "react-icons/fa";
 
 import './menu.css';
 
@@ -166,7 +167,8 @@ function Menu({ closeMenu }) {
         { icon: <BiLogOut />, title: 'Cerrar Sesión', route: '/logout', roles: ['isStudent', 'isTeacher', 'isAdmin'] },
         { icon: <TbPasswordUser />, title: 'Contraseñas', route: '/passwordchange', roles: ['isStudent', 'isTeacher', 'isAdmin'] },
         { icon: <MdOutlineFormatListBulleted />, title: 'Listado', route: '/usersList', roles: ['isAdmin'] },
-        { icon: <FaUsers />, title: 'Usuarios', route: '/addUser', roles: [] }
+        { icon: <FaUsers />, title: 'Usuarios', route: '/addUser', roles: [] },
+        { icon: <FaUserCheck />, title: 'Registrarse', route: '/signup', roles: [] }
       ],
       roles: []
     },

@@ -25,6 +25,8 @@ import AddContact from '../components/_specifics-components/contacts/AddContact'
 import Contact from '../components/_specifics-components/contacts/Contact';
 import ListContact from '../components/_specifics-components/contacts/ListContact';
 import Relations from '../components/_specifics-components/relations/Relations';
+import Signup from '../components/_specifics-components/user/signup/Signup';
+import CompleteDataUser from '../components/_specifics-components/user/signup/CompleteDataUser';
 
 const routes = [
   { 
@@ -122,6 +124,14 @@ const routes = [
   {
     path: '/addUser',
     element: <AddUser />
+  },
+  {
+    path: '/signup',
+    element: <Signup />
+  },
+  {
+    path: '/completeDataUser',
+    element: <CompleteDataUser />
   },
   {
     path: '/addContact',
