@@ -71,19 +71,29 @@ export default function ListProfessor({ title }) {
   function handleEdit(professor) {
     const title = 'Edición de Profesores';
     if (token) {
-      OpenModal(
-        <Professor
-          professor={professor}
-          edit={true}
-          reviewList={updateList}
-          token={token}
-          userId={userId}
-          handleNavigate={navigateTo}
-        />,
-        null,
-        'medium',
-        title
-      );     
+      if (professor.email === usersContext.email) {
+        OpenModal(
+          <Professor
+            professor={professor}
+            edit={true}
+            reviewList={updateList}
+            token={token}
+            userId={userId}
+            handleNavigate={navigateTo}
+          />,
+          null,
+          'medium',
+          title
+        );     
+      } else {
+        Swal.fire({
+          position: 'top',
+          icon: 'info',
+          title: 'Solo puedes editar el Profesor con el que te haz logeado',
+          showConfirmButton: false,
+          timer: 2000
+        });       
+      }
     } else {
       Swal.fire({
         position: 'top',

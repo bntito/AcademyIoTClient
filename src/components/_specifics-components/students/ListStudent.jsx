@@ -71,19 +71,29 @@ export default function ListStudent({ title }) {
   function handleEdit(student) {
     const title = 'Edición de Estudiante';
     if (token) {
-      OpenModal(
-        <Student
-          student={student}
-          edit={true}
-          reviewList={updateList}
-          token={token}
-          userId={userId}
-          handleNavigate={navigateTo}
-        />,
-        null,
-        'medium',
-        title
-      );   
+      if (student.email === usersContext.email) {
+        OpenModal(
+          <Student
+            student={student}
+            edit={true}
+            reviewList={updateList}
+            token={token}
+            userId={userId}
+            handleNavigate={navigateTo}
+          />,
+          null,
+          'medium',
+          title
+        );   
+      } else {
+        Swal.fire({
+          position: 'top',
+          icon: 'info',
+          title: 'Solo puedes editar el Estudiante con el que te haz logeado',
+          showConfirmButton: false,
+          timer: 2000
+        });
+      }
     } else {
       Swal.fire({
         position: 'top',
