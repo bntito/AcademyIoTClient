@@ -1,13 +1,25 @@
-import React, { useEffect } from 'react';
-import { Link } from 'react-router-dom'
-import banner1 from '../../../assets/main/banner1.jpg';
-import banner2 from '../../../assets/main/banner2.jpg';
-import banner3 from '../../../assets/main/banner3.jpg';
-
+import React, { useEffect, useState } from 'react';
+import { useFetch } from '../../../hooks/useFetch';
+import { Link } from 'react-router-dom';
 import './carousel.css';
 
 function Carousel() {
+  const hostServer = import.meta.env.VITE_REACT_APP_SERVER_HOST;
+  const api = `${hostServer}/api/courses`;
+  const [cards, setCards] = useState([]);
+
+  let {
+    dataServer,
+    isLoading = false,
+    getData
+  } = useFetch(`${api}`);
+
+  const getCourses = async () => {
+    await getData(api);
+  };
+
   useEffect(() => {
+    getCourses();
     const carouselElement = document.querySelector('#carouselExampleDark');
     if (carouselElement) {
       new bootstrap.Carousel(carouselElement, {
@@ -17,42 +29,46 @@ function Carousel() {
     }
   }, []);
 
+  useEffect(() => {
+    if (dataServer && dataServer.dataServerResult) {
+      const allCards = dataServer.dataServerResult.dataApi;
+      setCards(allCards);
+    }
+  }, [dataServer]);
+
   return (
     <div className='container-carousel'>
       <div id="carouselExampleDark" className="carousel carousel-dark slide" data-bs-ride="carousel">
         <div className="carousel-indicators">
-          <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" className="active" aria-current="true" aria-label="Slide 1"></button>
-          <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
-          <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
+          {cards.map((card, index) => (
+            <button
+              key={index}
+              type="button"
+              data-bs-target="#carouselExampleDark"
+              data-bs-slide-to={index}
+              className={index === 0 ? 'active' : ''}
+              aria-current={index === 0 ? 'true' : 'false'}
+              aria-label={`Slide ${index + 1}`}
+            >
+            </button>
+          ))}
         </div>
         <div className="carousel-inner">
-          <div className="carousel-item active" data-bs-interval="3500">
-            <Link to='/courseView/1'>
-              <img src={banner1} className="d-block w-100" alt="Banner 1"/>
-              <div className="carousel-caption d-none d-md-block">
-                <h5 className='title-caption'>Estudia Códigos!</h5>
-                <p className='sub-title-caption'>Todo en sistemas para dispositivos con códigos</p>
-              </div>
-            </Link>
-          </div>
-          <div className="carousel-item" data-bs-interval="3500">
-            <Link to='/courseView/2'>
-              <img src={banner2} className="d-block w-100" alt="Banner 2"/>
-              <div className="carousel-caption d-none d-md-block">
-                <h5 className='title-caption'>Estudia Desarrollo!</h5>
-                <p className='sub-title-caption'>Curso dedicado al manejo de las herramientas de la actualidad</p>
-              </div>
-            </Link>
-          </div>
-          <div className="carousel-item" data-bs-interval="3500">
-            <Link to='/courseView/3'>
-              <img src={banner3} className="d-block w-100" alt="Banner 3"/>
-              <div className="carousel-caption d-none d-md-block">
-                <h5 className='title-caption'>Estudia Diseño del Desarrollo!</h5>
-                <p className='sub-title-caption'>Lleva tu imaginación al límite y registralo en la vida real</p>
-              </div>
-            </Link>
-          </div>
+          {cards.map((card, index) => (
+            <div key={card.id} className={`carousel-item ${index === 0 ? 'active' : ''}`} data-bs-interval="3500">
+              <Link to={`/courseView/${card.id}`}>
+                <img 
+                  src={`${hostServer}${card.urlImg}`}
+                  alt={`Banner ${index + 1}`} 
+                  className="d-block w-100"
+                />
+                <div className="carousel-caption d-none d-md-block">
+                  <h5 className='title-caption'>{card.name}</h5>
+                  <p className='sub-title-caption'>{card.description}</p>
+                </div>
+              </Link>
+            </div>
+          ))}
         </div>
         <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
           <span className="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -65,6 +81,6 @@ function Carousel() {
       </div>
     </div>
   );
-};
+}
 
 export default Carousel;

@@ -18,12 +18,13 @@
 }
 
 .carousel-item img {
-  max-height: 200px;
+  height: 180px;
   margin: 0 auto;
   width: auto;
 }
 
 .carousel-caption {
+  margin: 5em;
   margin-bottom: 1.2em;
   padding: 10px;
   background-color: rgba(74, 69, 83, 0.836);
@@ -47,4 +48,10 @@
   font-size: 14px;
   font-weight: 500;
   font-style: italic;
+}
+
+@media (max-width: 800px) {
+  .carousel-item img {
+    height: 130px;
+  }
 }

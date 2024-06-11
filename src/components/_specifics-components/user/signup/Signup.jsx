@@ -75,6 +75,11 @@ function Signup() {
       const userEmail = user.email;
       const userName = user.displayName;
       const userPhoto = user.photoURL;
+
+      const [firstName, ...lastNameArray] = userName.split(' ');
+      const userFirstName = firstName;
+      const userLastName = lastNameArray.join(' ');
+
       const response = await fetch(url, {
         method: 'POST',
         headers: {
@@ -82,7 +87,8 @@ function Signup() {
         },
         body: JSON.stringify({
           emailGoogle: userEmail,
-          nameGoogle: userName,
+          nameGoogle: userFirstName,
+          lastnameGoogle: userLastName, 
           photoGoogle: userPhoto
         })
       });
