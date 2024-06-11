@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { resolvePath, useNavigate } from 'react-router-dom';
 import { useFetch } from '../../../../hooks/useFetch';
 import { useForm } from '../../../../hooks/useForm';
 
@@ -19,7 +19,8 @@ export default function User() {
   const [error, setError] = useState(false);
   const [user, setUser] = useState({});
   const { usersContext } = useUsersContext();
-  const [urlAvatar, setUrlAvatar] = useState(null);
+  const [avatar, setAvatar] = useState(null);
+  let urlAvatar = '';
 
   const roles = [
     { id: 1, role: 'isStudent', description: 'Estudiante'},
@@ -45,8 +46,7 @@ export default function User() {
   };
 
   const handleAvatar = (e) => {
-    setUrlAvatar(e.target.files[0]);
-    console.log(urlAvatar)
+    setAvatar(e.target.files[0]);
   };
 
   let {
@@ -72,10 +72,12 @@ export default function User() {
     const email = usersContext.email;
     const numError = validateForm();
     if (!numError) {
+      await handleSubmitAvatar();
       let url = `${api}`;
       formData = {
         ...formData,
-        email
+        email,
+        urlImageAvatar: `${hostServer}${urlAvatar}`
       };
       await createData(url, formData);
     } else {
@@ -83,6 +85,28 @@ export default function User() {
         position: 'top',
         icon: 'info',
         title: 'Debes corregir la información para poder registrarla',
+        showConfirmButton: false,
+        timer: 2000
+      });
+    };
+  };
+
+  const handleSubmitAvatar = async () => {
+    const formData = new FormData();
+    formData.append('avatar', avatar);
+    const url = `${hostServer}/api/avatar`;
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        body: formData
+      });
+      const resp = await response.json();
+      urlAvatar = await resp.urlAvatar;
+    } catch (error) {
+      Swal.fire({
+        position: 'top',
+        icon: 'error',
+        title: error.message,
         showConfirmButton: false,
         timer: 2000
       });
