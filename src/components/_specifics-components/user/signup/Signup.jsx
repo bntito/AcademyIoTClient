@@ -20,16 +20,10 @@ import { FcGoogle } from "react-icons/fc";
 
 function Signup() {
   const hostServer = import.meta.env.VITE_REACT_APP_SERVER_HOST;
-  const api = `${hostServer}/api/user/login`;
+  const api = `${hostServer}/api/user/signupemail`;
   const navigate = useNavigate();
   const { setUsersContext } = useUsersContext();
   const [visible, setVisible] = useState(false);
-
-  const roles = [
-    { id: 1, role: 'isStudent', description: 'Estudiante'},
-    { id: 2, role: 'isTeacher', description: 'Profesor'},
-    { id: 3, role: 'isAdmin', description: 'Administrador'}
-  ];
 
   const initialForm = {
     email: '',
@@ -45,7 +39,7 @@ function Signup() {
     clearForm
   } = useForm(initialForm, validationSchema);
 
-  const { email, password } = formData;
+  const { email, password, confirmPassword } = formData;
 
   let {
     dataServer,
@@ -109,7 +103,7 @@ function Signup() {
         userName,
         userPhoto
       });
-      navigate('/completeDataUser');
+      navigate('/completefromgoogle');
     } catch (error) {
       Swal.fire({
         position: 'top',
@@ -125,26 +119,26 @@ function Signup() {
     if (dataServer?.status == null) {
       return;
     }
-    if (dataServer?.status !== 200) {
+    if (dataServer?.status === 200 || dataServer?.status === 201) {
       Swal.fire({
         position: 'top',
-        icon: 'error',
+        icon: 'success',
         title: dataServer?.dataServerResult.message,
         showConfirmButton: false,
         timer: 2000
-      });
+      })
+      setUsersContext(dataServer?.dataServerResult.dataApi);
+      navigate('/completefromemail');
     } else {
-      if (dataServer?.status === 200) {
+      if (dataServer?.status !== 200) {
         Swal.fire({
           position: 'top',
-          icon: 'success',
+          icon: 'error',
           title: dataServer?.dataServerResult.message,
           showConfirmButton: false,
           timer: 2000
-        })
-        setUsersContext(dataServer?.dataServerResult.dataApi);
-        navigate('/');
-      };
+        });
+      }
       if (dataServer?.status === 400) {
         Swal.fire({
           position: 'top',
@@ -214,15 +208,22 @@ function Signup() {
                 }
               </button>
             </div>
+            {
+              errorsInput.password && (
+                <ValidateErrors
+                  errors={errorsInput.password}
+                />
+              )
+            }
           </div>
           <div className='mb-3'>
             <label htmlFor='email'>Confirmar Contraseña</label>
             <div className='div-flex'>
               <input
                 type={visible ? 'text' : 'password'}
-                name='password'
+                name='confirmPassword'
                 autoComplete='on'
-                value={password}
+                value={confirmPassword}
                 onChange={onInputChange}
                 className='form-control'
               />
@@ -240,6 +241,13 @@ function Signup() {
                 }
               </button>
             </div>
+            {
+              errorsInput.confirmPassword && (
+                <ValidateErrors
+                  errors={errorsInput.confirmPassword}
+                />
+              )
+            }
           </div>
           <div className='mb-3 methods-log'>
             <label htmlFor=''>Registrarme con</label>
@@ -255,7 +263,7 @@ function Signup() {
               type='submit'
               className='btn btn-primary w-100'
             >
-              Iniciar Sesión
+              Registrarse
             </button>
           </div>
         </form> 

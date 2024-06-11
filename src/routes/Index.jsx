@@ -26,7 +26,8 @@ import Contact from '../components/_specifics-components/contacts/Contact';
 import ListContact from '../components/_specifics-components/contacts/ListContact';
 import Relations from '../components/_specifics-components/relations/Relations';
 import Signup from '../components/_specifics-components/user/signup/Signup';
-import CompleteDataUser from '../components/_specifics-components/user/signup/CompleteDataUser';
+import UserCompleteFromEmail from '../components/_specifics-components/user/signup/UserCompleteFromEmail';
+import UserCompleteFromGoogle from '../components/_specifics-components/user/signup/UserCompleteFromGoogle';
 
 const routes = [
   { 
@@ -130,8 +131,12 @@ const routes = [
     element: <Signup />
   },
   {
-    path: '/completeDataUser',
-    element: <CompleteDataUser />
+    path: '/completefromemail',
+    element: <UserCompleteFromEmail />
+  },
+  {
+    path: '/completefromgoogle',
+    element: <UserCompleteFromGoogle />
   },
   {
     path: '/addContact',
