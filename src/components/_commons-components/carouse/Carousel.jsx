@@ -58,7 +58,7 @@ function Carousel() {
             <div key={card.id} className={`carousel-item ${index === 0 ? 'active' : ''}`} data-bs-interval="3500">
               <Link to={`/courseView/${card.id}`}>
                 <img 
-                  src={`${hostServer}/${card.urlImg}`}
+                  src={`${hostServer}${card.urlImg}`}
                   alt={`Banner ${index + 1}`} 
                   className="d-block w-100"
                 />

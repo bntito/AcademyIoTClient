@@ -60,7 +60,7 @@ function CardCourses() {
                     className='card card-home h-100 card'
                   >
                     <img
-                      src={`${hostServer}/${card.urlImg}`}
+                      src={`${hostServer}${card.urlImg}`}
                       alt={card.description}
                       className='card-img-top'
                     />
