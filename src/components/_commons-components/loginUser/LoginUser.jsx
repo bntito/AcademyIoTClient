@@ -15,7 +15,11 @@ function LoginUser() {
       <BackButton />
       {
         usersContext.name == undefined ? (
-          <h3 className='login fst-italic fw-light'><Link to={'/login'} className='login-link'>Loguéate</Link> para tener una mayor expriencia</h3>
+          <h3 
+            className='login fst-italic fw-light'><Link to={'/login'} className='login-link'
+          >Loguéate</Link> para tener una mayor expriencia o <Link to={'/signup'} className='register-link'>Regístrate</Link>
+          </h3>
+
         ) : (
           <>
             <div className='div-login-user'>

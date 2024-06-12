@@ -1,4 +1,4 @@
-import img from '../../../assets/main/market.webp';
+import img from '../../../assets/market.webp';
 
 function MainSection() {
 

@@ -48,9 +48,9 @@ export default function ViewCourse() {
   }, [id]);
 
   if (!course) {
-    return <div>Curso no encontrado</div>;
+    return <div className="not-found">Curso no encontrado</div>;
   };
-  
+
   return (
     <>
       {
@@ -61,9 +61,9 @@ export default function ViewCourse() {
             <div className='login-user-container'>
               <LoginUser />
             </div>
-            <h3>Visualización de Curso</h3>
+            <h3 className="course-title">Visualización de Curso</h3>
             <div className='form-container'>
-              <small>Código: {course.code}</small>
+              <small className="course-code">Código: {course.code}</small>
               <div className='header-view'>
                 <div className='title-container mt-2'>
                   <img 
@@ -75,37 +75,29 @@ export default function ViewCourse() {
                 </div>
                 <h5 className={course.condition == 'Activo' ? 'activ' : 'inactive'}>Estado: {course.condition}</h5>
               </div>
-              <div className='header-view'>
-                <div className='w-100'>
-                  <div className='description-view'>
-                    <h6><i>Costo del Curso</i></h6>
-                    <p className='mx-3'>{course.cost}</p>
-                  </div>
-                  <div className='description-view'>
-                    <h6><i>Profesores del Curso</i></h6>
-                    {
-                      professors.map((professor, index) => (
-                        <p
-                          key={index}
-                          className='mx-3'
-                        >
-                          {professor.professor}
-                        </p>
-                      ))
-                    }
-                  </div>
+              <div className='details-view'>
+                <div className='description-view'>
+                  <h6><i>Costo del Curso</i></h6>
+                  <p className='mx-3'>{course.cost}</p>
                 </div>
-                <div className='w-100'>
-                  <div className='description-view'>
-                    <h6><i>Profesores del Curso</i></h6>
-                    <p className='mx-3'>{course.cost}</p>
-                  </div>
-                  <div className='description-view'>
-                    <h6><i>Duración</i></h6>
-                    <p className='mx-3'>{course.duration}</p>
-                    <h6><i>Calificación</i></h6>
-                    <p className='mx-3'>{course.qualification}</p>
-                  </div>
+                <div className='description-view'>
+                  <h6><i>Profesores del Curso</i></h6>
+                  {
+                    professors.map((professor, index) => (
+                      <p
+                        key={index}
+                        className='mx-3'
+                      >
+                        {professor.professor}
+                      </p>
+                    ))
+                  }
+                </div>
+                <div className='description-view'>
+                  <h6><i>Duración</i></h6>
+                  <p className='mx-3'>{course.duration}</p>
+                  <h6><i>Calificación</i></h6>
+                  <p className='mx-3'>{course.qualification}</p>
                 </div>
               </div>
               <div className='description-description-view'>
