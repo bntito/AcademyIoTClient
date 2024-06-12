@@ -245,6 +245,7 @@ export default function User() {
                 <input
                   type='text'
                   name='address'
+                  placeholder='Ingrese Dirección'
                   value={address}
                   onChange={onInputChange}
                   className='form-control'
@@ -285,6 +286,7 @@ export default function User() {
                 <input 
                   type='text'
                   name='phone'
+                  placeholder='Ingrese Número de Celular'
                   value={phone}
                   onChange={onInputChange}
                   className='form-control'

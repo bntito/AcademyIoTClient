@@ -164,6 +164,7 @@ const Login = () => {
               autoComplete='email'
               value={email}
               onChange={onInputChange}
+              placeholder='Indique Correo Electrónico'
               className='form-control'
             />
             {
@@ -183,6 +184,7 @@ const Login = () => {
                 autoComplete='on'
                 value={password}
                 onChange={onInputChange}
+                placeholder='Indique su Contraseña'
                 className='form-control'
               />
               <button

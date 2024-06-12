@@ -126,6 +126,7 @@ export default function PasswordChange() {
                 <input
                   type='email'
                   name='email'
+                  placeholder='Indique Correo Electrónico'
                   autoComplete='email'
                   value={email}
                   onChange={onInputChange}
@@ -145,6 +146,7 @@ export default function PasswordChange() {
                   <input
                     type={visible ? 'text' : 'password'}
                     name='oldPassword'
+                    placeholder='Indique su Antigua Contraseña'
                     autoComplete='on'
                     value={oldPassword}
                     onChange={onInputChange}
@@ -171,6 +173,7 @@ export default function PasswordChange() {
                   <input
                     type={visible ? 'text' : 'password'}
                     name='newPassword'
+                    placeholder='Indique su Nueva Contraseña'
                     autoComplete='on'
                     value={newPassword}
                     onChange={onInputChange}
@@ -204,6 +207,7 @@ export default function PasswordChange() {
                   <input
                     type={visible ? 'text' : 'password'}
                     name='newConfirmPassword'
+                    placeholder='Confirme su Nueva Contraseña'
                     autoComplete='on'
                     value={newConfirmPassword}
                     onChange={onInputChange}

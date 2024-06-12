@@ -192,6 +192,7 @@ export default function User() {
                   name='address'
                   value={address}
                   onChange={onInputChange}
+                  placeholder='Indique Dirección'
                   className='form-control'
                 />
                 {
@@ -232,6 +233,7 @@ export default function User() {
                   name='phone'
                   value={phone}
                   onChange={onInputChange}
+                  placeholder='Indique Número de Celular'
                   className='form-control'
                 />
                 {

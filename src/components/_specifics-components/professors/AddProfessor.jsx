@@ -187,6 +187,7 @@ export default function Professor() {
                 <input 
                   type='text'
                   name='dni'
+                  placeholder='Indique Número de Documento'
                   value={dni}
                   onChange={onInputChange}
                   className='form-control'
@@ -206,6 +207,7 @@ export default function Professor() {
                 <input 
                   type='text'
                   name='name'
+                  placeholder='Indique Nombres'
                   value={name}
                   onChange={onInputChange}
                   className='form-control'
@@ -223,6 +225,7 @@ export default function Professor() {
                 <input 
                   type='text'
                   name='lastname'
+                  placeholder='Indique Apellidos'
                   value={lastname}
                   onChange={onInputChange}
                   className='form-control'
@@ -242,6 +245,7 @@ export default function Professor() {
                 <input 
                   type='email'
                   name='email'
+                  placeholder='Indique Correo Electrónico'
                   value={email}
                   onChange={onInputChange}
                   className='form-control'
@@ -259,6 +263,7 @@ export default function Professor() {
                 <input 
                   type='text'
                   name='phone'
+                  placeholder='Indique Número de Celular'
                   value={phone}
                   onChange={onInputChange}
                   className='form-control'
@@ -278,6 +283,7 @@ export default function Professor() {
                 <input 
                   type='text'
                   name='address'
+                  placeholder='Indique Dirección'
                   value={address}
                   onChange={onInputChange}
                   className='form-control'

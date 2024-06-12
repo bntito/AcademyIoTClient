@@ -140,6 +140,7 @@ export default function ProfileProfessor() {
                 <input 
                   type='text'
                   name='dni'
+                  placeholder='Búsqueda por Documento'
                   value={dni}
                   onBlur={getProfessor}
                   onChange={onInputChange}

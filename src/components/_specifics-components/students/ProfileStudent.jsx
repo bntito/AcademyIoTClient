@@ -149,6 +149,7 @@ export default function ProfileStudent() {
                 <input 
                   type='text'
                   name='dni'
+                  placeholder='Búsqueda por Documento'
                   value={dni}
                   onBlur={getStudent}
                   onChange={onInputChange}

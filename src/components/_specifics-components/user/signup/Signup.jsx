@@ -178,6 +178,7 @@ function Signup() {
               autoComplete='email'
               value={email}
               onChange={onInputChange}
+              placeholder='Indique Correo Electrónico'
               className='form-control'
             />
             {
@@ -198,6 +199,7 @@ function Signup() {
                 autoComplete='on'
                 value={password}
                 onChange={onInputChange}
+                placeholder='Indique Contraseña'
                 className='form-control'
               />
               <button
@@ -231,6 +233,7 @@ function Signup() {
                 autoComplete='on'
                 value={confirmPassword}
                 onChange={onInputChange}
+                placeholder='Confirme Contraseña'
                 className='form-control'
               />
               <button

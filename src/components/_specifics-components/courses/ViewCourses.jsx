@@ -92,6 +92,7 @@ export default function ViewCourses() {
             name='name'
             value={nameCourse}
             onChange={onInputChange}
+            placeholder='Ingrese Nombre del Curso'
             className='form-control'
           />
         </div>
