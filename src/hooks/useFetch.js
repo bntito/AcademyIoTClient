@@ -1,11 +1,8 @@
 import { useState } from 'react';
-// import { useUsersContext } from '../hooks/UserContext';
 
 export const useFetch = (url) => {
   const [dataServer, setDataServer] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
-  // const { usersContext } = useUsersContext();
-  // const token = usersContext.token;
 
   const fetchData = async (
     url,
@@ -40,7 +37,7 @@ export const useFetch = (url) => {
       }      
     } finally {
       setIsLoading(false);
-    }
+    };
   };
 
   const getData = async (url) => {
@@ -79,4 +76,4 @@ export const useFetch = (url) => {
     deleteData,
     deleteTeacher
   };
-}
+};

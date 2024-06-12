@@ -28,8 +28,7 @@ export default function ListEnrollment({ title }) {
     dataServer,
     isLoading = false,
     getData,
-    deleteData,
-    updateData
+    deleteData
   } = useFetch(`${api}`);
 
   const filters = [

@@ -45,17 +45,13 @@ export default function User({ user, edit, reviewList, token, handleNavigate }) 
     formData,
     onInputChange,
     validateForm,
-    errorsInput,
-    clearForm
+    errorsInput
   } = useForm(initialForm, validationSchema);
 
-  const { id, name, lastname, email, password, confirmPassword,
-    address, city, phone, role, status } = formData;
+  const { name, lastname, email, password, confirmPassword, address, city, phone, role, status } = formData;
 
   let {
     dataServer,
-    isLoading = false,
-    getData,
     createData,
     updateData
   } = useFetch(null);
@@ -65,11 +61,11 @@ export default function User({ user, edit, reviewList, token, handleNavigate }) 
     if (token) {
       const numError = validateForm();
       if (!numError) {
-        let url = `${api}`;
         formData = {
           ...formData,
           token
         };
+        let url = `${api}`;
         if (!edit) {
           await createData(url, formData);
         } else {

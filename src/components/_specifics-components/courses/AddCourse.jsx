@@ -18,11 +18,13 @@ export default function Course() {
   const navigate = useNavigate();
   const { usersContext } = useUsersContext();
   const token = usersContext.token;
-  let urlImg = '';
   const [teachers, setTeachers] = useState([]);
   const [professors, setProfessors] = useState([]);
   const [error, setError] = useState(false);
   const [course, setCourse] = useState({});
+  const [imageCourse, setImageCourse] = useState(null);
+  const [urlImageCourse, setUrlImageCourse] = useState(course ? course.urlImg : null);
+  let urlImg = '';
   const initialForm = {
     id: course && course.id ? course.id : '',
     code: course && course.code ? course.code : '',
@@ -33,10 +35,7 @@ export default function Course() {
     duration: course && course.duration ? course.duration : '',
     qualification: course && course.qualification ? course.qualification : '',
     prominent: course && course.prominent ? course.prominent : false
-  };
-  const [imageCourse, setImageCourse] = useState(null);
-  const [urlImageCourse, setUrlImageCourse] = useState(course ? course.urlImg : null);
-
+    };
 
   const addProfessor = () => {
     const newProfessor = {
@@ -64,15 +63,11 @@ export default function Course() {
     clearForm
   } = useForm(initialForm, validationSchema, fieldsToSkipValidation);
 
-  const { id, code, name, description, cost, condition, duration, qualification, prominent } = formData;
+  const { code, name, description, cost, condition, duration, qualification, prominent } = formData;
 
   let {
     dataServer,
-    isLoading = false,
-    getData,
-    createData,
-    updateData,
-    deleteTeacher
+    createData
   } = useFetch(null);
 
   const handleSubmit = async (e) => {
@@ -82,19 +77,13 @@ export default function Course() {
       handleInputChange();
       if (!numError) {
         await handleSubmitImg();
-        let urlServer = `${api}`;
         formData = {
           ...formData,
-          token
-        };
-        formData = {
-          ...formData,
-          urlImg: urlImg || course.urlImg
-        };
-        formData = {
-          ...formData,
+          token,
+          urlImg: urlImg || course.urlImg,
           professors
         };
+        let urlServer = `${api}`;
         await createData(urlServer, formData);
       } else {
         Swal.fire({
@@ -475,4 +464,4 @@ export default function Course() {
     }
     </>
   );
-}
+};

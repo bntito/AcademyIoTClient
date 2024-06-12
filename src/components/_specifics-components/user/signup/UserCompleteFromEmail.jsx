@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { resolvePath, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useFetch } from '../../../../hooks/useFetch';
 import { useForm } from '../../../../hooks/useForm';
 
@@ -17,7 +17,6 @@ export default function User() {
   const api = `${hostServer}/api/user/signupcompletfromemail`;
   const navigate = useNavigate();
   const [error, setError] = useState(false);
-  const [user, setUser] = useState({});
   const { usersContext } = useUsersContext();
   const [avatar, setAvatar] = useState(null);
   let urlAvatar = '';
@@ -61,10 +60,7 @@ export default function User() {
 
   let {
     dataServer,
-    isLoading = false,
-    getData,
-    createData,
-    updateData
+    createData
   } = useFetch(null);
 
   const handleSubmit = async (e) => {
@@ -73,12 +69,12 @@ export default function User() {
     const numError = validateForm();
     if (!numError) {
       await handleSubmitAvatar();
-      let url = `${api}`;
       formData = {
         ...formData,
         email,
         urlImageAvatar: `${hostServer}${urlAvatar}`
       };
+      let url = `${api}`;
       await createData(url, formData);
     } else {
       Swal.fire({

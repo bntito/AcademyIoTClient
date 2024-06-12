@@ -284,28 +284,23 @@ form {
     width: 100%;
     overflow-x: auto;
   }
-
   .table thead {
     display: none;
   }
-
   .table tbody, .table tr, .table td {
     display: block;
     width: 100%;
   }
-
   .table tr {
     margin-bottom: 15px;
     border: 1px solid #ddd;
     border-radius: 8px;
   }
-
   .table td {
     text-align: right;
     padding: 10px;
     position: relative;
   }
-
   .table td::before {
     content: attr(data-label);
     position: absolute;
@@ -313,7 +308,6 @@ form {
     font-weight: bold;
     text-align: left;
   }
-
   .td-icon {
     display: flex;
     justify-content: space-between;

@@ -44,10 +44,7 @@ const Login = () => {
 
   let {
     dataServer,
-    isLoading = false,
-    getData,
-    createData,
-    updateData
+    createData
   } = useFetch(null);
 
   const handleSubmit = async (e) => {
@@ -223,6 +220,6 @@ const Login = () => {
       </div>
     </>
   );
-}
+};
 
 export default Login;

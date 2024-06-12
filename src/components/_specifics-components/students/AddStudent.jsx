@@ -44,14 +44,11 @@ export default function Student() {
     clearForm
   } = useForm(initialForm, validationSchema);
 
-  const { id, dni, name, lastname, email, address, birthday, city, phone, condition, password } = formData;
+  const { dni, name, lastname, email, address, birthday, city, phone, condition, password } = formData;
 
   let {
     dataServer,
-    isLoading = false,
-    getData,
-    createData,
-    updateData
+    createData
   } = useFetch(null);
 
   const confirmUserPassword = async (e) => {
@@ -101,7 +98,6 @@ export default function Student() {
     if (token) {
       const numError = validateForm();
       if (!numError) {
-        let url = `${api}`;
         formData = {
           ...formData,
           token
@@ -109,6 +105,7 @@ export default function Student() {
         if (!confirmPassword) {
           return;
         };
+        let url = `${api}`;
         await createData(url, formData);
       } else {
         Swal.fire({
@@ -168,213 +165,213 @@ export default function Student() {
     };
   }, [dataServer]);
 
-    return (
-      <>
+  return (
+    <>
     <div className='login-user-container'>
       <LoginUser/>
     </div>
-      {
-        error ? (
-          errorMessage()
-        ) : (
-          <div className='form-container'>
-            <h3>Adición de Estudiante</h3>
-            <form
-              onSubmit={handleSubmit}
-            >
+    {
+      error ? (
+        errorMessage()
+      ) : (
+        <div className='form-container'>
+          <h3>Adición de Estudiante</h3>
+          <form
+            onSubmit={handleSubmit}
+          >
+            <div>
+              <div className='div-70'>
+                <label htmlFor='dni'>Número de Documento</label>
+                <input 
+                  type='text'
+                  name='dni'
+                  placeholder='Indique Número de Documento'
+                  value={dni}
+                  onChange={onInputChange}
+                  className='form-control'
+                />
+                {
+                  errorsInput.dni && (
+                    <ValidateErrors
+                      errors={errorsInput.dni}
+                    />
+                  )
+                }
+              </div>
+            </div>
+            <div className='div-flex gap-2 media850-col'>
+              <div className='w-100'>
+                <label htmlFor=''>Nombres</label>
+                <input 
+                  type='text'
+                  name='name'
+                  placeholder='Indique Nombres'
+                  value={name}
+                  onChange={onInputChange}
+                  className='form-control'
+                />
+                {
+                  errorsInput.name && (
+                    <ValidateErrors
+                      errors={errorsInput.name}
+                    />
+                  )
+                }
+              </div>
+              <div className='w-100'>
+                <label htmlFor=''>Apellidos</label>
+                <input 
+                  type='text'
+                  name='lastname'
+                  placeholder='Indique Apellidos'
+                  value={lastname}
+                  onChange={onInputChange}
+                  className='form-control'
+                />
+                {
+                  errorsInput.lastname && (
+                    <ValidateErrors
+                      errors={errorsInput.lastname}
+                    />
+                  )
+                }
+              </div>
+            </div>
+            <div className='div-flex gap-2 media850-col'>
+              <div className='w-100'>
+                <label htmlFor=''>Correo electrónico</label>
+                <input 
+                  type='email'
+                  name='email'
+                  placeholder='Indique Correo Electrónico'
+                  value={email}
+                  onChange={onInputChange}
+                  className='form-control'
+                />
+                {
+                  errorsInput.email && (
+                    <ValidateErrors
+                      errors={errorsInput.email}
+                    />
+                  )
+                }
+              </div>
+              <div className='w-100'>
+                <label htmlFor=''>Número de Celular</label>
+                <input 
+                  type='text'
+                  name='phone'
+                  placeholder='Indique Número de Celular'
+                  value={phone}
+                  onChange={onInputChange}
+                  className='form-control'
+                />
+                {
+                  errorsInput.phone && (
+                    <ValidateErrors
+                      errors={errorsInput.phone}
+                    />
+                  )
+                }
+              </div>              
+            </div>
+            <div className='div-70 mx-auto'>
               <div>
-                <div className='div-70'>
-                  <label htmlFor='dni'>Número de Documento</label>
-                  <input 
-                    type='text'
-                    name='dni'
-                    placeholder='Indique Número de Documento'
-                    value={dni}
-                    onChange={onInputChange}
-                    className='form-control'
-                  />
-                  {
-                    errorsInput.dni && (
-                      <ValidateErrors
-                        errors={errorsInput.dni}
-                      />
-                    )
-                  }
-                </div>
-              </div>
-              <div className='div-flex gap-2 media850-col'>
-                <div className='w-100'>
-                  <label htmlFor=''>Nombres</label>
-                  <input 
-                    type='text'
-                    name='name'
-                    placeholder='Indique Nombres'
-                    value={name}
-                    onChange={onInputChange}
-                    className='form-control'
-                  />
-                  {
-                    errorsInput.name && (
-                      <ValidateErrors
-                        errors={errorsInput.name}
-                      />
-                    )
-                  }
-                </div>
-                <div className='w-100'>
-                  <label htmlFor=''>Apellidos</label>
-                  <input 
-                    type='text'
-                    name='lastname'
-                    placeholder='Indique Apellidos'
-                    value={lastname}
-                    onChange={onInputChange}
-                    className='form-control'
-                  />
-                  {
-                    errorsInput.lastname && (
-                      <ValidateErrors
-                        errors={errorsInput.lastname}
-                      />
-                    )
-                  }
-                </div>
-              </div>
-              <div className='div-flex gap-2 media850-col'>
-                <div className='w-100'>
-                  <label htmlFor=''>Correo electrónico</label>
-                  <input 
-                    type='email'
-                    name='email'
-                    placeholder='Indique Correo Electrónico'
-                    value={email}
-                    onChange={onInputChange}
-                    className='form-control'
-                  />
-                  {
-                    errorsInput.email && (
-                      <ValidateErrors
-                        errors={errorsInput.email}
-                      />
-                    )
-                  }
-                </div>
-                <div className='w-100'>
-                  <label htmlFor=''>Número de Celular</label>
-                  <input 
-                    type='text'
-                    name='phone'
-                    placeholder='Indique Número de Celular'
-                    value={phone}
-                    onChange={onInputChange}
-                    className='form-control'
-                  />
-                  {
-                    errorsInput.phone && (
-                      <ValidateErrors
-                        errors={errorsInput.phone}
-                      />
-                    )
-                  }
-                </div>              
-              </div>
-              <div className='div-70 mx-auto'>
-                <div>
-                  <label htmlFor=''>Dirección</label>
-                  <input 
-                    type='text'
-                    name='address'
-                    placeholder='Indique Dirección'
-                    value={address}
-                    onChange={onInputChange}
-                    className='form-control'
-                  />
-                  {
-                    errorsInput.address && (
-                      <ValidateErrors
-                        errors={errorsInput.address}
-                      />
-                    )
-                  }
-                </div>
-                <div>
-                  <label htmlFor=''>Residencia</label>
-                  <select
-                    name='city'
-                    value={city}
-                    onChange={onInputChange}
-                    className='form-control'
-                  >
-                    <option>Selecione residencia</option>
-                    {
-                      countries.map((country) => (
-                        <option 
-                          key={country.id}
-                          value={country.pais}
-                        >
-                          {country.pais}
-                        </option>
-                      ))
-                    }
-                  </select>
-                </div>
-              </div>
-              <div className='w-50 mx-auto mt-3'>
-                <div>
-                  <label htmlFor=''>Contraseña de Usuario</label>
-                  <input 
-                    type="password"
-                    autoComplete='on'
-                    name='password'
-                    placeholder='Indique su contraseña'
-                    value={password}
-                    onChange={onInputChange}
-                    onBlur={confirmUserPassword}
-                    className='form-control'
-                  />
-                </div>
-              </div>
-              <div className='div-flex div-center mt-3'>
-                <div>
-                  <label htmlFor=''>Estatus</label>
-                  <select
-                    name='condition'
-                    value={condition}
-                    onChange={onInputChange}
-                    className='form-control'
-                  >
-                    <option>Selecione opción</option>
-                    <option>Activo</option>
-                    <option>Inactivo</option>
-                  </select>
-                </div>              
+                <label htmlFor=''>Dirección</label>
+                <input 
+                  type='text'
+                  name='address'
+                  placeholder='Indique Dirección'
+                  value={address}
+                  onChange={onInputChange}
+                  className='form-control'
+                />
+                {
+                  errorsInput.address && (
+                    <ValidateErrors
+                      errors={errorsInput.address}
+                    />
+                  )
+                }
               </div>
               <div>
-                <div className='div-30 mx-auto mt-3'>
-                  <label htmlFor=''>Fecha de Nacimiento</label>
-                  <input 
-                    type='date'
-                    name='birthday'
-                    value={birthday}
-                    onChange={onInputChange}
-                    className='form-control'
-                  />
+                <label htmlFor=''>Residencia</label>
+                <select
+                  name='city'
+                  value={city}
+                  onChange={onInputChange}
+                  className='form-control'
+                >
+                  <option>Selecione residencia</option>
                   {
-                    errorsInput.birthday && (
-                      <ValidateErrors
-                        errors={errorsInput.birthday}
-                      />
-                    )
+                    countries.map((country) => (
+                      <option 
+                        key={country.id}
+                        value={country.pais}
+                      >
+                        {country.pais}
+                      </option>
+                    ))
                   }
-                </div>
+                </select>
               </div>
-              <div className='m-auto div-70 mt-5'>
-                <button type='submit' className='btn btn-primary w-100'>Agregar</button>
+            </div>
+            <div className='w-50 mx-auto mt-3'>
+              <div>
+                <label htmlFor=''>Contraseña de Usuario</label>
+                <input 
+                  type="password"
+                  autoComplete='on'
+                  name='password'
+                  placeholder='Indique su contraseña'
+                  value={password}
+                  onChange={onInputChange}
+                  onBlur={confirmUserPassword}
+                  className='form-control'
+                />
               </div>
-            </form>
-          </div>
-        )
-      }
-      </>
-    );
+            </div>
+            <div className='div-flex div-center mt-3'>
+              <div>
+                <label htmlFor=''>Estatus</label>
+                <select
+                  name='condition'
+                  value={condition}
+                  onChange={onInputChange}
+                  className='form-control'
+                >
+                  <option>Selecione opción</option>
+                  <option>Activo</option>
+                  <option>Inactivo</option>
+                </select>
+              </div>              
+            </div>
+            <div>
+              <div className='div-30 mx-auto mt-3'>
+                <label htmlFor=''>Fecha de Nacimiento</label>
+                <input 
+                  type='date'
+                  name='birthday'
+                  value={birthday}
+                  onChange={onInputChange}
+                  className='form-control'
+                />
+                {
+                  errorsInput.birthday && (
+                    <ValidateErrors
+                      errors={errorsInput.birthday}
+                    />
+                  )
+                }
+              </div>
+            </div>
+            <div className='m-auto div-70 mt-5'>
+              <button type='submit' className='btn btn-primary w-100'>Agregar</button>
+            </div>
+          </form>
+        </div>
+      )
+    }
+    </>
+  );
 };

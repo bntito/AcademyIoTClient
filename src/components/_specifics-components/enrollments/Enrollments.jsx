@@ -31,16 +31,13 @@ export default function Enrollment({ enrollment, edit, reviewList, token, handle
     formData,
     onInputChange,
     validateForm,
-    errorsInput,
-    clearForm
+    errorsInput
   } = useForm(initialForm, validationSchema);
 
-  const { id, course, professor, student, shift, startDate, endDate } = formData;
+  const { course, professor, student, shift, startDate, endDate } = formData;
 
   let {
     dataServer,
-    isLoading = false,
-    getData,
     createData,
     updateData
   } = useFetch(null);
@@ -257,6 +254,13 @@ export default function Enrollment({ enrollment, edit, reviewList, token, handle
                   onChange={onInputChange}
                   className='form-control'
                 />
+                {
+                  errorsInput.startDate && (
+                    <ValidateErrors
+                      errors={errorsInput.startDate}
+                    />
+                  )
+                }                
               </div>
               <div className='w-100'>
                 <label htmlFor='endDate'>Fecha de Finalización</label>
@@ -268,6 +272,13 @@ export default function Enrollment({ enrollment, edit, reviewList, token, handle
                   onChange={onInputChange}
                   className='form-control'
                 />
+                {
+                  errorsInput.endDate && (
+                    <ValidateErrors
+                      errors={errorsInput.endDate}
+                    />
+                  )
+                }                
               </div>
             </div>
             <div className='w-300px mt-5'>

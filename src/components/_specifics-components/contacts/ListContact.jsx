@@ -25,8 +25,7 @@ export default function ListContacts({ title }) {
     dataServer,
     isLoading = false,
     getData,
-    deleteData,
-    updateData
+    deleteData
   } = useFetch(`${api}`);
 
   const filters = [

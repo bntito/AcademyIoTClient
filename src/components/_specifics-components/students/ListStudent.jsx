@@ -30,8 +30,7 @@ export default function ListStudent({ title }) {
     dataServer,
     isLoading = false,
     getData,
-    deleteData,
-    updateData
+    deleteData
   } = useFetch(`${api}`);
 
   const filters = [

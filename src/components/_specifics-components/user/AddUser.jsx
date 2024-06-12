@@ -17,7 +17,6 @@ export default function User() {
   const api = `${hostServer}/api/user`;
   const navigate = useNavigate();
   const [error, setError] = useState(false);
-  const [user, setUser] = useState({});
   const { usersContext } = useUsersContext();
 
   const roles = [
@@ -54,15 +53,11 @@ export default function User() {
     clearForm
   } = useForm(initialForm, validationSchema);
 
-  const { id, name, lastname, email, password, confirmPassword,
-    address, city, phone, role, status } = formData;
+  const { name, lastname, email, password, confirmPassword, address, city, phone, role, status } = formData;
 
   let {
     dataServer,
-    isLoading = false,
-    getData,
-    createData,
-    updateData
+    createData
   } = useFetch(null);
 
   const handleSubmit = async (e) => {

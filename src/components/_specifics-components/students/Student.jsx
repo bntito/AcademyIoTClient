@@ -34,16 +34,13 @@ export default function Student({ student, edit, reviewList, token, userId, hand
     formData,
     onInputChange,
     validateForm,
-    errorsInput,
-    clearForm
+    errorsInput
   } = useForm(initialForm, validationSchema);
 
-  const { id, dni, name, lastname, email, address, birthday, city, phone, condition, password } = formData;
+  const { dni, name, lastname, email, address, birthday, city, phone, condition, password } = formData;
 
   let {
     dataServer,
-    isLoading = false,
-    getData,
     createData,
     updateData
   } = useFetch(null);
@@ -95,7 +92,6 @@ export default function Student({ student, edit, reviewList, token, userId, hand
     if (token) {
       const numError = validateForm();
       if (!numError) {
-        let url = `${api}`;
         formData = {
           ...formData,
           token
@@ -103,6 +99,7 @@ export default function Student({ student, edit, reviewList, token, userId, hand
         if (!confirmPassword) {
           return;
         };
+        let url = `${api}`;
         if (!edit) {
           await createData(url, formData);
         } else {

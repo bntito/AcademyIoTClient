@@ -16,11 +16,13 @@ export default function ProfileCourse() {
   const api = `${hostServer}/api/course`;
   const { usersContext } = useUsersContext();
   const token = usersContext.token;
-  let urlImg = '';
   const [teachers, setTeachers] = useState([]);
   const [error, setError] = useState(false);
   const [edit, setEdit] = useState(false);
   const [course, setCourse] = useState({});
+  const [imageCourse, setImageCourse] = useState(null);
+  const [urlImageCourse, setUrlImageCourse] = useState(course ? course.urlImg : null);
+  let urlImg = '';
   const initialForm = {
     id: course && course.id ? course.id : '',
     code: course && course.code ? course.code : '',
@@ -31,9 +33,6 @@ export default function ProfileCourse() {
     duration: course && course.duration ? course.duration : '',
     qualification: course && course.qualification ? course.qualification : ''
   };
-
-  const [imageCourse, setImageCourse] = useState(null);
-  const [urlImageCourse, setUrlImageCourse] = useState(course ? course.urlImg : null);
 
   const [professors, setProfessors] = useState([]);
 
@@ -58,17 +57,14 @@ export default function ProfileCourse() {
     onInputChange,
     validateForm,
     errorsInput,
-    clearForm,
     fillForm
   } = useForm(initialForm, validationSchema);
 
-  const { id, code, name, description, cost, condition, duration, qualification } = formData;
+  const { code, name, description, cost, condition, duration, qualification } = formData;
 
   let {
     dataServer,
-    isLoading = false,
     getData,
-    createData,
     updateData
   } = useFetch(null);
 
@@ -78,19 +74,13 @@ export default function ProfileCourse() {
     handleInputChange();
     if (!numError) {
       await handleSubmitImg();
-      let urlServer = `${api}`;
       formData = {
         ...formData,
-        token
-      };
-      formData = {
-        ...formData,
-        urlImg
-      };
-      formData = {
-        ...formData,
+        token,
+        urlImg,
         professors
       };
+      let urlServer = `${api}`;
       await updateData(urlServer, course.id, formData);
     } else {
       Swal.fire({

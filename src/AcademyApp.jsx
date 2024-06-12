@@ -1,9 +1,12 @@
 import { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+
 import { UsersProvider } from './hooks/UserContext';
+
+import routes from './routes/Index';
+
 import Header from './components/_commons-components/header/Header';
 import Menu from './components/_commons-components/menu/Menu';
-import routes from './routes/Index';
 import Footer from './components/_commons-components/footer/Footer';
 
 import './App.css';

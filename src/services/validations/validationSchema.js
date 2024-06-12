@@ -58,6 +58,14 @@ const validationSchema = {
   message: [
     (value) => value.trim() === "" ? "El comentario es obligatorio" : undefined,
     (value) => value.length < 15 ? "El comentario debe tener al menos 15 caracteres" : undefined
+  ],
+  startDate: [
+    (value) => value.trim() === "" ? "La fecha es obligatoria" : undefined,
+    (value) => !/^\d{2}-\d{2}-\d{4}$/.test(value) ? "El formato de la fecha debe ser dd-mm-aaaa" : undefined
+  ],
+  endDate:[
+    (value) => value.trim() === "" ? "La fecha es obligatoria" : undefined,
+    (value) => !/^\d{2}-\d{2}-\d{4}$/.test(value) ? "El formato de la fecha debe ser dd-mm-aaaa" : undefined
   ]
 };
 

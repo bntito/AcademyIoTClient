@@ -31,15 +31,12 @@ export default function Contact({ contact, edit, reviewList }) {
     onInputChange,
     validateForm,
     errorsInput,
-    clearForm
   } = useForm(initialForm, validationSchema);
 
-  const { id, name, email, phone, city, course, message } = formData;
+  const { name, email, phone, city, course, message } = formData;
 
   let {
     dataServer,
-    isLoading = false,
-    getData,
     createData,
     updateData
   } = useFetch(null);

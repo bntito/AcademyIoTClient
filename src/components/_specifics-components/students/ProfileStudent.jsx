@@ -39,18 +39,14 @@ export default function ProfileStudent() {
     onInputChange,
     validateForm,
     errorsInput,
-    clearForm,
     fillForm
   } = useForm(initialForm, validationSchema);
 
-  const { id, dni, name, lastname, email, password, confirmPassword,
-    address, birthday, city, phone, condition } = formData;
+  const { dni, name, lastname, email, password, confirmPassword, address, birthday, city, phone, condition } = formData;
 
   let {
     dataServer,
-    isLoading = false,
     getData,
-    createData,
     updateData
   } = useFetch(null);
 
@@ -58,11 +54,11 @@ export default function ProfileStudent() {
     e.preventDefault();
     const numError = validateForm();
     if (!numError) {
-      let url = `${api}`;
       formData = {
         ...formData,
         token
       };
+      let url = `${api}`;
       await updateData(url, student.id, formData);
     } else {
       Swal.fire({

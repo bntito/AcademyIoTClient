@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
-import { useUsersContext } from '../../../hooks/UserContext';
 import { Link } from 'react-router-dom';
+
+import { useUsersContext } from '../../../hooks/UserContext';
+
 import { IoHomeOutline } from "react-icons/io5";
 import { SiGoogleclassroom } from "react-icons/si";
 import { PiStudentFill } from "react-icons/pi";
@@ -81,7 +83,7 @@ function MenuItem({ item, closeMenu, userRole }) {
       }
     </div>
   );
-}
+};
 
 function Menu({ closeMenu }) {
   const { usersContext } = useUsersContext();
@@ -193,7 +195,6 @@ function Menu({ closeMenu }) {
   const filteredMenuItems = menuItems.filter(item =>
     item.roles.length === 0 || item.roles.includes(userRole)
   );
-
 
   return (
     <div

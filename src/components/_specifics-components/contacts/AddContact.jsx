@@ -36,14 +36,11 @@ export default function Contact() {
     clearForm
   } = useForm(initialForm, validationSchema);
 
-  const { id, name, email, phone, city, course, message } = formData;
+  const { name, email, phone, city, course, message } = formData;
 
   let {
     dataServer,
-    isLoading = false,
-    getData,
     createData,
-    updateData
   } = useFetch(null);
 
   const handleSubmit = async (e) => {

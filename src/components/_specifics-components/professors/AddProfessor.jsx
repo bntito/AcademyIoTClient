@@ -43,14 +43,11 @@ export default function Professor() {
     clearForm
   } = useForm(initialForm, validationSchema);
 
-  const { id, dni, name, lastname, email, address, city, phone, condition, password } = formData;
+  const { dni, name, lastname, email, address, city, phone, condition, password } = formData;
 
   let {
     dataServer,
-    isLoading = false,
-    getData,
-    createData,
-    updateData
+    createData
   } = useFetch(null);
 
   const confirmUserPassword = async (e) => {
@@ -100,7 +97,6 @@ export default function Professor() {
     if (token) {
       const numError = validateForm();
       if (!numError) {
-        let url = `${api}`;
         formData = {
           ...formData,
           token
@@ -108,6 +104,7 @@ export default function Professor() {
         if (!confirmPassword) {
           return;
         };
+        let url = `${api}`;
         await createData(url, formData);
       } else {
         Swal.fire({

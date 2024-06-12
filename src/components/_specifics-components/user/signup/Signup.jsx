@@ -43,10 +43,7 @@ function Signup() {
 
   let {
     dataServer,
-    isLoading = false,
-    getData,
-    createData,
-    updateData
+    createData
   } = useFetch(null);
 
   const handleSubmit = async (e) => {
@@ -279,6 +276,6 @@ function Signup() {
       </div>
     </>
   );
-}
+};
 
-export default Signup
+export default Signup;

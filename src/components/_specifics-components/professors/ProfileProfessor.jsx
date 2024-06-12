@@ -42,13 +42,11 @@ export default function ProfileProfessor() {
     fillForm
   } = useForm(initialForm, validationSchema);
 
-  const { id, dni, name, lastname, email, password, confirmPassword, address, city, phone, condition } = formData;
+  const { dni, name, lastname, email, password, confirmPassword, address, city, phone, condition } = formData;
 
   let {
     dataServer,
-    isLoading = false,
     getData,
-    createData,
     updateData
   } = useFetch(null);
 
@@ -56,11 +54,11 @@ export default function ProfileProfessor() {
     e.preventDefault();
     const numError = validateForm();
     if (!numError) {
-      let url = `${api}`;
       formData = {
         ...formData,
         token
       };
+      let url = `${api}`;
       await updateData(url, professor.id, formData);
     } else {
       Swal.fire({

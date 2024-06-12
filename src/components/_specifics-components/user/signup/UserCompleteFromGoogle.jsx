@@ -17,7 +17,6 @@ export default function User() {
   const api = `${hostServer}/api/user/signupcomplete`;
   const navigate = useNavigate();
   const [error, setError] = useState(false);
-  const [user, setUser] = useState({});
   const { usersContext } = useUsersContext();
 
   const roles = [
@@ -51,28 +50,24 @@ export default function User() {
     clearForm
   } = useForm(initialForm, validationSchema, fieldsToSkipValidation);
 
-  const { password, confirmPassword,
-    address, city, phone, role, status } = formData;
+  const { password, confirmPassword, address, city, phone, role, status } = formData;
 
   let {
     dataServer,
-    isLoading = false,
-    getData,
-    createData,
-    updateData
+    createData
   } = useFetch(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const numError = validateForm();
     if (!numError) {
-      let url = `${api}`;
       formData = {
         ...formData,
         emailGoogle: usersContext.userEmail,
         nameGoogle: usersContext.userName,
         phoneGoogle: usersContext.phoneNumber
       };
+      let url = `${api}`;
       await createData(url, formData);
     } else {
       Swal.fire({

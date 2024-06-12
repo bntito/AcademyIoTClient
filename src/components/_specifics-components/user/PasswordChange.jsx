@@ -18,7 +18,6 @@ export default function PasswordChange() {
   const hostServer = import.meta.env.VITE_REACT_APP_SERVER_HOST;
   const api = `${hostServer}/api/user/changepassword`;
   const navigate = useNavigate();
-  const [error, setError] = useState(false);
   const [visible, setVisible] = useState(false);
   const { usersContext } = useUsersContext();
 
@@ -37,26 +36,22 @@ export default function PasswordChange() {
     clearForm
   } = useForm(initialForm, validationSchema);
 
-  let { id, email, oldPassword, newPassword,
-    newConfirmPassword } = formData;
+  let { email, oldPassword, newPassword, newConfirmPassword } = formData;
 
   let {
     dataServer,
-    isLoading = false,
-    getData,
-    createData,
-    updateData
+    createData
   } = useFetch(null);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const numError = validateForm();
     if (!numError) {
-      let url = `${api}`;
       formData = {
         ...formData,
         token: usersContext.token
       };
+      let url = `${api}`;
       await createData(url, formData);
     } else {
       Swal.fire({
@@ -248,4 +243,4 @@ export default function PasswordChange() {
       </div>
     </>
   );
-}
+};

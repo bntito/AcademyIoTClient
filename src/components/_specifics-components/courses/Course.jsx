@@ -15,10 +15,12 @@ export default function Course({ course, edit, reviewList, token, handleNavigate
   const hostServer = import.meta.env.VITE_REACT_APP_SERVER_HOST;
   const api = `${hostServer}/api/course`;
   const { handleClose } = useAppContext();
-  let urlImg = '';
   const [teachers, setTeachers] = useState([]);
   const [professors, setProfessors] = useState([]);
   const [error, setError] = useState(false);
+  const [imageCourse, setImageCourse] = useState(null);
+  const [urlImageCourse, setUrlImageCourse] = useState(course ? course.urlImg : null);
+  let urlImg = '';
   const initialForm = {
     id: course ? course.id : '',
     code: course ? course.code : '',
@@ -30,8 +32,6 @@ export default function Course({ course, edit, reviewList, token, handleNavigate
     qualification: course ? course.qualification : '',
     prominent: course ? course.prominent : false
   };
-  const [imageCourse, setImageCourse] = useState(null);
-  const [urlImageCourse, setUrlImageCourse] = useState(course ? course.urlImg : null);
 
   const addProfessor = () => {
     const newProfessor = {
@@ -57,12 +57,10 @@ export default function Course({ course, edit, reviewList, token, handleNavigate
     clearForm
   } = useForm(initialForm, validationSchema);
 
-  const { id, code, name, description, cost, condition, duration, qualification, prominent } = formData;
+  const { code, name, description, cost, condition, duration, qualification, prominent } = formData;
 
   let {
     dataServer,
-    isLoading = false,
-    getData,
     createData,
     updateData,
     deleteTeacher
@@ -77,14 +75,8 @@ export default function Course({ course, edit, reviewList, token, handleNavigate
         await handleSubmitImg();
         formData = {
           ...formData,
-          token
-        };
-        formData = {
-          ...formData,
-          urlImg: urlImg || course.urlImg
-        };
-        formData = {
-          ...formData,
+          token,
+          urlImg: urlImg || course.urlImg,
           professors
         };
         let urlServer = `${api}`;

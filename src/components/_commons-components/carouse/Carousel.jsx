@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useFetch } from '../../../hooks/useFetch';
 import { Link } from 'react-router-dom';
+
 import './carousel.css';
 
 function Carousel() {
@@ -10,7 +11,6 @@ function Carousel() {
 
   let {
     dataServer,
-    isLoading = false,
     getData
   } = useFetch(`${api}`);
 
@@ -40,35 +40,42 @@ function Carousel() {
     <div className='container-carousel'>
       <div id="carouselExampleDark" className="carousel carousel-dark slide" data-bs-ride="carousel">
         <div className="carousel-indicators">
-          {cards.map((card, index) => (
-            <button
-              key={index}
-              type="button"
-              data-bs-target="#carouselExampleDark"
-              data-bs-slide-to={index}
-              className={index === 0 ? 'active' : ''}
-              aria-current={index === 0 ? 'true' : 'false'}
-              aria-label={`Slide ${index + 1}`}
-            >
-            </button>
-          ))}
+          {
+            cards.map((card, index) => (
+              <button
+                key={index}
+                type="button"
+                data-bs-target="#carouselExampleDark"
+                data-bs-slide-to={index}
+                className={index === 0 ? 'active' : ''}
+                aria-current={index === 0 ? 'true' : 'false'}
+                aria-label={`Slide ${index + 1}`}
+              >
+              </button>
+            ))
+          }
         </div>
         <div className="carousel-inner">
-          {cards.map((card, index) => (
-            <div key={card.id} className={`carousel-item ${index === 0 ? 'active' : ''}`} data-bs-interval="3500">
-              <Link to={`/courseView/${card.id}`}>
-                <img 
-                  src={`${hostServer}${card.urlImg}`}
-                  alt={`Banner ${index + 1}`} 
-                  className="d-block w-100"
-                />
-                <div className="carousel-caption d-none d-md-block">
-                  <h5 className='title-caption'>{card.name}</h5>
-                  <p className='sub-title-caption'>{card.description}</p>
-                </div>
-              </Link>
-            </div>
-          ))}
+          {
+            cards.map((card, index) => (
+              <div 
+                key={card.id}
+                className={`carousel-item ${index === 0 ? 'active' : ''}`} data-bs-interval="3500"
+              >
+                <Link to={`/courseView/${card.id}`}>
+                  <img 
+                    src={`${hostServer}${card.urlImg}`}
+                    alt={`Banner ${index + 1}`} 
+                    className="d-block w-100"
+                  />
+                  <div className="carousel-caption d-none d-md-block">
+                    <h5 className='title-caption'>{card.name}</h5>
+                    <p className='sub-title-caption'>{card.description}</p>
+                  </div>
+                </Link>
+              </div>
+            ))
+          }
         </div>
         <button className="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
           <span className="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -81,6 +88,6 @@ function Carousel() {
       </div>
     </div>
   );
-}
+};
 
 export default Carousel;
