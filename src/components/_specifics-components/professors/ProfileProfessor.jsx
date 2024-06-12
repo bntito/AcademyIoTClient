@@ -118,6 +118,15 @@ export default function ProfileProfessor() {
     fillForm(professor);
   }, [professor]);
 
+  const errorMessage = () => {
+    return (
+      <div className='error-message'>
+        <h3>Error</h3>
+        <p>Ocurrió un error al procesar su solicitud. Por favor, inténtelo de nuevo.</p>
+      </div>
+    );
+  };
+
   return (
     <>
     <div className='login-user-container'>

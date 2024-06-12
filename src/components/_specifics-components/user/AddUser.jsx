@@ -92,6 +92,7 @@ export default function User() {
       navigate('/login');
     };
     if (dataServer?.status === 400 || dataServer?.status === 404) {
+      setError(true);
       Swal.fire({
         position: 'top',
         icon: 'error',
@@ -102,6 +103,15 @@ export default function User() {
       clearForm();
     };
   }, [dataServer]);
+
+  const errorMessage = () => {
+    return (
+      <div className='error-message'>
+        <h3>Error</h3>
+        <p>Ocurrió un error al procesar su solicitud. Por favor, inténtelo de nuevo.</p>
+      </div>
+    );
+  };
 
   return (
     <>

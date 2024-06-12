@@ -180,6 +180,7 @@ export default function Course() {
         navigate('/coursesList');
       };
       if (dataServer?.status === 400 || dataServer?.status === 404) {
+        setError(true);
         Swal.fire({
           position: 'top',
           icon: 'error',
@@ -190,6 +191,7 @@ export default function Course() {
         clearForm();
       };
     } else {
+      setError(true);
       Swal.fire({
         position: 'top',
         icon: 'warning',
@@ -213,6 +215,15 @@ export default function Course() {
   useEffect(() => {
     getProfessors();
   }, []);
+
+  const errorMessage = () => {
+    return (
+      <div className='error-message'>
+        <h3>Error</h3>
+        <p>Ocurrió un error al procesar su solicitud. Por favor, inténtelo de nuevo.</p>
+      </div>
+    );
+  };
 
   return (
     <>

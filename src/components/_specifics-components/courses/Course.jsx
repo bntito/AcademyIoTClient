@@ -181,6 +181,7 @@ export default function Course({ course, edit, reviewList, token, handleNavigate
         reviewList();
       };
       if (dataServer?.status === 400 || dataServer?.status === 404) {
+        setError(true);
         Swal.fire({
           position: 'top',
           icon: 'error',
@@ -190,6 +191,7 @@ export default function Course({ course, edit, reviewList, token, handleNavigate
         });
       };
     } else {
+      setError(true);
       Swal.fire({
         position: 'top',
         icon: 'warning',
@@ -253,6 +255,15 @@ export default function Course({ course, edit, reviewList, token, handleNavigate
     getProfessors();
     edit ? setProfessors(course.professors) : null;
   }, []);
+
+  const errorMessage = () => {
+    return (
+      <div className='error-message'>
+        <h3>Error</h3>
+        <p>Ocurrió un error al procesar su solicitud. Por favor, inténtelo de nuevo.</p>
+      </div>
+    );
+  };
 
   return (
     <>

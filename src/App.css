@@ -204,6 +204,11 @@ main {
   color: rgba(255, 0, 0, 0.8);
 }
 
+.error-message {
+  text-align: center;
+  color: rgba(255, 0, 0, 0.8);
+}
+
 label {
   margin-left: .8em;
   font-size: 16px;
