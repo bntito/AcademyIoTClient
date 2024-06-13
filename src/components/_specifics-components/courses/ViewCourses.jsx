@@ -55,7 +55,7 @@ export default function ViewCourses() {
         showConfirmButton: false,
         timer: 2000
       });
-    };
+    }
     if (dataServer?.dataServerResult?.dataApi) {
       setCourses(dataServer.dataServerResult.dataApi);
       setFilterCourses(dataServer.dataServerResult.dataApi);

@@ -60,7 +60,7 @@ export default function ListCourse({ title }) {
         showConfirmButton: false,
         timer: 2000
       });
-    };
+    }
   };
 
   function handleEdit(course) {
@@ -86,7 +86,7 @@ export default function ListCourse({ title }) {
         showConfirmButton: false,
         timer: 2000
       });
-    };
+    }
   };
 
   const navigateTo = async (rute) => {
@@ -138,7 +138,7 @@ export default function ListCourse({ title }) {
         showConfirmButton: false,
         timer: 2000
       });
-    };
+    }
   };
 
   const nextPage = (pagItems, pageCurrent) => {
@@ -162,7 +162,7 @@ export default function ListCourse({ title }) {
         showConfirmButton: false,
         timer: 2000
       });
-    };
+    }
   }, [dataServer]);
 
   useEffect(() => {

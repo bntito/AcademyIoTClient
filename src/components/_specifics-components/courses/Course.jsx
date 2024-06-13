@@ -53,8 +53,7 @@ export default function Course({ course, edit, reviewList, token, handleNavigate
     formData,
     onInputChange,
     validateForm,
-    errorsInput,
-    clearForm
+    errorsInput
   } = useForm(initialForm, validationSchema);
 
   const { code, name, description, cost, condition, duration, qualification, prominent } = formData;
@@ -84,7 +83,7 @@ export default function Course({ course, edit, reviewList, token, handleNavigate
           await createData(urlServer, formData);
         } else {
           await updateData(urlServer, course.id, formData);
-        };
+        }
       } else {
         Swal.fire({
           position: 'top',
@@ -93,7 +92,7 @@ export default function Course({ course, edit, reviewList, token, handleNavigate
           showConfirmButton: false,
           timer: 3000
         });
-      };
+      }
     } else {
       Swal.fire({
         position: 'top',
@@ -103,7 +102,7 @@ export default function Course({ course, edit, reviewList, token, handleNavigate
         timer: 2000
       });
       navigate('/login');  
-    };
+    }
   };
 
   const handleInputChange = (id, field, value) => {
@@ -119,7 +118,7 @@ export default function Course({ course, edit, reviewList, token, handleNavigate
             showConfirmButton: false,
             timer: 2000
           });
-        };
+        }
         if (nameExist) {
           Swal.fire({
             position: 'top',
@@ -127,16 +126,16 @@ export default function Course({ course, edit, reviewList, token, handleNavigate
             title: 'El profesor ya fue incluído',
             timer: 2000
           });
-        };
+        }
         return prevProfessors;
-      };
+      }
       return prevProfessors.map((professor) => {
         if (professor.id === id) {
           return {
             ...professor,
             [field] : value
           };
-        };
+        }
         return professor;
       });
     });
@@ -179,7 +178,7 @@ export default function Course({ course, edit, reviewList, token, handleNavigate
         });
         handleClose();
         reviewList();
-      };
+      }
       if (dataServer?.status === 400 || dataServer?.status === 404) {
         setError(true);
         Swal.fire({
@@ -189,7 +188,7 @@ export default function Course({ course, edit, reviewList, token, handleNavigate
           showConfirmButton: false,
           timer: 2000
         });
-      };
+      }
     } else {
       setError(true);
       Swal.fire({
@@ -201,7 +200,7 @@ export default function Course({ course, edit, reviewList, token, handleNavigate
       });
       handleClose();
       handleNavigate('/login');
-    };
+    }
   }, [dataServer]);
 
   const getProfessors = async () => {
@@ -210,7 +209,7 @@ export default function Course({ course, edit, reviewList, token, handleNavigate
     const responseData = await response.json();
     if (async () => await responseData.dataApi) {
       setTeachers(responseData.dataApi);
-    };
+    }
   };
 
   const handleDeleteTeacher = async (id) => {
@@ -248,7 +247,7 @@ export default function Course({ course, edit, reviewList, token, handleNavigate
         showConfirmButton: false,
         timer: 2000
       });
-    };
+    }
   };
 
   useEffect(() => {

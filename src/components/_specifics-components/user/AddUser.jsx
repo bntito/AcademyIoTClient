@@ -74,13 +74,13 @@ export default function User() {
         showConfirmButton: false,
         timer: 2000
       });
-    };
+    }
   };
 
   useEffect(() => {
     if (dataServer?.status == null) {
       return;
-    };
+    }
     if (dataServer?.status == 200 || dataServer?.status == 201) {
       Swal.fire({
         position: 'top',
@@ -90,7 +90,7 @@ export default function User() {
         timer: 2000
       });
       navigate('/login');
-    };
+    }
     if (dataServer?.status === 400 || dataServer?.status === 404) {
       setError(true);
       Swal.fire({
@@ -101,7 +101,7 @@ export default function User() {
         timer: 2000
       });
       clearForm();
-    };
+    }
   }, [dataServer]);
 
   const errorMessage = () => {

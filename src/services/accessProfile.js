@@ -20,7 +20,7 @@ function accessProfile(profile = 'isAdmin') {
         timer: 3000
       });
       navigate('/');
-    };
+    }
   });
 
   return (

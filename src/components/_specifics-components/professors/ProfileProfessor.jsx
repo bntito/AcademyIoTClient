@@ -68,7 +68,7 @@ export default function ProfileProfessor() {
         showConfirmButton: false,
         timer: 2000
       });
-    };
+    }
   };
 
   const getProfessor = async (event) => {
@@ -84,7 +84,7 @@ export default function ProfileProfessor() {
         showCloseButton: false,
         timer: 2000
       });
-    };
+    }
   };
 
   useEffect(() => {
@@ -110,8 +110,8 @@ export default function ProfileProfessor() {
           showConfirmButton: false,
           timer: 2000
         });      
-      };
-    };
+      }
+    }
   }, [dataServer]);
 
   useEffect(() => {

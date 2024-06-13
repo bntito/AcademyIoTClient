@@ -65,7 +65,7 @@ export default function Contact({ contact, edit, reviewList }) {
   useEffect(() => {
     if (dataServer?.status == null) {
       return;
-    };
+    }
     if (dataServer?.status !== 401) {
       if (dataServer?.status === 200 || dataServer?.status === 201) {
         Swal.fire({
@@ -77,7 +77,7 @@ export default function Contact({ contact, edit, reviewList }) {
         });
         handleClose();
         reviewList();
-      };
+      }
       if (dataServer?.status === 400 || dataServer?.status === 404) {
         setError(true);
         Swal.fire({
@@ -87,7 +87,7 @@ export default function Contact({ contact, edit, reviewList }) {
           showConfirmButton: false,
           timer: 2000
         });
-      };
+      }
     } else {
       setError(true);
       Swal.fire({
@@ -98,7 +98,7 @@ export default function Contact({ contact, edit, reviewList }) {
         timer: 2000
       });
       handleClose();
-    };
+    }
   }, [dataServer]);
 
   const getCourses = async () => {

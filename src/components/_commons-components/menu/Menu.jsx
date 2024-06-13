@@ -115,7 +115,7 @@ function Menu({ closeMenu }) {
       title: 'Estudiantes',
       subItems: [
         { icon: <BiBookAdd />, title: 'Registro', route: '/addStudent', roles: ['isStudent', 'isAdmin'] },
-        { icon: <MdOutlineFormatListBulleted />, title: 'Listado', route: '/studentsList', roles: ['isStudent', 'isAdmin'] },
+        { icon: <MdOutlineFormatListBulleted />, title: 'Listado', route: '/studentsList', roles: [] },
         { icon: <RiProfileLine />, title: 'Perfil', route: '/studentProfile', roles: ['isStudent', 'isAdmin'] }
       ],
       roles: ['isStudent', 'isTeacher', 'isAdmin']

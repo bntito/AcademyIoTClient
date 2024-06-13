@@ -29,7 +29,6 @@ export default function Salaries() {
           const hours = parseFloat(prof.hourCost);
           const hourRate = parseFloat(prof.hourRate);
           let existingProf = tempProfessorHoursArray.find(p => p.professor === prof.professor);
-    
           if (existingProf) {
             existingProf.hours += hours;
             existingProf.courseCount += 1;
@@ -40,9 +39,9 @@ export default function Salaries() {
               hourRate: hourRate,
               hours: hours
             });
-          };
+          }
         });
-      };
+      }
     });
     setProfessorHoursArray(tempProfessorHoursArray);
   };
@@ -59,10 +58,10 @@ export default function Salaries() {
         showConfirmButton: false,
         timer: 2000
       });
-    };
+    }
     if (dataServer?.dataServerResult?.dataApi) {
       setAllCourses(dataServer.dataServerResult.dataApi);
-    };
+    }
   }, [dataServer]);
 
   useEffect(() => {

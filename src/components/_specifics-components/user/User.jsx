@@ -70,7 +70,7 @@ export default function User({ user, edit, reviewList, token, handleNavigate }) 
           await createData(url, formData);
         } else {
           await updateData(url, user.id, formData);
-        };
+        }
       } else {
         Swal.fire({
           position: 'top',
@@ -79,7 +79,7 @@ export default function User({ user, edit, reviewList, token, handleNavigate }) 
           showConfirmButton: false,
           timer: 2000
         });
-      }; 
+      }
     } else {
       Swal.fire({
         position: 'top',
@@ -89,13 +89,13 @@ export default function User({ user, edit, reviewList, token, handleNavigate }) 
         timer: 2000
       });
       navigate('/login'); 
-    };
+    }
   };
 
   useEffect(() => {
     if (dataServer?.status == null) {
       return;
-    };
+    }
     if (dataServer?.status !== 401) {
       if (dataServer?.status === 200 || dataServer?.status === 201) {
         Swal.fire({
@@ -107,7 +107,7 @@ export default function User({ user, edit, reviewList, token, handleNavigate }) 
         });
         handleClose();
         reviewList();
-      };
+      }
       if (dataServer?.status === 400 || dataServer?.status === 404) {
         setError(true);
         Swal.fire({
@@ -117,7 +117,7 @@ export default function User({ user, edit, reviewList, token, handleNavigate }) 
           showConfirmButton: false,
           timer: 2000
         });
-      };
+      }
     } else {
       setError(true);
       Swal.fire({
@@ -129,7 +129,7 @@ export default function User({ user, edit, reviewList, token, handleNavigate }) 
       });
       handleClose();
       handleNavigate('/login');
-    };
+    }
   }, [dataServer]);
 
   const errorMessage = () => {

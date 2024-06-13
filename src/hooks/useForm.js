@@ -35,7 +35,7 @@ export const useForm = (initialForm, validationSchema, fieldsToSkipValidation = 
       if (fieldErrors.length > 0) {
         errors[field] = fieldErrors;
         numErrors += fieldErrors.length;
-      };
+      }
     };
     setErrorsInput(errors);
     return numErrors;

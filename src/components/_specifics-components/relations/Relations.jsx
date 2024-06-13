@@ -26,18 +26,18 @@ export default function Relations() {
     if (dataServer) {
       if (dataServer.message) {
         Swal.fire(dataServer.message);
-      };
+      }
       if (dataServer.dataServerResult) {
         const dataApi = dataServer.dataServerResult.dataApi;
         const coursesMap = new Map();
         dataApi.forEach(({ course, professor, student }) => {
           if (!coursesMap.has(course)) {
             coursesMap.set(course, new Map());
-          };
+          }
           const professorsMap = coursesMap.get(course);
           if (!professorsMap.has(professor)) {
             professorsMap.set(professor, []);
-          };
+          }
           professorsMap.get(professor).push(student);
         });
         const enrollmentsArray = [];

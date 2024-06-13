@@ -104,7 +104,7 @@ export default function Student() {
         };
         if (!confirmPassword) {
           return;
-        };
+        }
         let url = `${api}`;
         await createData(url, formData);
       } else {
@@ -115,7 +115,7 @@ export default function Student() {
           showConfirmButton: false,
           timer: 2000
         });
-      };
+      }
     } else {
       Swal.fire({
         position: 'top',
@@ -125,7 +125,7 @@ export default function Student() {
         timer: 2000
       });
       navigate('/login');  
-    };
+    }
   };
 
   useEffect(() => {
@@ -142,7 +142,7 @@ export default function Student() {
           timer: 2000
         });
         navigate('/studentsList');
-      };
+      }
       if (dataServer?.status === 400 || dataServer?.status === 404) {
         setError(true);
         Swal.fire({
@@ -153,7 +153,7 @@ export default function Student() {
           timer: 2000
         });
         clearForm();
-      };
+      }
     } else {
       setError(true);
       Swal.fire({
@@ -164,7 +164,7 @@ export default function Student() {
         timer: 2000
       });
       navigate('/login');
-    };
+    }
   }, [dataServer]);
 
   const errorMessage = () => {

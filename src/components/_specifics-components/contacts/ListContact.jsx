@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useFetch } from '../../../hooks/useFetch';
 
+import { useUsersContext } from '../../../hooks/UserContext';
+
 import BackButton from '../../../services/backButton/BackButton';
 import Searcher from '../../../services/searcher/Searcher';
 import Pagination from '../../../services/pagination/Pagination';
@@ -16,6 +18,8 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 export default function ListContacts({ title }) {
   const hostServer = import.meta.env.VITE_REACT_APP_SERVER_HOST;
   const api = `${hostServer}/api/contacts`;
+  const { usersContext } = useUsersContext();
+  const token = usersContext.token;
   const [selectedItems, setSelectedItems] = useState([]);
 
   const [page, setPage] = useState(1);
@@ -35,30 +39,50 @@ export default function ListContacts({ title }) {
 
   function handleAdd() {
     const title = 'Adición de Contacto';
-    OpenModal(
-      <Contact
-        contact={''}
-        edit={false}
-        reviewList={updateList}
-        />,
-      null,
-      'medium',
-      title
-    );
+    if (token) {
+      OpenModal(
+        <Contact
+          contact={''}
+          edit={false}
+          reviewList={updateList}
+          />,
+        null,
+        'medium',
+        title
+      );
+    } else {
+      Swal.fire({
+        position: 'top',
+        icon: 'info',
+        title: 'Debe loguearse para utilizar esta función',
+        showConfirmButton: false,
+        timer: 2000
+      });
+    }
   };
 
   function handleEdit(contact) {
     const title = 'Edición de Contacto';
-    OpenModal(
-      <Contact
-        contact={contact}
-        edit={true}
-        reviewList={updateList}
-      />,
-      null,
-      'medium',
-      title
-    );
+    if (token) {
+      OpenModal(
+        <Contact
+          contact={contact}
+          edit={true}
+          reviewList={updateList}
+        />,
+        null,
+        'medium',
+        title
+      );
+    } else {
+      Swal.fire({
+        position: 'top',
+        icon: 'info',
+        title: 'Debe loguearse para utilizar esta función',
+        showConfirmButton: false,
+        timer: 2000
+      });
+    }
   };
 
   const getContacts = async () => {
@@ -110,6 +134,15 @@ export default function ListContacts({ title }) {
   useEffect(() => {
     if (dataServer?.message || dataServer?.message != undefined) {
       Swal.fire(dataServer?.message);
+    }
+    if (dataServer?.status === 400 || dataServer?.status === 401) {
+      Swal.fire({
+        position: 'top',
+        icon: 'error',
+        title: dataServer?.dataServerResult.message,
+        showConfirmButton: false,
+        timer: 2000
+      });
     }
   }, [dataServer]);
 

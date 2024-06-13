@@ -52,7 +52,7 @@ export default function Enrollment({ enrollment, edit, reviewList, token, handle
           await createData(url, formData);
         } else {
           await updateData(url, enrollment.id, formData);
-        };
+        }
       } else {
         Swal.fire({
           position: 'top',
@@ -61,7 +61,7 @@ export default function Enrollment({ enrollment, edit, reviewList, token, handle
           showConfirmButton: false,
           timer: 2000
         });
-      };
+      }
     } else {
       Swal.fire({
         position: 'top',
@@ -71,13 +71,13 @@ export default function Enrollment({ enrollment, edit, reviewList, token, handle
         timer: 2000
       });
       navigate('/login'); 
-    };
+    }
   };
 
   useEffect(() => {
     if (dataServer?.status == null) {
       return;
-    };
+    }
     if (dataServer?.status !== 401) {
       if (dataServer?.status === 200 || dataServer?.status === 201) {
         Swal.fire({
@@ -89,7 +89,7 @@ export default function Enrollment({ enrollment, edit, reviewList, token, handle
         });
         handleClose();
         reviewList();
-      };
+      }
       if (dataServer?.status === 400 || dataServer?.status === 404) {
         setError(true);
         Swal.fire({
@@ -99,7 +99,7 @@ export default function Enrollment({ enrollment, edit, reviewList, token, handle
           showConfirmButton: false,
           timer: 2000
         });
-      };
+      }
     } else {
       setError(true);
       Swal.fire({
@@ -111,7 +111,7 @@ export default function Enrollment({ enrollment, edit, reviewList, token, handle
       });
       handleClose();
       handleNavigate('/login');
-    };
+    }
   }, [dataServer]);
 
   const getCourses = async () => {
@@ -120,16 +120,14 @@ export default function Enrollment({ enrollment, edit, reviewList, token, handle
     let respCourses = await response.json();
     if (respCourses.dataApi) {
       setCourses(respCourses.dataApi);
-    };
-
+    }
     loadTeacher(respCourses?.dataApi[0].professors);
-
     url = `${hostServer}/api/students`;
     response = await fetch(url);
     let respStudents = await response.json();
     if (respStudents.dataApi) {
       setStudents(respStudents.dataApi);
-    };
+    }
   };
 
   const handleCourseChange = (event) => {

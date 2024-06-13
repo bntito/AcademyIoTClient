@@ -82,7 +82,7 @@ export default function Course() {
           token,
           urlImg: urlImg || course.urlImg,
           professors
-        };
+        }
         let urlServer = `${api}`;
         await createData(urlServer, formData);
       } else {
@@ -93,7 +93,7 @@ export default function Course() {
           showConfirmButton: false,
           timer: 3000
         });
-      };
+      }
     } else {
       Swal.fire({
         position: 'top',
@@ -103,7 +103,7 @@ export default function Course() {
         timer: 2000
       });
       navigate('/login');
-    };
+    }
   };
 
   const handleInputChange = (id, field, value) => {
@@ -118,8 +118,8 @@ export default function Course() {
             title: 'Debe indicar el costo hora del profesor anterior',
             showConfirmButton: false,
             timer: 2000
-          });
-        };
+          })
+        }
         if (nameExist) {
           Swal.fire({
             position: 'top',
@@ -127,16 +127,16 @@ export default function Course() {
             title: 'El profesor ya fue incluído',
             timer: 2000
           });
-        };
+        }
         return prevProfessors;
-      };
+      }
       return prevProfessors.map((professor) => {
         if (professor.id === id) {
           return {
             ...professor,
             [field] : value
           };
-        };
+        }
         return professor;
       });
     });
@@ -178,7 +178,7 @@ export default function Course() {
           timer: 2000
         });
         navigate('/coursesList');
-      };
+      }
       if (dataServer?.status === 400 || dataServer?.status === 404) {
         setError(true);
         Swal.fire({
@@ -189,7 +189,7 @@ export default function Course() {
           timer: 2000
         });
         clearForm();
-      };
+      }
     } else {
       setError(true);
       Swal.fire({
@@ -200,7 +200,7 @@ export default function Course() {
         timer: 2000
       });
       navigate('/login');
-    };
+    }
   }, [dataServer]);
 
   const getProfessors = async () => {
@@ -209,7 +209,7 @@ export default function Course() {
     const responseData = await response.json();
     if (async () => await responseData.dataApi) {
       setTeachers(responseData.dataApi);
-    };
+    }
   };
 
   useEffect(() => {

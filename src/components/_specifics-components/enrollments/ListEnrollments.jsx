@@ -61,7 +61,7 @@ export default function ListEnrollment({ title }) {
         showConfirmButton: false,
         timer: 2000
       });
-    };
+    }
   };
 
   function handleEdit(enrollment) {
@@ -87,7 +87,7 @@ export default function ListEnrollment({ title }) {
         showConfirmButton: false,
         timer: 2000
       }); 
-    };
+    }
   };
 
   const navigateTo = async (rute) => {
@@ -128,7 +128,7 @@ export default function ListEnrollment({ title }) {
             });
           };
           del();
-        };
+        }
       });
     } else {
       Swal.fire({
@@ -138,7 +138,7 @@ export default function ListEnrollment({ title }) {
         showConfirmButton: false,
         timer: 2000
       });
-    };
+    }
   }; 
 
   const nextPage = (pagItems, pageCurrent) => {
@@ -153,7 +153,7 @@ export default function ListEnrollment({ title }) {
   useEffect(() => {
     if (dataServer?.message || dataServer?.message != undefined) {
       Swal.fire(dataServer?.message);
-    };
+    }
   }, [dataServer]);
 
   useEffect(() => {

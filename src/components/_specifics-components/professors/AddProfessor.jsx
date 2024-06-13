@@ -103,7 +103,7 @@ export default function Professor() {
         };
         if (!confirmPassword) {
           return;
-        };
+        }
         let url = `${api}`;
         await createData(url, formData);
       } else {
@@ -114,7 +114,7 @@ export default function Professor() {
           showConfirmButton: false,
           timer: 2000
         });
-      };
+      }
     } else {
       Swal.fire({
         position: 'top',
@@ -124,13 +124,13 @@ export default function Professor() {
         timer: 2000
       });
       navigate('/login');  
-    };
+    }
   };
 
   useEffect(() => {
     if (dataServer?.status == null) {
       return;
-    };
+    }
     if (dataServer?.status !== 401) {
       if (dataServer?.status === 200 || dataServer?.status === 201) {
         Swal.fire({
@@ -141,7 +141,7 @@ export default function Professor() {
           timer: 2000
         });
         navigate('/professorsList');
-      };
+      }
       if (dataServer?.status === 400 || dataServer?.status === 404) {
         setError(true);
         Swal.fire({
@@ -152,7 +152,7 @@ export default function Professor() {
           timer: 2000
         });
         clearForm();
-      };
+      }
     } else {
       setError(true);
       Swal.fire({
@@ -163,7 +163,7 @@ export default function Professor() {
         timer: 2000
       });
       navigate('/login');
-    };
+    }
   }, [dataServer]);
 
   const errorMessage = () => {

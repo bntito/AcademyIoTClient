@@ -98,13 +98,13 @@ export default function Student({ student, edit, reviewList, token, userId, hand
         };
         if (!confirmPassword) {
           return;
-        };
+        }
         let url = `${api}`;
         if (!edit) {
           await createData(url, formData);
         } else {
           await updateData(url, student.id, formData);
-        };
+        }
       } else {
         Swal.fire({
           position: 'top',
@@ -113,7 +113,7 @@ export default function Student({ student, edit, reviewList, token, userId, hand
           showConfirmButton: false,
           timer: 2000
         });
-      };
+      }
     } else {
       Swal.fire({
         position: 'top',
@@ -123,13 +123,13 @@ export default function Student({ student, edit, reviewList, token, userId, hand
         timer: 2000
       });
       navigate('/login');  
-    };
+    }
   };
 
   useEffect(() => {
     if (dataServer?.status == null) {
       return;
-    };
+    }
     if (dataServer?.status !== 401) {
       if (dataServer?.status === 200 || dataServer?.status === 201) {
         Swal.fire({
@@ -141,7 +141,7 @@ export default function Student({ student, edit, reviewList, token, userId, hand
         });
         handleClose();
         reviewList();
-      };
+      }
       if (dataServer?.status === 400 || dataServer?.status === 404) {
         setError(true);
         Swal.fire({
@@ -151,7 +151,7 @@ export default function Student({ student, edit, reviewList, token, userId, hand
           showConfirmButton: false,
           timer: 2000
         });
-      };
+      }
     } else {
       setError(true);
       Swal.fire({
@@ -163,7 +163,7 @@ export default function Student({ student, edit, reviewList, token, userId, hand
       });
       handleClose();
       handleNavigate('/login');
-    };
+    }
   }, [dataServer]);
 
   const errorMessage = () => {

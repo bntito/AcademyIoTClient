@@ -36,7 +36,7 @@ export default function ViewCourse() {
         showConfirmButton: false,
         timer: 2000
       });
-    };
+    }
     if (dataServer?.dataServerResult?.dataApi) {
       setCourse(dataServer.dataServerResult.dataApi);
       setProfessors(dataServer.dataServerResult.dataApi.professors);
@@ -49,7 +49,7 @@ export default function ViewCourse() {
 
   if (!course) {
     return <div className="not-found">Curso no encontrado</div>;
-  };
+  }
 
   return (
     <>

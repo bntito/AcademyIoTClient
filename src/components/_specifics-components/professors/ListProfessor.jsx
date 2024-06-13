@@ -64,7 +64,7 @@ export default function ListProfessor({ title }) {
         showConfirmButton: false,
         timer: 2000
       });      
-    };
+    }
   };
 
   function handleEdit(professor) {
@@ -101,7 +101,7 @@ export default function ListProfessor({ title }) {
         showConfirmButton: false,
         timer: 2000
       });      
-    };
+    }
   };
 
   const navigateTo = async (rute) => {
@@ -142,7 +142,7 @@ export default function ListProfessor({ title }) {
             });
           };
           del();
-        };
+        }
       });    
     } else {
       Swal.fire({
@@ -152,7 +152,7 @@ export default function ListProfessor({ title }) {
         showConfirmButton: false,
         timer: 2000
       });      
-    };
+    }
   };
   
   const nextPage = (pagItems, pageCurrent) => {
@@ -167,7 +167,7 @@ export default function ListProfessor({ title }) {
   useEffect(() => {
     if (dataServer?.message || dataServer?.message != undefined) {
       Swal.fire(dataServer?.message);
-    };
+    }
     if (dataServer?.status === 400 || dataServer?.status === 401) {
       Swal.fire({
         position: 'top',
@@ -176,7 +176,7 @@ export default function ListProfessor({ title }) {
         showConfirmButton: false,
         timer: 2000
       });
-    };
+    }
   }, [dataServer]);
 
   useEffect(() => {

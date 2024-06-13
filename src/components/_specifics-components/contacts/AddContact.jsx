@@ -74,7 +74,7 @@ export default function Contact() {
   useEffect(() => {
     if (dataServer?.status == null) {
       return;
-    };
+    }
     if (dataServer?.status !== 401) {
       if (dataServer?.status === 200 || dataServer?.status === 201) {
         Swal.fire({
@@ -85,7 +85,7 @@ export default function Contact() {
           timer: 2000
         });
         navigate('/contactList');
-      };
+      }
       if (dataServer?.status === 400 || dataServer?.status === 404) {
         setError(true);
         Swal.fire({
@@ -96,7 +96,7 @@ export default function Contact() {
           timer: 2000
         });
         clearForm();
-      };
+      }
     } else {
       setError(true);
       Swal.fire({
@@ -107,7 +107,7 @@ export default function Contact() {
         timer: 2000
       });
       navigate('/contactList');
-    };
+    }
   }, [dataServer]);
 
   useEffect(() => {

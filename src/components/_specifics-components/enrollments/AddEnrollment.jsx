@@ -62,7 +62,7 @@ export default function Enrollment() {
           showConfirmButton: false,
           timer: 2000
         });
-      };
+      }
     } else {
       Swal.fire({
         position: 'top',
@@ -72,13 +72,13 @@ export default function Enrollment() {
         timer: 2000
       });
       navigate('/login'); 
-    };
+    }
   };
 
   useEffect(() => {
     if (dataServer?.status == null) {
       return;
-    };
+    }
     if (dataServer?.status !== 401) {
       if (dataServer?.status === 200 || dataServer?.status === 201) {
         Swal.fire({
@@ -89,7 +89,7 @@ export default function Enrollment() {
           timer: 2000
         });
         navigate('/enrollmentsList');
-      };
+      }
       if (dataServer?.status === 400 || dataServer?.status === 404) {
         setError(true);
         Swal.fire({
@@ -100,7 +100,7 @@ export default function Enrollment() {
           timer: 2000
         });
         clearForm();
-      };
+      }
     } else {
       setError(true);
       Swal.fire({
@@ -111,7 +111,7 @@ export default function Enrollment() {
         timer: 2000
       });
       navigate('/login');
-    };
+    }
   }, [dataServer]);
 
   const getCourses = async () => {
@@ -120,7 +120,7 @@ export default function Enrollment() {
     let respCourses = await response.json();
     if (respCourses.dataApi) {
       setCourses(respCourses.dataApi);
-    };
+    }
 
     loadTeacher(respCourses?.dataApi[0].professors);
 
@@ -129,7 +129,7 @@ export default function Enrollment() {
     let respStudents = await response.json();
     if (respStudents.dataApi) {
       setStudents(respStudents.dataApi);
-    };
+    }
   };
 
   const handleCourseChange = (event) => {

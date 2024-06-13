@@ -40,7 +40,7 @@ const Login = () => {
     clearForm
   } = useForm(initialForm, validationSchema, fieldsToSkipValidation);
 
-  const { id, email, password } = formData;
+  const { email, password } = formData;
 
   let {
     dataServer,
@@ -127,7 +127,7 @@ const Login = () => {
         })
         setUsersContext(dataServer?.dataServerResult.dataApi);
         navigate('/');
-      };
+      }
       if (dataServer?.status === 400) {
         Swal.fire({
           position: 'top',
@@ -137,8 +137,8 @@ const Login = () => {
           timer: 2000
         });
         clearForm();
-      };
-    };
+      }
+    }
   }, [dataServer]);
 
   return (

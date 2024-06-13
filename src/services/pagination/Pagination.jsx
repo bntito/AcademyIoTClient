@@ -39,15 +39,14 @@ const Pagination = ({ items, page, pagItems, nextPage, onPageChange }) => {
     if (newPage < 1) {
       newPage = 1;
     }
-
     if (btnSelected) {
       btnSelected.classList.remove('active');
-    };
+    }
     const btnNew = document.getElementById(`btn${newPage}`);
     if (btnNew) {
       btnNew.classList.add('active');
       btnSelected = btnNew;
-    };
+    }
 
     setCurrentPage(newPage);
     const startIndex = (newPage - 1) * pageSize;
@@ -63,13 +62,11 @@ const Pagination = ({ items, page, pagItems, nextPage, onPageChange }) => {
   if (end >= totalPages) {
     end = totalPages;
   }
-
   start = end - 4;
-
   if (start < 0   ) {
     start = 0;
   }
-
+  
   for (let index = start; index < end; index++) {
     listItems.push(
       <li

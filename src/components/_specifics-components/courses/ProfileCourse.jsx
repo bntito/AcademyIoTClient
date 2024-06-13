@@ -90,7 +90,7 @@ export default function ProfileCourse() {
         showConfirmButton: false,
         timer: 3000
       });
-    };
+    }
   };
 
   const handleInputChange = (id, field, value) => {
@@ -106,7 +106,7 @@ export default function ProfileCourse() {
             showConfirmButton: false,
             timer: 2000
           });
-        };
+        }
         if (nameExist) {
           Swal.fire({
             position: 'top',
@@ -114,16 +114,16 @@ export default function ProfileCourse() {
             title: 'El profesor ya fue incluído',
             timer: 2000
           });
-        };
+        }
         return prevProfessors;
-      };
+      }
       return prevProfessors.map((professor) => {
         if (professor.id === id) {
           return {
             ...professor,
             [field] : value
           };
-        };
+        }
         return professor;
       });
     });
@@ -157,7 +157,7 @@ export default function ProfileCourse() {
     const responseData = await response.json();
     if (async () => await responseData.dataApi) {
       setTeachers(responseData.dataApi);
-    };
+    }
   };
 
   const getCourses = async (event) => {
@@ -173,13 +173,13 @@ export default function ProfileCourse() {
         showCloseButton: false,
         timer: 2000
       });
-    };
+    }
   };
 
   useEffect(() => {
     if (dataServer?.status == null) {
       return;
-    };
+    }
     if (dataServer?.status !== 401) {
       if (dataServer?.status === 200 || dataServer?.status === 201) {
         Swal.fire({
@@ -189,7 +189,7 @@ export default function ProfileCourse() {
           showConfirmButton: false,
           timer: 2000
         });
-      };
+      }
       if (dataServer?.status === 400 || dataServer?.status === 404) {
         setError(true);
         Swal.fire({
@@ -199,7 +199,7 @@ export default function ProfileCourse() {
           showConfirmButton: false,
           timer: 2000
         });
-      };
+      }
     } else {
       setError(true);
       Swal.fire({
@@ -209,7 +209,7 @@ export default function ProfileCourse() {
         showConfirmButton: false,
         timer: 2000
       });
-    };
+    }
   }, [dataServer]);
 
   useEffect(() => {

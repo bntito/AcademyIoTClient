@@ -8,7 +8,7 @@ const Searcher = ({ filters, registers, onChange }) => {
 
   if (!registers) {
     return;
-  };
+  }
 
   const handleFieldChange = (e) => {
     setField(e.target.value);

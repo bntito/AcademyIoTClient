@@ -87,7 +87,7 @@ export default function PasswordChange() {
         });
         console.log('Login Usuario:', dataServer.dataServerResult.dataApi);
         navigate('/usersList');
-      };
+      }
       if (dataServer?.status === 400) {
         Swal.fire({
           position: 'top',
@@ -97,8 +97,8 @@ export default function PasswordChange() {
           timer: 2000
         });
         clearForm();
-      };
-    };
+      }
+    }
   }, [dataServer]);
 
   return (

@@ -151,8 +151,8 @@ function Signup() {
           timer: 2000
         });
         clearForm();
-      };
-    };
+      }
+    }
   }, [dataServer]);
 
   return (

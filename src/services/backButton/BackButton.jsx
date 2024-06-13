@@ -10,7 +10,7 @@ function BackButton() {
 
   if (location.pathname === '/') {
     return null;
-  };
+  }
 
   const handleBack = () => {
     navigate(-1);
