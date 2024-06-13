@@ -61,18 +61,15 @@
 
 .closeButton {
   margin: 1em 3em;
-  font-size: 18px;
-  font-weight: 600;
-  background-color: white;
   color: rgb(221, 66, 66);
   width: 35px;
   height: 35px;
-  border: 0;
   cursor: pointer;
 }
 
 .closeButton:hover {
-  color: rgb(56, 121, 219);
+  color: rgb(141, 34, 34);
+  transform: scale(1.1);
 }
 
 .loadingView {

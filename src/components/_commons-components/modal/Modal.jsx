@@ -2,6 +2,7 @@ import { useRef, useState, useEffect } from 'react';
 
 import { AppContextProvider } from '../../../hooks/AppContext';
 
+import { IoClose } from "react-icons/io5";
 import './modal.css';
 
 function Modal({ children, title, size, bgChange }) {
@@ -48,11 +49,10 @@ function Modal({ children, title, size, bgChange }) {
             <div className="title">{title}</div>
             <div>
               {
-                <button 
+                <IoClose
                   onClick={handleClose}
                   className="closeButton" 
-                >Cerrar
-                </button>
+                />
               }
             </div>
           </div>

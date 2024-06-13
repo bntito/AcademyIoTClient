@@ -28,6 +28,7 @@ import { TbPasswordUser } from "react-icons/tb";
 import { FaUsers } from "react-icons/fa6";
 import { GiSixEyes } from "react-icons/gi";
 import { FaUserCheck } from "react-icons/fa";
+import { TbReportMoney } from "react-icons/tb";
 
 import './menu.css';
 
@@ -127,7 +128,7 @@ function Menu({ closeMenu }) {
         { icon: <MdOutlineFormatListBulleted />, title: 'Listado', route: '/professorsList', roles: [] },
         { icon: <RiProfileLine />, title: 'Perfil', route: '/professorProfile', roles: ['isTeacher', 'isAdmin'] }
       ],
-      roles: []
+      roles: ['isStudent', 'isTeacher', 'isAdmin']
     },
     {
       icon: <MdOutlineAdminPanelSettings />,
@@ -136,7 +137,10 @@ function Menu({ closeMenu }) {
         { icon: <BsJournalBookmarkFill />, title: 'Gestión de Cursos', route: '/coursesList', roles: [] },
         { icon: <FaChildren />, title: 'Gestión de Estudiantes', route: '/studentsList', roles: [] },
         { icon: <LiaChalkboardTeacherSolid />, title: 'Gestión de Profesores', route: '/professorsList', roles: [] },
-        { icon: <LuContact2 />, title: 'Contacto', route: '/addContact', roles: [] }
+        { icon: <TbRelationManyToMany />, title: 'Estudiantes por curso', route: '/enrollmentsList', roles: [] },
+        { icon: <TbRelationManyToMany />, title: 'Relación', route: '/relations', roles: [] },
+        { icon: <LuContact2 />, title: 'Contactos', route: '/contactList', roles: [] },
+        { icon: <TbReportMoney />, title: 'Salarios', route: '/salaries', roles: [] }
       ],
       roles: ['isAdmin']
     },
@@ -145,7 +149,7 @@ function Menu({ closeMenu }) {
       title: 'Matrículas',
       subItems: [
         { icon: <BiBookAdd />, title: 'Registro', route: '/addEnrollments', roles: ['isTeacher', 'isAdmin'] },
-        { icon: <MdOutlineFormatListBulleted />, title: 'Listado', route: '/enrollmentsList', roles: ['isStudent', 'isTeacher', 'isAdmin']}
+        { icon: <MdOutlineFormatListBulleted />, title: 'Listado', route: '/enrollmentsList', roles: [] }
       ],
       roles: ['isStudent', 'isTeacher', 'isAdmin']
     },
@@ -156,10 +160,10 @@ function Menu({ closeMenu }) {
         { icon: <FaClipboardList />, title: 'Cursos', route: '/coursesList', roles: [] },
         { icon: <CgUserList />, title: 'Estudiantes', route: '/studentsList', roles: [] },
         { icon: <FaListUl />, title: 'Profesores', route: '/professorsList', roles: [] },
-        { icon: <TbRelationManyToMany />, title: 'Estudiantes por curso', route: '/enrollmentsList', roles: ['isStudent', 'isTeacher', 'isAdmin'] },
+        { icon: <TbRelationManyToMany />, title: 'Estudiantes por curso', route: '/enrollmentsList', roles: ['isAdmin'] },
         { icon: <TbRelationManyToMany />, title: 'Relación', route: '/relations', roles: [] }
       ],
-      roles: []
+      roles: ['isStudent', 'isTeacher', 'isAdmin']
     },
     {
       icon: <FaRegUser />,

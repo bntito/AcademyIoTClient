@@ -28,6 +28,7 @@ import Relations from '../components/_specifics-components/relations/Relations';
 import Signup from '../components/_specifics-components/user/signup/Signup';
 import UserCompleteFromEmail from '../components/_specifics-components/user/signup/UserCompleteFromEmail';
 import UserCompleteFromGoogle from '../components/_specifics-components/user/signup/UserCompleteFromGoogle';
+import Salaries from '../components/_specifics-components/salaries/Salaries';
 
 const routes = [
   { 
@@ -149,6 +150,10 @@ const routes = [
   {
     path: '/contactList',
     element: <ListContact />
+  },
+  {
+    path: '/salaries',
+    element: <Salaries />
   }
 ];
 
