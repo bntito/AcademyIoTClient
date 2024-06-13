@@ -270,4 +270,4 @@ export default function Contact({ contact, edit, reviewList }) {
     }
     </>
   );
-};
+}

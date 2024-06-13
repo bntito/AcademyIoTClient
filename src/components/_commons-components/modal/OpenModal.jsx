@@ -20,6 +20,6 @@ function OpenModal(OpenModal, handleClose, size, title, bgChange) {
       </Modal>
     </Suspense>
   );
-};
+}
 
 export default OpenModal;

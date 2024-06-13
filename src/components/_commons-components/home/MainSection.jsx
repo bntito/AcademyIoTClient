@@ -35,6 +35,6 @@ function MainSection() {
     </div>
     </>
   );
-};
+}
 
 export default MainSection;

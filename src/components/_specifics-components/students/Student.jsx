@@ -386,4 +386,4 @@ export default function Student({ student, edit, reviewList, token, userId, hand
     }
     </>
   );
-};
+}

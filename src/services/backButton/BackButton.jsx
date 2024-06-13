@@ -22,6 +22,6 @@ function BackButton() {
       className='btn-back'
     />
   );
-};
+}
 
 export default BackButton;

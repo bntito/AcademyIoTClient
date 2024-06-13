@@ -36,6 +36,6 @@ function LoginUser() {
       } */}
     </div>
   );
-};
+}
 
 export default LoginUser;

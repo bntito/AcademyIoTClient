@@ -305,4 +305,4 @@ export default function Enrollment({ enrollment, edit, reviewList, token, handle
     }
     </>
   );
-};
+}
