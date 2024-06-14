@@ -96,6 +96,9 @@ export default function User({ user, edit, reviewList, token, handleNavigate }) 
     if (dataServer?.status == null) {
       return;
     }
+    if (dataServer?.message || dataServer?.message != undefined) {
+      Swal.fire(dataServer?.message);
+    }
     if (dataServer?.status !== 401) {
       if (dataServer?.status === 200 || dataServer?.status === 201) {
         Swal.fire({

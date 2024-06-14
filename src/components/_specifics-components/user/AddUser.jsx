@@ -81,6 +81,9 @@ export default function User() {
     if (dataServer?.status == null) {
       return;
     }
+    if (dataServer?.message || dataServer?.message != undefined) {
+      Swal.fire(dataServer?.message);
+    }
     if (dataServer?.status == 200 || dataServer?.status == 201) {
       Swal.fire({
         position: 'top',

@@ -108,6 +108,9 @@ const Login = () => {
     if (dataServer?.status == null) {
       return;
     }
+    if (dataServer?.message || dataServer?.message != undefined) {
+      Swal.fire(dataServer?.message);
+    }
     if (dataServer?.status !== 200) {
       Swal.fire({
         position: 'top',

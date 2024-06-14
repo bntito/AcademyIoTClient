@@ -46,6 +46,16 @@ export default function Salaries() {
     setProfessorHoursArray(tempProfessorHoursArray);
   };
 
+  function handlePay() {
+    Swal.fire({
+      position: 'center',
+      icon: 'warning',
+      title: 'Sin Fondos',
+      showConfirmButton: false,
+      timer: 2000
+    }); 
+  };
+
   useEffect(() => {
     if (dataServer?.message) {
       Swal.fire(dataServer.message);
@@ -109,7 +119,11 @@ export default function Salaries() {
                         <td data-label='Horas'>{professor.courseCount}</td>
                         <td data-label='Total a pagar'>{professor.hours}</td>
                         <td>
-                          <button className="btn btn-primary w-100">Pagar</button>
+                          <button
+                            onClick={handlePay} 
+                            className="btn btn-primary w-100"
+                          >Pagar
+                          </button>
                         </td>
                       </tr>
                     ))
