@@ -19,19 +19,23 @@ import { FaRegEye } from "react-icons/fa6";
 import { FcGoogle } from "react-icons/fc";
 
 const Login = () => {
+  // Host del servidor desde las variables de entorno y contexto de usuario
   const hostServer = import.meta.env.VITE_REACT_APP_SERVER_HOST;
   const api = `${hostServer}/api/user/login`;
   const navigate = useNavigate();
   const { setUsersContext } = useUsersContext();
   const [visible, setVisible] = useState(false);
 
+  // Estado inicial del formulario
   const initialForm = {
     email: '',
     password: ''
   };
 
+  // Campos a omitir en la validación
   const fieldsToSkipValidation = ['password'];
 
+  // Hook de formulario personalizado
   let {
     formData,
     onInputChange,
@@ -40,13 +44,16 @@ const Login = () => {
     clearForm
   } = useForm(initialForm, validationSchema, fieldsToSkipValidation);
 
+  // Desestructuración de los valores del formulario
   const { email, password } = formData;
 
+  // Hook de fetch personalizado
   let {
     dataServer,
     createData
   } = useFetch(null);
 
+  // Manejo del submit del formulario
   const handleSubmit = async (e) => {
     e.preventDefault();
     const numError = validateForm();
@@ -64,6 +71,7 @@ const Login = () => {
     }
   };
 
+  // Manejar inicio de sesión con Google
   const handleLoginGoogle = async () => {
     const url = `${hostServer}/api/user/logingoogle`;
     let result;
@@ -104,6 +112,7 @@ const Login = () => {
     }
   };
 
+  // Efecto que maneja la respuesta del servidor
   useEffect(() => {
     if (dataServer?.status == null) {
       return;

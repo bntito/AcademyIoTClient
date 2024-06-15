@@ -12,13 +12,18 @@ import validationSchema from '../../../services/validations/validationSchema';
 import Swal from 'sweetalert2';
 
 export default function ProfileProfessor() {
+  // Host del servidor desde las variables de entorno y contexto de usuario
   const hostServer = import.meta.env.VITE_REACT_APP_SERVER_HOST;
   const api = `${hostServer}/api/professor`;
   const { usersContext } = useUsersContext();
   const token = usersContext.token;
   const [error, setError] = useState(false);
   const [edit, setEdit] = useState(false);
+
+  // Estados locales
   const [professor, setProfessor] = useState({});
+
+  // Estado inicial del formulario
   const initialForm = {
     id: professor && professor.id ? professor.id : '',
     dni: professor && professor.dni ? professor.dni : '',
@@ -33,6 +38,7 @@ export default function ProfileProfessor() {
     condition: professor && professor.condition ? professor.condition : ''
   };
 
+  // Hook de formulario personalizado
   let {
     formData,
     onInputChange,
@@ -42,14 +48,17 @@ export default function ProfileProfessor() {
     fillForm
   } = useForm(initialForm, validationSchema);
 
+  // Desestructuración de los valores del formulario
   const { dni, name, lastname, email, password, confirmPassword, address, city, phone, condition } = formData;
 
+  // Hook de fetch personalizado
   let {
     dataServer,
     getData,
     updateData
   } = useFetch(null);
 
+  // Manejo del submit del formulario
   const handleSubmit = async (e) => {
     e.preventDefault();
     const numError = validateForm();
@@ -71,6 +80,7 @@ export default function ProfileProfessor() {
     }
   };
 
+  // Obtener profesor desde el servidor
   const getProfessor = async (event) => {
     let url = `${api}/dni/${event.target.value}`;
     const resp = await getData(url);
@@ -87,6 +97,7 @@ export default function ProfileProfessor() {
     }
   };
 
+  // Efecto que maneja la respuesta del servidor
   useEffect(() => {
     if (dataServer?.status === 200 || dataServer?.status === 201) {
       setProfessor(dataServer?.dataServerResult?.dataApi);
@@ -114,10 +125,12 @@ export default function ProfileProfessor() {
     }
   }, [dataServer]);
 
+  // Efecto para llenar el formulario con los datos del profesor
   useEffect(() => {
     fillForm(professor);
   }, [professor]);
 
+  // Mensaje de error en caso de fallo
   const errorMessage = () => {
     return (
       <div className='error-message'>

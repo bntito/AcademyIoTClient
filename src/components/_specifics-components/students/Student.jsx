@@ -11,11 +11,16 @@ import { useAppContext } from '../../../hooks/AppContext';
 import Swal from 'sweetalert2';
 
 export default function Student({ student, edit, reviewList, token, userId, handleNavigate }) {
+  // Host del servidor desde las variables de entorno y contexto de usuario
   const hostServer = import.meta.env.VITE_REACT_APP_SERVER_HOST;
   const api = `${hostServer}/api/student`;
   const { handleClose } = useAppContext();
   const [error, setError] = useState(false);
+
+  // Estados locales
   const [confirmPassword, setConfirmPassword] = useState();
+
+  // Estado inicial del formulario
   const initialForm = {
     id: student ? student.id : '',
     dni: student ? student.dni : '',
@@ -30,6 +35,7 @@ export default function Student({ student, edit, reviewList, token, userId, hand
     password: ''
   };
 
+  // Hook de formulario personalizado
   let {
     formData,
     onInputChange,
@@ -37,14 +43,17 @@ export default function Student({ student, edit, reviewList, token, userId, hand
     errorsInput
   } = useForm(initialForm, validationSchema);
 
+  // Desestructuración de los valores del formulario
   const { dni, name, lastname, email, address, birthday, city, phone, condition, password } = formData;
 
+  // Hook de fetch personalizado
   let {
     dataServer,
     createData,
     updateData
   } = useFetch(null);
 
+  // Función para confirmar la contraseña del usuario
   const confirmUserPassword = async (e) => {
     e.preventDefault();
     const url = `${hostServer}/api/users/${userId}`;
@@ -86,6 +95,7 @@ export default function Student({ student, edit, reviewList, token, userId, hand
     };
   };
 
+  // Manejo del submit del formulario
   const handleSubmit = async (e) => {
     e.preventDefault();
     await confirmUserPassword(e);
@@ -126,6 +136,7 @@ export default function Student({ student, edit, reviewList, token, userId, hand
     }
   };
 
+  // Efecto que maneja la respuesta del servidor
   useEffect(() => {
     if (dataServer?.status == null) {
       return;
@@ -166,6 +177,7 @@ export default function Student({ student, edit, reviewList, token, userId, hand
     }
   }, [dataServer]);
 
+  // Mensaje de error en caso de fallo
   const errorMessage = () => {
     return (
       <div className='error-message'>

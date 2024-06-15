@@ -12,12 +12,17 @@ import validationSchema from '../../../services/validations/validationSchema';
 import Swal from 'sweetalert2';
 
 export default function Contact() {
+  // Host del servidor desde las variables de entorno
   const hostServer = import.meta.env.VITE_REACT_APP_SERVER_HOST;
   const api = `${hostServer}/api/contact`;
   const navigate = useNavigate();
   const [error, setError] = useState(false);
+
+  // Estados locales
   const [courses, setCourses] = useState([]);
   const [contact, setContact] = useState({});
+
+  // Estado inicial del formulario
   const initialForm = {
     id: contact && contact.id ? contact.id : '',
     name: contact && contact.name ? contact.name : '',
@@ -28,6 +33,7 @@ export default function Contact() {
     message: contact && contact.message ? contact.message : ''
   };
 
+  // Hook de formulario personalizado
   let {
     formData,
     onInputChange,
@@ -36,13 +42,16 @@ export default function Contact() {
     clearForm
   } = useForm(initialForm, validationSchema);
 
+  // Desestructuración de los valores del formulario
   const { name, email, phone, city, course, message } = formData;
 
+  // Hook de fetch personalizado
   let {
     dataServer,
     createData,
   } = useFetch(null);
 
+  // Manejo del submit del formulario
   const handleSubmit = async (e) => {
     e.preventDefault();
     const numError = validateForm();
@@ -60,6 +69,7 @@ export default function Contact() {
     }
   };
 
+  // Función para obtener los cursos
   const getCourses = async () => {
     let url = `${hostServer}/api/courses`;
     let response = await fetch(url);
@@ -71,6 +81,7 @@ export default function Contact() {
     }
   };
 
+  // Efecto que maneja la respuesta del servidor
   useEffect(() => {
     if (dataServer?.status == null) {
       return;
@@ -110,10 +121,12 @@ export default function Contact() {
     }
   }, [dataServer]);
 
+  // Efecto para obtener los cursos al montar el componente
   useEffect(() => {
     getCourses();
   }, []);
 
+  // Mensaje de error en caso de fallo
   const errorMessage = () => {
     return (
       <div className='error-message'>

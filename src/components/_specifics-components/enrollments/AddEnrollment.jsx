@@ -12,16 +12,21 @@ import validationSchema from '../../../services/validations/validationSchema';
 import Swal from 'sweetalert2';
 
 export default function Enrollment() {
+  // Host del servidor desde las variables de entorno y contexto de usuario
   const hostServer = import.meta.env.VITE_REACT_APP_SERVER_HOST;
   const api = `${hostServer}/api/enrollment`;
   const navigate = useNavigate();
   const { usersContext } = useUsersContext();
   const token = usersContext.token;
+
+  // Estados locales
   const [courses, setCourses] = useState([]);
   const [teachers, setTeachers] = useState([]);
   const [students, setStudents] = useState([]);
   const [enrollment, setEnrollment] = useState({});
   const [error, setError] = useState(false);
+
+  // Estado inicial del formulario
   const initialForm = {
     id: enrollment && enrollment.id ? enrollment.id : 0,
     course: enrollment && enrollment.id ? enrollment.course : '',
@@ -32,6 +37,7 @@ export default function Enrollment() {
     endDate: enrollment && enrollment.id ? enrollment.endDate : ''
   };
 
+  // Hook de formulario personalizado
   let {
     formData,
     onInputChange,
@@ -40,13 +46,16 @@ export default function Enrollment() {
     clearForm
   } = useForm(initialForm, validationSchema);
 
+  // Desestructuración de los valores del formulario
   const { course, professor, student, shift, startDate, endDate } = formData;
 
+  // Hook de fetch personalizado
   let {
     dataServer,
     createData
   } = useFetch(null);
 
+  // Manejo del submit del formulario
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (token) {
@@ -75,6 +84,7 @@ export default function Enrollment() {
     }
   };
 
+  // Efecto que maneja la respuesta del servidor
   useEffect(() => {
     if (dataServer?.status == null) {
       return;
@@ -114,16 +124,18 @@ export default function Enrollment() {
     }
   }, [dataServer]);
 
+  // Función para obtener la lista de cursos, profesores y estudiantes
   const getCourses = async () => {
+    // Obtener la lista de cursos
     let url = `${hostServer}/api/courses`;
     let response = await fetch(url);
     let respCourses = await response.json();
     if (respCourses.dataApi) {
       setCourses(respCourses.dataApi);
     }
-
+    // Cargar la lista de profesores del primer curso por defecto
     loadTeacher(respCourses?.dataApi[0].professors);
-
+    // Obtener la lista de estudiantes
     url = `${hostServer}/api/students`;
     response = await fetch(url);
     let respStudents = await response.json();
@@ -132,6 +144,7 @@ export default function Enrollment() {
     }
   };
 
+  // Función para manejar el cambio de curso y cargar los profesores correspondientes
   const handleCourseChange = (event) => {
     const selectCourse = event.target.value;
     const selectRegister = courses.filter((item) => item.name === selectCourse);
@@ -139,14 +152,17 @@ export default function Enrollment() {
     onInputChange(event);
   };
 
+  // Función para cargar los profesores
   const loadTeacher = (teacher) => {
     setTeachers(teacher);
   };
 
+  // Efecto para obtener los cursos al montar el componente
   useEffect(() => {
     getCourses();
   }, []);
 
+  // Mensaje de error en caso de fallo
   const errorMessage = () => {
     return (
       <div className='error-message'>

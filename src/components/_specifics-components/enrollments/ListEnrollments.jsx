@@ -16,14 +16,18 @@ import { FaRegEdit } from "react-icons/fa";
 import { RiDeleteBin6Line } from "react-icons/ri";
 
 export default function ListEnrollment({ title }) {
+  // Host del servidor desde las variables de entorno y contexto de usuario
   const hostServer = import.meta.env.VITE_REACT_APP_SERVER_HOST;
   const api = `${hostServer}/api/enrollments`;
-  const [selectedItems, setSelectedItems] = useState([]);
   const { usersContext, navigateContext } = useUsersContext();
   const token = usersContext.token;
+
+  // Estados para manejar la selección de elementos y la paginación
+  const [selectedItems, setSelectedItems] = useState([]);
   const [page, setPage] = useState(1);
   const [itemsPage, setItemsPage] = useState(8);
 
+  // Hook de fetch personalizado
   let {
     dataServer,
     isLoading = false,
@@ -31,6 +35,7 @@ export default function ListEnrollment({ title }) {
     deleteData
   } = useFetch(`${api}`);
 
+  // Filtros de búsqueda
   const filters = [
     { id: 1, name: 'course', description: 'Curso' },
     { id: 2, name: 'professor', description: 'Profesor' },
@@ -38,6 +43,7 @@ export default function ListEnrollment({ title }) {
     { id: 4, name: 'shift', description: 'Turno' }
   ];
 
+  // Función para abrir modal de adición
   function handleAdd() {
     const title = 'Adición de Matrículas';
     if (token) {
@@ -64,6 +70,7 @@ export default function ListEnrollment({ title }) {
     }
   };
 
+  // Función para abrir modal de edición
   function handleEdit(enrollment) {
     const title = 'Edición de Matrícula';
     if (token) {
@@ -90,19 +97,23 @@ export default function ListEnrollment({ title }) {
     }
   };
 
+  // Navegar a otra ruta
   const navigateTo = async (rute) => {
     await navigateContext(rute);
   };
 
+  // Obtener matriculas desde el servidor
   const getEnrollments = async () => {
     const url = `${hostServer}/api/enrollments`;
     await getData(url);
   };
 
+  // Actualizar lista de matriculas
   const updateList = async () => {
     await getEnrollments();
   };
 
+  // Eliminar matricula
   const handleDelete = async (id) => {
     if (token) {
       const url = `${hostServer}/api/enrollment`;
@@ -141,21 +152,34 @@ export default function ListEnrollment({ title }) {
     }
   }; 
 
+  // Paginación
   const nextPage = (pagItems, pageCurrent) => {
     setItemsPage(pagItems);
     setPage(pageCurrent);
   };
-  
+
+  // Manejar cambio de página
   const handlePageChange = (newSelectedItems) => {
     setSelectedItems(newSelectedItems);
   };
   
+  // Efecto para manejar la respuesta del servidor
   useEffect(() => {
     if (dataServer?.message || dataServer?.message != undefined) {
       Swal.fire(dataServer?.message);
     }
+    if (dataServer?.status === 400 || dataServer?.status === 401) {
+      Swal.fire({
+        position: 'top',
+        icon: 'error',
+        title: dataServer?.dataServerResult.message,
+        showConfirmButton: false,
+        timer: 2000
+      });
+    }
   }, [dataServer]);
 
+  // Obtener lista de matriculas al montar el componente
   useEffect(() => {
     getEnrollments();
   }, []);

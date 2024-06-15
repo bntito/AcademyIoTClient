@@ -7,22 +7,25 @@ import { TbPlayerTrackPrevFilled } from 'react-icons/tb';
 
 import './pagination.css';
 
+// Componente funcional para la paginación
 const Pagination = ({ items, page, pagItems, nextPage, onPageChange }) => {
-
   const [pageSize, setPageSize] = useState(pagItems);
   const [currentPage, setCurrentPage] = useState(page);
-
   let firstPage = 1;
   let btnSelected = null;
 
+  // Array para almacenar los elementos de la lista de páginas
   const listItems = [];
 
+  // Evita renderizar si no hay datos disponibles
   if (!items) {
     return null;
   }
 
+  // Calcular el número total de páginas
   const totalPages = Math.ceil(items.length / pageSize);
 
+  // Función para cambiar el tamaño de la página
   const onPageSizeChange = (newPageSize) => {
     const startIndex = (currentPage - 1) * newPageSize;
     const endIndex = startIndex + newPageSize;
@@ -32,6 +35,7 @@ const Pagination = ({ items, page, pagItems, nextPage, onPageChange }) => {
     onPageChange(currentItems);
   };
 
+  // Función para manejar el cambio de página
   const handlePageChange = (newPage) => {
     if (newPage > totalPages) {
       newPage = totalPages;
@@ -39,15 +43,17 @@ const Pagination = ({ items, page, pagItems, nextPage, onPageChange }) => {
     if (newPage < 1) {
       newPage = 1;
     }
+    // Quitar la clase 'active' del botón seleccionado anteriormente
     if (btnSelected) {
       btnSelected.classList.remove('active');
     }
+    // Agregar la clase 'active' al botón de la nueva página seleccionada
     const btnNew = document.getElementById(`btn${newPage}`);
     if (btnNew) {
       btnNew.classList.add('active');
       btnSelected = btnNew;
     }
-
+    // Actualiza la página actual y los elementos
     setCurrentPage(newPage);
     const startIndex = (newPage - 1) * pageSize;
     const endIndex = startIndex + pageSize;
@@ -56,9 +62,9 @@ const Pagination = ({ items, page, pagItems, nextPage, onPageChange }) => {
     onPageChange(currentItems);
   };
 
+  // Calcular los índices de inicio y fin para las páginas que se mostrarán
   let start = 1;
   let end = currentPage + 3;
-
   if (end >= totalPages) {
     end = totalPages;
   }
@@ -67,6 +73,7 @@ const Pagination = ({ items, page, pagItems, nextPage, onPageChange }) => {
     start = 0;
   }
   
+  // Generar los elementos de la lista de páginas
   for (let index = start; index < end; index++) {
     listItems.push(
       <li
@@ -80,10 +87,12 @@ const Pagination = ({ items, page, pagItems, nextPage, onPageChange }) => {
     );
   }
 
+  // Establece la página en 1 al cargar nuevos datos
   useEffect(() => {
     items && handlePageChange(1);
   }, [items]);
 
+  // Inicializa el tamaño de la página al montar el componente
   useEffect(() => {
     onPageSizeChange(pageSize);
   }, []);

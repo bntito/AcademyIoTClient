@@ -5,25 +5,32 @@ import { Link } from 'react-router-dom';
 import './cards.css';
 
 function CardCourses() {
+  // Host del servidor desde las variables de entorno y contexto de usuario
   const hostServer = import.meta.env.VITE_REACT_APP_SERVER_HOST;
   const api = `${hostServer}/api/courses`;
+
+  // Estados locales
   const [cards, setCards] = useState([]);
   const [startIndex, setStartIndex] = useState(0);
-  
+
+  // Hook de fetch personalizado
   let {
     dataServer,
     isLoading = false,
     getData
   } = useFetch(`${api}`);
-  
+
+  // Obtener cursos desde el servidor
   const getCourses = async () => {
     await getData(api);
   };
 
+  // Obtener lista de cursos al montar el componente
   useEffect(() => {
     getCourses();
   }, []);
-  
+
+  // Actualiza las tarjetas destacadas en función de los datos del servidor
   useEffect(() => {
     if (dataServer && dataServer.dataServerResult) {
       const allCards = dataServer.dataServerResult.dataApi
@@ -32,6 +39,7 @@ function CardCourses() {
     }
   }, [dataServer]);
 
+  // Temporizador para cambiar las tarjetas cada 3 segundos
   useEffect(() => {
     const timer = setInterval(() => {
       setStartIndex((prevIndex) => (prevIndex + 4) % cards.length);

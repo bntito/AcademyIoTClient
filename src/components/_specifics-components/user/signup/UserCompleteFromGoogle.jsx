@@ -13,12 +13,14 @@ import validationSchema from '../../../../services/validations/validationSchema'
 import Swal from 'sweetalert2';
 
 export default function User() {
+  // Host del servidor desde las variables de entorno y contexto de usuario
   const hostServer = import.meta.env.VITE_REACT_APP_SERVER_HOST;
   const api = `${hostServer}/api/user/signupcomplete`;
   const navigate = useNavigate();
   const [error, setError] = useState(false);
   const { usersContext } = useUsersContext();
 
+  // Definición de roles y estado de usuarios
   const roles = [
     { id: 1, role: 'isStudent', description: 'Estudiante'},
     { id: 2, role: 'isTeacher', description: 'Profesor'},
@@ -30,8 +32,10 @@ export default function User() {
     { id: 3, description: 'No Activo'}
   ];
 
+  // Campos a omitir en la validación
   const fieldsToSkipValidation = ['name', 'lastname', 'email'];
 
+  // Estado inicial del formulario
   const initialForm = {
     password: '',
     confirmPassword: '',
@@ -42,6 +46,7 @@ export default function User() {
     status: ''
   };
 
+  // Hook de formulario personalizado
   let {
     formData,
     onInputChange,
@@ -50,13 +55,16 @@ export default function User() {
     clearForm
   } = useForm(initialForm, validationSchema, fieldsToSkipValidation);
 
+  // Desestructuración de los valores del formulario
   const { password, confirmPassword, address, city, phone, role, status } = formData;
 
+  // Hook de fetch personalizado
   let {
     dataServer,
     createData
   } = useFetch(null);
 
+  // Manejo del submit del formulario
   const handleSubmit = async (e) => {
     e.preventDefault();
     const numError = validateForm();
@@ -80,6 +88,7 @@ export default function User() {
     }
   };
 
+  // Efecto que maneja la respuesta del servidor
   useEffect(() => {
     if (dataServer?.status == null) {
       return;

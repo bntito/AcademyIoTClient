@@ -1,15 +1,17 @@
 import { useState } from 'react';
 
+// Hook personalizado para realizar solicitudes HTTP
 export const useFetch = (url) => {
   const [dataServer, setDataServer] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
+  // Función para realizar la solicitud HTTP
   const fetchData = async (
     url,
     method = 'GET',
     formData = null
   ) => {
-    setIsLoading(true);
+    setIsLoading(true); // Establecer isLoading en true durante la carga
     try {
       let options = null;
       options = {
@@ -23,7 +25,7 @@ export const useFetch = (url) => {
         status: response.status,
         dataServerResult: await responseData
       };
-      setDataServer(result);
+      setDataServer(result);  // Almacenar la respuesta del servidor en el estado
       return result;
     } catch (error) {
       if (error.name !== 'AbortError') {
@@ -33,13 +35,14 @@ export const useFetch = (url) => {
           success: false,
           errorSystem: await error.message
         };
-        setDataServer(data);
+        setDataServer(data);  // Almacenar el error en el estado
       }      
     } finally {
-      setIsLoading(false);
+      setIsLoading(false);  // Establecer isLoading en false después de completar la carga
     };
   };
 
+  // Funciones para realizar diferentes tipos de solicitudes HTTP
   const getData = async (url) => {
     const resp = await fetchData(url);
     return resp;
@@ -67,6 +70,7 @@ export const useFetch = (url) => {
     return resp;
   };
 
+  // Devolver los datos y funciones necesarios para realizar solicitudes HTTP
   return {
     dataServer,
     isLoading,

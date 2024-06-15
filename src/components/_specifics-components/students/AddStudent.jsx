@@ -13,6 +13,7 @@ import validationSchema from '../../../services/validations/validationSchema';
 import Swal from 'sweetalert2';
 
 export default function Student() {
+  // Host del servidor desde las variables de entorno y contexto de usuario
   const hostServer = import.meta.env.VITE_REACT_APP_SERVER_HOST;
   const api = `${hostServer}/api/student`;
   const navigate = useNavigate();
@@ -20,8 +21,12 @@ export default function Student() {
   const token = usersContext.token;
   const userId = usersContext.id;
   const [error, setError] = useState(false);
+
+  // Estados locales
   const [confirmPassword, setConfirmPassword] = useState();
   const [student, setStudent] = useState({});
+
+  // Estado inicial del formulario
   const initialForm = {
     id: student && student.id ? student.id : '',
     dni: student && student.dni ? student.dni : '',
@@ -36,6 +41,7 @@ export default function Student() {
     password: ''
   };
 
+  // Hook de formulario personalizado
   let {
     formData,
     onInputChange,
@@ -44,13 +50,16 @@ export default function Student() {
     clearForm
   } = useForm(initialForm, validationSchema);
 
+  // Desestructuración de los valores del formulario
   const { dni, name, lastname, email, address, birthday, city, phone, condition, password } = formData;
 
+  // Hook de fetch personalizado
   let {
     dataServer,
     createData
   } = useFetch(null);
 
+  // Función para confirmar la contraseña del usuario
   const confirmUserPassword = async (e) => {
     e.preventDefault();
     const url = `${hostServer}/api/users/${userId}`;
@@ -92,6 +101,7 @@ export default function Student() {
     };
   };
 
+  // Manejo del submit del formulario
   const handleSubmit = async (e) => {
     e.preventDefault();
     await confirmUserPassword(e);
@@ -128,9 +138,13 @@ export default function Student() {
     }
   };
 
+  // Efecto que maneja la respuesta del servidor
   useEffect(() => {
     if (dataServer?.status == null) {
       return;
+    }
+    if (dataServer?.message || dataServer?.message != undefined) {
+      Swal.fire(dataServer?.message);
     }
     if (dataServer?.status !== 401) {
       if (dataServer?.status === 200 || dataServer?.status === 201) {
@@ -167,6 +181,7 @@ export default function Student() {
     }
   }, [dataServer]);
 
+  // Mensaje de error en caso de fallo
   const errorMessage = () => {
     return (
       <div className='error-message'>

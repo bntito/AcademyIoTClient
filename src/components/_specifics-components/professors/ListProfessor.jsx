@@ -16,16 +16,19 @@ import { FaRegEdit } from 'react-icons/fa';
 import { RiDeleteBin6Line } from 'react-icons/ri';
 
 export default function ListProfessor({ title }) {
+  // Host del servidor desde las variables de entorno y contexto de usuario
   const hostServer = import.meta.env.VITE_REACT_APP_SERVER_HOST;
   const api = `${hostServer}/api/professors`;
   const { usersContext, navigateContext } = useUsersContext();
   const token = usersContext.token;
   const userId = usersContext.id;
-  const [selectedItems, setSelectedItems] = useState([]);
 
+  // Estados para manejar la selección de elementos y la paginación
+  const [selectedItems, setSelectedItems] = useState([]);
   const [page, setPage] = useState(1);
   const [itemsPage, setItemsPage] = useState(8);
 
+  // Hook de fetch personalizado
   let {
     dataServer,
     isLoading = false,
@@ -33,13 +36,15 @@ export default function ListProfessor({ title }) {
     deleteData
   } = useFetch(`${api}`);
 
+  // Filtros de búsqueda
   const filters = [
     { id: 1, name: 'dni', description: 'Documento' },
     { id: 2, name: 'lastname', description: 'Apellido' },
     { id: 3, name: 'email', description: 'Email' },
     { id: 4, name: 'phone', description: 'Celular' }
   ];
-  
+
+  // Función para abrir modal de adición
   function handleAdd() {
     const title = 'Adición de Profesores';
     if (token) {
@@ -67,6 +72,7 @@ export default function ListProfessor({ title }) {
     }
   };
 
+  // Función para abrir modal de edición
   function handleEdit(professor) {
     const title = 'Edición de Profesores';
     if (token) {
@@ -104,19 +110,23 @@ export default function ListProfessor({ title }) {
     }
   };
 
+  // Navegar a otra ruta
   const navigateTo = async (rute) => {
     await navigateContext(rute);
   };
-  
+
+  // Obtener profesores desde el servidor
   const getProfessors = async () => {
     const url = `${hostServer}/api/professors`;
     await getData(url);
   };
-  
+
+  // Actualizar lista de profesores
   const updateList = async () => {
     await getProfessors();
   };
 
+  // Eliminar profesor
   const handleDelete = async (id) => {
     if (token) {
       const url = `${hostServer}/api/professor`;
@@ -154,16 +164,19 @@ export default function ListProfessor({ title }) {
       });      
     }
   };
-  
+
+  // Paginación
   const nextPage = (pagItems, pageCurrent) => {
     setItemsPage(pagItems);
     setPage(pageCurrent);
   };
-  
+
+  // Manejar cambio de página
   const handlePageChange = (newSelectedItems) => {
     setSelectedItems(newSelectedItems);
   };
-  
+
+  // Efecto para manejar la respuesta del servidor
   useEffect(() => {
     if (dataServer?.message || dataServer?.message != undefined) {
       Swal.fire(dataServer?.message);
@@ -179,6 +192,7 @@ export default function ListProfessor({ title }) {
     }
   }, [dataServer]);
 
+  // Obtener lista de profesores al montar el componente
   useEffect(() => {
     getProfessors();
   }, []);

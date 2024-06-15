@@ -5,19 +5,23 @@ import { Link } from 'react-router-dom';
 import './carousel.css';
 
 function Carousel() {
+  // Host del servidor desde las variables de entorno y contexto de usuario
   const hostServer = import.meta.env.VITE_REACT_APP_SERVER_HOST;
   const api = `${hostServer}/api/courses`;
   const [cards, setCards] = useState([]);
 
+  // Hook de fetch personalizado
   let {
     dataServer,
     getData
   } = useFetch(`${api}`);
 
+  // Obtener cursos desde el servidor
   const getCourses = async () => {
     await getData(api);
   };
 
+  // Efecto para obtener los cursos al cargar el componente y configurar el carrusel
   useEffect(() => {
     getCourses();
     const carouselElement = document.querySelector('#carouselExampleDark');
@@ -29,6 +33,7 @@ function Carousel() {
     }
   }, []);
 
+  // Efecto para actualizar el estado cuando se reciben los datos del servidor
   useEffect(() => {
     if (dataServer && dataServer.dataServerResult) {
       const allCards = dataServer.dataServerResult.dataApi;

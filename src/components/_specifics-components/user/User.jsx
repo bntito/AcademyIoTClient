@@ -11,6 +11,7 @@ import { useAppContext } from '../../../hooks/AppContext';
 import Swal from 'sweetalert2';
 
 export default function User({ user, edit, reviewList, token, handleNavigate }) {
+  // Host del servidor desde las variables de entorno y contexto de usuario
   const hostServer = import.meta.env.VITE_REACT_APP_SERVER_HOST;
   const api = `${hostServer}/api/user`;
   const { handleClose } = useAppContext();
@@ -22,11 +23,13 @@ export default function User({ user, edit, reviewList, token, handleNavigate }) 
     { id: 3, role: 'isAdmin', description: 'Administrador'}
   ];
 
+  // Definición de roles y estado de usuarios
   const statusUser = [
     { id: 2, description: 'Activo'},
     { id: 3, description: 'No Activo'}
   ];
 
+  // Estado inicial del formulario
   const initialForm = {
     id: user ? user.id : '',
     name: user ? user.name : '',
@@ -41,6 +44,7 @@ export default function User({ user, edit, reviewList, token, handleNavigate }) 
     status: user ? user.status : ''
   };
 
+  // Hook de formulario personalizado
   let {
     formData,
     onInputChange,
@@ -48,14 +52,17 @@ export default function User({ user, edit, reviewList, token, handleNavigate }) 
     errorsInput
   } = useForm(initialForm, validationSchema);
 
+  // Desestructuración de los valores del formulario
   const { name, lastname, email, password, confirmPassword, address, city, phone, role, status } = formData;
 
+  // Hook de fetch personalizado
   let {
     dataServer,
     createData,
     updateData
   } = useFetch(null);
 
+  // Manejo del submit del formulario
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (token) {
@@ -92,6 +99,7 @@ export default function User({ user, edit, reviewList, token, handleNavigate }) 
     }
   };
 
+  // Efecto que maneja la respuesta del servidor
   useEffect(() => {
     if (dataServer?.status == null) {
       return;
@@ -135,6 +143,7 @@ export default function User({ user, edit, reviewList, token, handleNavigate }) 
     }
   }, [dataServer]);
 
+  // Mensaje de error en caso de fallo
   const errorMessage = () => {
     return (
       <div className='error-message'>

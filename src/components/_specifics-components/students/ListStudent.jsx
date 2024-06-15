@@ -16,16 +16,19 @@ import { FaRegEdit } from "react-icons/fa";
 import { RiDeleteBin6Line } from "react-icons/ri";
 
 export default function ListStudent({ title }) {
+  // Host del servidor desde las variables de entorno y contexto de usuario
   const hostServer = import.meta.env.VITE_REACT_APP_SERVER_HOST;
   const api = `${hostServer}/api/students`;
   const { usersContext, navigateContext } = useUsersContext();
   const token = usersContext.token;
   const userId = usersContext.id;
-  const [selectedItems, setSelectedItems] = useState([]);
 
+  // Estados para manejar la selección de elementos y la paginación
+  const [selectedItems, setSelectedItems] = useState([]);
   const [page, setPage] = useState(1);
   const [itemsPage, setItemsPage] = useState(8);
 
+  // Hook de fetch personalizado
   let {
     dataServer,
     isLoading = false,
@@ -33,6 +36,7 @@ export default function ListStudent({ title }) {
     deleteData
   } = useFetch(`${api}`);
 
+  // Filtros de búsqueda
   const filters = [
     { id: 1, name: 'dni', description: 'Documento' },
     { id: 2, name: 'lastname', description: 'Apellido' },
@@ -40,6 +44,7 @@ export default function ListStudent({ title }) {
     { id: 4, name: 'phone', description: 'Celular' }
   ];
 
+  // Función para abrir modal de adición
   function handleAdd() {
     const title = 'Adición de Estudiante';
     if (token) {
@@ -67,6 +72,7 @@ export default function ListStudent({ title }) {
     }
   };
 
+  // Función para abrir modal de edición
   function handleEdit(student) {
     const title = 'Edición de Estudiante';
     if (token) {
@@ -104,19 +110,23 @@ export default function ListStudent({ title }) {
     }
   };
 
+  // Navegar a otra ruta
   const navigateTo = async (rute) => {
     await navigateContext(rute);
   };
 
+  // Obtener estudiantes desde el servidor
   const getStudents = async () => {
     const url = `${hostServer}/api/students`;
     await getData(url);
   };
 
+  // Actualizar lista de estudiantes
   const updateList = async () => {
     await getStudents();
   };
 
+  // Eliminar estudiante
   const handleDelete = async (id) => {
     if (token) {
       const url = `${hostServer}/api/student`;
@@ -155,15 +165,18 @@ export default function ListStudent({ title }) {
     }
   };
 
+  // Paginación
   const nextPage = (pagItems, pageCurrent) => {
     setItemsPage(pagItems);
     setPage(pageCurrent);
   };
 
+  // Manejar cambio de página
   const handlePageChange = (newSelectedItems) => {
     setSelectedItems(newSelectedItems);
   };
 
+  // Efecto para manejar la respuesta del servidor
   useEffect(() => {
     if (dataServer?.message || dataServer?.message != undefined) {
       Swal.fire(dataServer?.message);
@@ -179,6 +192,7 @@ export default function ListStudent({ title }) {
     }
   }, [dataServer]);
 
+  // Obtener lista de estudiantes al montar el componente
   useEffect(() => {
     getStudents();
   }, []);

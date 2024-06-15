@@ -11,11 +11,16 @@ import validationSchema from '../../../services/validations/validationSchema';
 import Swal from 'sweetalert2';
 
 export default function Contact({ contact, edit, reviewList }) {
+  // Host del servidor desde las variables de entorno y contexto de usuario
   const hostServer = import.meta.env.VITE_REACT_APP_SERVER_HOST;
   const api = `${hostServer}/api/contact`;
   const { handleClose } = useAppContext();
   const [error, setError] = useState(false);
+
+  // Estados locales
   const [courses, setCourses] = useState([]);
+
+  // Estado inicial del formulario
   const initialForm = {
     id: contact ? contact.id : '',
     name: contact ? contact.name : '',
@@ -26,6 +31,7 @@ export default function Contact({ contact, edit, reviewList }) {
     message: contact ? contact.message : ''
   };
 
+  // Hook de formulario personalizado
   let {
     formData,
     onInputChange,
@@ -33,14 +39,17 @@ export default function Contact({ contact, edit, reviewList }) {
     errorsInput,
   } = useForm(initialForm, validationSchema);
 
+  // Desestructuración de los valores del formulario
   const { name, email, phone, city, course, message } = formData;
 
+  // Hook de fetch personalizado
   let {
     dataServer,
     createData,
     updateData
   } = useFetch(null);
 
+  // Manejo del submit del formulario
   const handleSubmit = async (e) => {
     e.preventDefault();
     const numError = validateForm();
@@ -62,6 +71,7 @@ export default function Contact({ contact, edit, reviewList }) {
     }
   };
 
+  // Efecto que maneja la respuesta del servidor
   useEffect(() => {
     if (dataServer?.status == null) {
       return;
@@ -101,6 +111,7 @@ export default function Contact({ contact, edit, reviewList }) {
     }
   }, [dataServer]);
 
+  // Función para obtener los cursos
   const getCourses = async () => {
     let url = `${hostServer}/api/courses`;
     let response = await fetch(url);
@@ -112,10 +123,12 @@ export default function Contact({ contact, edit, reviewList }) {
     }
   };
 
+  // Efecto para obtener los cursos al montar el componente
   useEffect(() => {
     getCourses();
   }, []);
 
+  // Mensaje de error en caso de fallo
   const errorMessage = () => {
     return (
       <div className='error-message'>

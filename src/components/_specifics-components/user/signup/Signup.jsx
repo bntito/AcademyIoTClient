@@ -19,18 +19,21 @@ import { FaRegEye } from "react-icons/fa6";
 import { FcGoogle } from "react-icons/fc";
 
 function Signup() {
+  // Host del servidor desde las variables de entorno y contexto de usuario
   const hostServer = import.meta.env.VITE_REACT_APP_SERVER_HOST;
   const api = `${hostServer}/api/user/signupemail`;
   const navigate = useNavigate();
   const { setUsersContext } = useUsersContext();
   const [visible, setVisible] = useState(false);
 
+  // Estado inicial del formulario
   const initialForm = {
     email: '',
     password: '',
     confirmPassword: ''
   };
 
+  // Hook de formulario personalizado
   let {
     formData,
     onInputChange,
@@ -39,13 +42,16 @@ function Signup() {
     clearForm
   } = useForm(initialForm, validationSchema);
 
+  // Desestructuración de los valores del formulario
   const { email, password, confirmPassword } = formData;
 
+  // Hook de fetch personalizado
   let {
     dataServer,
     createData
   } = useFetch(null);
 
+  // Manejo del submit del formulario
   const handleSubmit = async (e) => {
     e.preventDefault();
     const numError = validateForm();
@@ -63,6 +69,7 @@ function Signup() {
     }
   };
 
+  // Manejo del registro con Google
   const handleSignupGoogle = async () => {
     const url = `${hostServer}/api/user/signupgoogle`;
     let result;
@@ -118,6 +125,7 @@ function Signup() {
     }
   };
 
+  // Efecto que maneja la respuesta del servidor
   useEffect(() => {
     if (dataServer?.status == null) {
       return;

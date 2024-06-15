@@ -16,15 +16,18 @@ import { FaRegEdit } from "react-icons/fa";
 import { RiDeleteBin6Line } from "react-icons/ri";
 
 export default function ListCourse({ title }) {
+  // Host del servidor desde las variables de entorno y contexto de usuario
   const hostServer = import.meta.env.VITE_REACT_APP_SERVER_HOST;
   const api = `${hostServer}/api/courses`;
   const { usersContext, navigateContext } = useUsersContext();
   const token = usersContext.token;
-  const [selectedItems, setSelectedItems] = useState([]);
 
+  // Estados para manejar la selección de elementos y la paginación
+  const [selectedItems, setSelectedItems] = useState([]);
   const [page, setPage] = useState(1);
   const [itemsPage, setItemsPage] = useState(8);
 
+  // Hook de fetch personalizado
   let {
     dataServer,
     isLoading = false,
@@ -32,11 +35,13 @@ export default function ListCourse({ title }) {
     deleteData
   } = useFetch(`${api}`);
 
+  // Filtros de búsqueda
   const filters = [
     { id: 1, name: 'code', description: 'Código' },
     { id: 2, name: 'name', description: 'Nombre' }
   ];
 
+  // Función para abrir modal de adición
   function handleAdd() {
     const title = 'Adición de Cursos';
     if (token) {
@@ -63,6 +68,7 @@ export default function ListCourse({ title }) {
     }
   };
 
+  // Función para abrir modal de edición
   function handleEdit(course) {
     const title = 'Edición de Curso';
     if (token) {
@@ -89,19 +95,23 @@ export default function ListCourse({ title }) {
     }
   };
 
+  // Navegar a otra ruta
   const navigateTo = async (rute) => {
     await navigateContext(rute);
   };
 
+  // Obtener cursos desde el servidor
   const getCourses = async () => {
     const url = `${hostServer}/api/courses`;
     await getData(url);
   };
 
+  // Actualizar lista de cursos
   const updateList = async () => {
     await getCourses();
   };
 
+  // Eliminar curso
   const handleDelete = async (id) => {
     if (token) {
       const url = `${hostServer}/api/course`;
@@ -141,15 +151,18 @@ export default function ListCourse({ title }) {
     }
   };
 
+  // Paginación
   const nextPage = (pagItems, pageCurrent) => {
     setItemsPage(pagItems);
     setPage(pageCurrent);
   };
 
+  // Manejar cambio de página
   const handlePageChange = (newSelectedItems) => {
     setSelectedItems(newSelectedItems);
   };
 
+  // Efecto para manejar la respuesta del servidor
   useEffect(() => {
     if (dataServer?.message || dataServer?.message != undefined) {
       Swal.fire(dataServer?.message);
@@ -165,6 +178,7 @@ export default function ListCourse({ title }) {
     }
   }, [dataServer]);
 
+  // Obtener lista de cursos al montar el componente
   useEffect(() => {
     getCourses();
   }, []);

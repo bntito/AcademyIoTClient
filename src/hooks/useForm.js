@@ -1,10 +1,11 @@
 import { useState } from 'react';
 
+// Hook personalizado para manejar formularios
 export const useForm = (initialForm, validationSchema, fieldsToSkipValidation = []) => {
   const [formData, setFormData] = useState(initialForm);
   const [errorsInput, setErrorsInput] = useState({});
 
-  /* Manejo de valor input por evento (checkbox, files y value) */
+  // Manejo de valor input por evento (checkbox, files y value)
   const onInputChange = (e) => {
     const { name, value, type, checked, files } = e.target;
     setFormData((prevData) => ({
@@ -18,7 +19,7 @@ export const useForm = (initialForm, validationSchema, fieldsToSkipValidation = 
     }));
   };
 
-  /* Validación solo cuando ocurre un cambio */
+  // Validación solo cuando ocurre un cambio
   const validateField = (name, value) => {
     if (fieldsToSkipValidation.includes(name)) return [];
     const validators = validationSchema[name];
@@ -26,7 +27,7 @@ export const useForm = (initialForm, validationSchema, fieldsToSkipValidation = 
     return errors;
   };
 
-  /* Validación de campos para posterior envío */
+  // Función para validar todo el formulario
   const validateForm = () => {
     let errors = {};
     let numErrors = 0;
@@ -41,11 +42,13 @@ export const useForm = (initialForm, validationSchema, fieldsToSkipValidation = 
     return numErrors;
   };
 
+  // Función para limpiar el formulario
   const clearForm = () => {
     setFormData(initialForm);
     setErrorsInput({});
   };
 
+  // Función para llenar el formulario con datos proporcionados
   const fillForm = (data) => {
     setFormData({
       ...formData,
@@ -53,6 +56,7 @@ export const useForm = (initialForm, validationSchema, fieldsToSkipValidation = 
     });
   };
 
+  // Devolver los datos y funciones necesarios para manejar el formulario
   return {
     formData,
     onInputChange,

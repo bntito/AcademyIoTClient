@@ -3,24 +3,31 @@ import React, { useState, useEffect } from 'react';
 import './searcher.css';
 
 const Searcher = ({ filters, registers, onChange }) => {
+  // Estado para el campo seleccionado en el filtro
   const [field, setField] = useState('');
+  // Estado para el valor ingresado en el campo de búsqueda
   const [filter, setFilter] = useState('');
 
+  // Manejar el caso cuando no hay registros
   if (!registers) {
     return;
   }
 
+  // Manejar el cambio en el campo seleccionado en el filtro
   const handleFieldChange = (e) => {
     setField(e.target.value);
     setFilter('');
   };
 
+  // Manejar el cambio en el valor ingresado en el campo de búsqueda
   const handleFilterChange = (e) => {
     setFilter(e.target.value);
   };
 
+  // Manejar la presentación del formulario de búsqueda
   const handleSubmit = (e) => {
     e.preventDefault();
+    // Si no se ha seleccionado ningún filtro, se muestra todos los registros
     if (filter === '') {
       onChange(registers);
       return;
@@ -28,6 +35,7 @@ const Searcher = ({ filters, registers, onChange }) => {
     ejectFilter();
   };
 
+  // Ejecutar el filtro seleccionado
   const ejectFilter = () => {
     const resultOfFilter = registers.filter((register) => {
       if (register[field]) {
@@ -38,6 +46,7 @@ const Searcher = ({ filters, registers, onChange }) => {
     onChange(resultOfFilter);
   };
 
+  // Establecer el campo por defecto del filtro
   useEffect(() => {
     if (filters[0].name) {
       setField(filters[0].name);

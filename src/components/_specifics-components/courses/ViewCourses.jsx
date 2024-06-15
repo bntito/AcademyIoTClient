@@ -8,41 +8,52 @@ import LoginUser from '../../_commons-components/loginUser/LoginUser';
 import Swal from 'sweetalert2';
 
 export default function ViewCourses() {
+  // Host del servidor desde las variables de entorno y contexto de usuario
   const hostServer = import.meta.env.VITE_REACT_APP_SERVER_HOST;
   const api = `${hostServer}/api/courses`;
   const navigate = useNavigate();
+
+  // Estados locales
   const [courses, setCourses] = useState([]);
   const [filterCourses, setFilterCourses] = useState([]);
   const initialForm = { name: '' };
   const [activeTab, setActiveTab] = useState('course');
 
+  // Función para cambiar la pestaña activa
   const handleTabChange = (tab) => {
     setActiveTab(tab);
   };
 
+  // Campos para omitir la validación
   const fieldsToSkipValidation = ['name'];
 
+  // Hook de formulario personalizado
   let {
     formData,
     onInputChange
   } = useForm(initialForm, fieldsToSkipValidation);
 
+  // Nombre del curso para filtrar
   const { name: nameCourse } = formData;
 
+  // Hook de fetch personalizado
   let {
     dataServer,
     isLoading = false,
     getData
   } = useFetch(`${api}`);
 
+  // Obtener cursos desde el servidor
   const getCourses = async () => {
     await getData(api);
   };
 
+  // Redireccionar a la vista de detalles del curso al hacer clic en un curso
   const handleCourseClick = (id) => {
     navigate(`/courseView/${id}`);
   };
 
+  // Efecto para manejar la respuesta del servidor
   useEffect(() => {
     if (dataServer?.message || dataServer?.message != undefined) {
       Swal.fire(dataServer?.message);
@@ -61,13 +72,15 @@ export default function ViewCourses() {
       setFilterCourses(dataServer.dataServerResult.dataApi);
     }
   }, [dataServer]);
-  
+
+  // Efecto para filtrar los cursos por nombre
   useEffect(() => {
     setFilterCourses(
       courses.filter((course) => course.name.toLowerCase().includes(nameCourse.toLowerCase()))
     );
   }, [nameCourse, courses]);
 
+  // Obtener lista de cursos al montar el componente
   useEffect(() => {
     getCourses();
   }, []);

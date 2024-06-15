@@ -33,16 +33,20 @@ import { TbReportMoney } from "react-icons/tb";
 import './menu.css';
 
 function MenuItem({ item, closeMenu, userRole }) {
+  // Estado local para controlar si los subelementos del menú están abiertos o cerrados
   const [isOpen, setIsOpen] = useState(false);
 
+  // Función para alternar entre abrir y cerrar los subelementos del menú
   const handleToggle = () => {
     setIsOpen(!isOpen);
   };
 
+  // Función para manejar el clic en un subelemento del menú
   const handleClick = () => {
     closeMenu();
   };
 
+  // Filtrar los subelementos del menú según el rol del usuario
   const filteredSubItems = item.subItems.filter(subItem =>
     subItem.roles.length === 0 || subItem.roles.includes(userRole)
   );
@@ -87,10 +91,11 @@ function MenuItem({ item, closeMenu, userRole }) {
 };
 
 function Menu({ closeMenu }) {
+  // Obtener el contexto de usuario para determinar el rol del usuario actual
   const { usersContext } = useUsersContext();
-
   const userRole = usersContext.role;
 
+  // Definición de los elementos del menú con sus subelementos y roles asociados
   const menuItems = [
     {
       icon: <IoHomeOutline />,
@@ -196,6 +201,7 @@ function Menu({ closeMenu }) {
     }
   ];
   
+  // Filtrar los elementos del menú según el rol del usuario
   const filteredMenuItems = menuItems.filter(item =>
     item.roles.length === 0 || item.roles.includes(userRole)
   );

@@ -8,6 +8,7 @@ import Avatar from '../../../services/avatar/Avatar';
 import './loginUser.css';
 
 function LoginUser() {
+  // Utilizar el contexto de usuarios para obtener información del usuario
   const { usersContext } = useUsersContext();
 
   return (

@@ -8,22 +8,28 @@ import Swal from 'sweetalert2';
 import './views.css';
 
 export default function ViewCourse() {
+  // Host del servidor desde las variables de entorno y contexto de usuario
   const hostServer = import.meta.env.VITE_REACT_APP_SERVER_HOST;
   const { id } = useParams();
   const api = `${hostServer}/api/course/${id}`;
+
+  // Estados locales
   const [course, setCourse] = useState(null);
   const [professors, setProfessors] = useState([]);
 
+  // Hook de fetch personalizado
   let {
     dataServer,
     isLoading = false,
     getData
   } = useFetch(`${api}`);
 
+  // Obtener cursos desde el servidor
   const getCourse = async () => {
     await getData(api);
   };
 
+  // Efecto para manejar la respuesta del servidor
   useEffect(() => {
     if (dataServer?.message || dataServer?.message != undefined) {
       Swal.fire(dataServer?.message);
@@ -43,10 +49,12 @@ export default function ViewCourse() {
     }
   }, [dataServer]);
 
+  // Obtener lista de cursos al montar el componente
   useEffect(() => {
     getCourse();
   }, [id]);
 
+  // Verificación de la existencia del curso
   if (!course) {
     return <div className="not-found">Curso no encontrado</div>;
   }

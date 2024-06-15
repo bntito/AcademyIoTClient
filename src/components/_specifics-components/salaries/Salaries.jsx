@@ -6,21 +6,27 @@ import LoginUser from '../../_commons-components/loginUser/LoginUser';
 import Swal from 'sweetalert2';
 
 export default function Salaries() {
+  // Host del servidor desde las variables de entorno
   const hostServer = import.meta.env.VITE_REACT_APP_SERVER_HOST;
   const api = `${hostServer}/api/courses`;
+
+  // Estados locales
   const [allCourses, setAllCourses] = useState([]);
   const [professorHoursArray, setProfessorHoursArray] = useState([]);
 
+  // Hook de fetch personalizado
   let {
     dataServer,
     isLoading = false,
     getData
   } = useFetch(`${api}`);
 
+  // Función para obtener los cursos
   const fetchCourses = async () => {
     await getData(api);
   };
 
+  // Función para calcular las horas y salarios de los profesores activos
   function professorsActive() {
     const tempProfessorHoursArray = [];
     allCourses.forEach(course => {
@@ -46,6 +52,7 @@ export default function Salaries() {
     setProfessorHoursArray(tempProfessorHoursArray);
   };
 
+  // Función para manejar el pago
   function handlePay() {
     Swal.fire({
       position: 'center',
@@ -56,6 +63,7 @@ export default function Salaries() {
     }); 
   };
 
+  // Efecto para manejar la respuesta del servidor
   useEffect(() => {
     if (dataServer?.message) {
       Swal.fire(dataServer.message);
@@ -74,12 +82,14 @@ export default function Salaries() {
     }
   }, [dataServer]);
 
+  // Efecto para calcular las horas y salarios cuando cambia la lista de cursos
   useEffect(() => {
     if (allCourses.length > 0) {
       professorsActive();
     }
   }, [allCourses]);
-    
+
+  // Efecto para cargar los cursos al montar el componente
   useEffect(() => {
     fetchCourses();
   }, []);

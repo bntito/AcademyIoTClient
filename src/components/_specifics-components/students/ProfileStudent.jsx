@@ -12,13 +12,18 @@ import validationSchema from '../../../services/validations/validationSchema';
 import Swal from 'sweetalert2';
 
 export default function ProfileStudent() {
+  // Host del servidor desde las variables de entorno y contexto de usuario
   const hostServer = import.meta.env.VITE_REACT_APP_SERVER_HOST;
   const api = `${hostServer}/api/student`;
   const { usersContext } = useUsersContext();
   const token = usersContext.token;
   const [error, setError] = useState(false);
   const [edit, setEdit] = useState(false);
+
+  // Estados locales
   const [student, setStudent] = useState({});
+
+  // Estado inicial del formulario
   const initialForm = {
     id: student && student.id ? student.id : '',
     dni: student && student.dni ? student.dni : '',
@@ -34,6 +39,7 @@ export default function ProfileStudent() {
     condition: student && student.condition ? student.condition : ''
   };
 
+  // Hook de formulario personalizado
   let {
     formData,
     onInputChange,
@@ -42,14 +48,17 @@ export default function ProfileStudent() {
     fillForm
   } = useForm(initialForm, validationSchema);
 
+  // Desestructuración de los valores del formulario
   const { dni, name, lastname, email, password, confirmPassword, address, birthday, city, phone, condition } = formData;
 
+  // Hook de fetch personalizado
   let {
     dataServer,
     getData,
     updateData
   } = useFetch(null);
 
+  // Manejo del submit del formulario
   const handleSubmit = async (e) => {
     e.preventDefault();
     const numError = validateForm();
@@ -71,6 +80,7 @@ export default function ProfileStudent() {
     }
   };
 
+  // Obtener estudiante desde el servidor
   const getStudent = async (event) => {
     let url = `${api}/dni/${event.target.value}`;
     const resp = await getData(url);
@@ -87,6 +97,7 @@ export default function ProfileStudent() {
     }
   };
 
+  // Efecto que maneja la respuesta del servidor
   useEffect(() => {
     if (dataServer?.status == null) {
       return;
@@ -123,10 +134,12 @@ export default function ProfileStudent() {
     }
   }, [dataServer]);
 
+  // Efecto para llenar el formulario con los datos del estudiante
   useEffect(() => {
     fillForm(student);
   }, [student]);
 
+  // Mensaje de error en caso de fallo
   const errorMessage = () => {
     return (
       <div className='error-message'>

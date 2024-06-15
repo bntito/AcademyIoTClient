@@ -8,26 +8,33 @@ import Swal from 'sweetalert2';
 import './relations.css';
 
 export default function Relations() {
+  // Host del servidor desde las variables de entorno
   const hostServer = import.meta.env.VITE_REACT_APP_SERVER_HOST;
   const api = `${hostServer}/api/enrollments`;
+
+  // Estados locales
   const [enrollments, setEnrollments] = useState([]);
-  
+
+  // Hook de fetch personalizado
   const { 
     dataServer, 
     isLoading, 
     getData 
   } = useFetch(api);
 
+  // Función para obtener las matriculaciones
   const getEnrollments = async () => {
     await getData(api);
   };
 
   useEffect(() => {
+    // Procesamiento de datos al recibir respuesta del servidor
     if (dataServer) {
       if (dataServer.message) {
         Swal.fire(dataServer.message);
       }
       if (dataServer.dataServerResult) {
+        // Transformación de datos para mostrar en la tabla
         const dataApi = dataServer.dataServerResult.dataApi;
         const coursesMap = new Map();
         dataApi.forEach(({ course, professor, student }) => {
@@ -55,6 +62,7 @@ export default function Relations() {
     }
   }, [dataServer]);
 
+  // Efecto para carga de matriculas al montar el componente
   useEffect(() => {
     getEnrollments();
   }, []);

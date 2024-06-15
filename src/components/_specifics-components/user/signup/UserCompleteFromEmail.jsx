@@ -13,6 +13,7 @@ import validationSchema from '../../../../services/validations/validationSchema'
 import Swal from 'sweetalert2';
 
 export default function User() {
+  // Host del servidor desde las variables de entorno y contexto de usuario
   const hostServer = import.meta.env.VITE_REACT_APP_SERVER_HOST;
   const api = `${hostServer}/api/user/signupcompletfromemail`;
   const navigate = useNavigate();
@@ -21,6 +22,7 @@ export default function User() {
   const [avatar, setAvatar] = useState(null);
   let urlAvatar = '';
 
+  // Definición de roles y estado de usuarios
   const roles = [
     { id: 1, role: 'isStudent', description: 'Estudiante'},
     { id: 2, role: 'isTeacher', description: 'Profesor'},
@@ -32,8 +34,7 @@ export default function User() {
     { id: 3, description: 'No Activo'}
   ];
 
-  const fieldsToSkipValidation = [];
-
+  // Estado inicial del formulario
   const initialForm = {
     name: '',
     lastname: '',
@@ -44,10 +45,12 @@ export default function User() {
     status: ''
   };
 
+  // Manejo del avatar
   const handleAvatar = (e) => {
     setAvatar(e.target.files[0]);
   };
 
+  // Hook de formulario personalizado
   let {
     formData,
     onInputChange,
@@ -56,13 +59,16 @@ export default function User() {
     clearForm
   } = useForm(initialForm, validationSchema, fieldsToSkipValidation);
 
+  // Desestructuración de los valores del formulario
   const { name, lastname, role, address, city, phone, status } = formData;
 
+  // Hook de fetch personalizado
   let {
     dataServer,
     createData
   } = useFetch(null);
 
+  // Manejo del submit del formulario
   const handleSubmit = async (e) => {
     e.preventDefault();
     const email = usersContext.email;
@@ -87,6 +93,7 @@ export default function User() {
     }
   };
 
+  // Manejo del envío del avatar
   const handleSubmitAvatar = async () => {
     const formData = new FormData();
     formData.append('avatar', avatar);
@@ -109,6 +116,7 @@ export default function User() {
     };
   };
 
+  // Efecto que maneja la respuesta del servidor
   useEffect(() => {
     if (dataServer?.status == null) {
       return;

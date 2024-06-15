@@ -16,15 +16,18 @@ import { FaRegEdit } from "react-icons/fa";
 import { RiDeleteBin6Line } from "react-icons/ri";
 
 export default function ListContacts({ title }) {
+  // Host del servidor desde las variables de entorno y contexto de usuario
   const hostServer = import.meta.env.VITE_REACT_APP_SERVER_HOST;
   const api = `${hostServer}/api/contacts`;
   const { usersContext } = useUsersContext();
   const token = usersContext.token;
-  const [selectedItems, setSelectedItems] = useState([]);
 
+  // Estados para manejar la selección de elementos y la paginación
+  const [selectedItems, setSelectedItems] = useState([]);
   const [page, setPage] = useState(1);
   const [itemsPage, setItemsPage] = useState(8);
 
+  // Hook de fetch personalizado
   let {
     dataServer,
     isLoading = false,
@@ -32,11 +35,13 @@ export default function ListContacts({ title }) {
     deleteData
   } = useFetch(`${api}`);
 
+  // Filtros de búsqueda
   const filters = [
     { id: 1, name: 'email', description: 'Email' },
     { id: 2, name: 'name', description: 'Nombre' }
   ];
 
+  // Función para abrir modal de adición
   function handleAdd() {
     const title = 'Adición de Contacto';
     if (token) {
@@ -61,6 +66,7 @@ export default function ListContacts({ title }) {
     }
   };
 
+  // Función para abrir modal de edición
   function handleEdit(contact) {
     const title = 'Edición de Contacto';
     if (token) {
@@ -85,15 +91,18 @@ export default function ListContacts({ title }) {
     }
   };
 
+  // Obtener contactos desde el servidor
   const getContacts = async () => {
     const url = `${hostServer}/api/contacts`;
     await getData(url);
   };
 
+  // Actualizar lista de contactos
   const updateList = async () => {
     await getContacts();
   };
 
+  // Eliminar curso
   const handleDelete = async (id) => {
     const url = `${hostServer}/api/contact`;
     const deleteId = id;
@@ -122,15 +131,18 @@ export default function ListContacts({ title }) {
     });
   };
 
+  // Paginación
   const nextPage = (pagItems, pageCurrent) => {
     setItemsPage(pagItems);
     setPage(pageCurrent);
   };
-  
+
+  // Manejar cambio de página
   const handlePageChange = (newSelectedItems) => {
     setSelectedItems(newSelectedItems);
   };
-  
+
+  // Efecto para manejar la respuesta del servidor
   useEffect(() => {
     if (dataServer?.message || dataServer?.message != undefined) {
       Swal.fire(dataServer?.message);
@@ -146,6 +158,7 @@ export default function ListContacts({ title }) {
     }
   }, [dataServer]);
 
+  // Obtener lista de contactos al montar el componente
   useEffect(() => {
     getContacts();
   }, []);

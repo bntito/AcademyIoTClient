@@ -7,9 +7,11 @@ import { useUsersContext } from '../../../hooks/UserContext';
 import Swal from 'sweetalert2';
 
 function Logout() {
+  // Manejo del contexto de usuario
   const navigate = useNavigate();
   const { setUsersContext } = useUsersContext();
   
+  // Función para manejar el cierre de sesión
   const logout = async () => {
     Swal.fire({
       title: 'Está seguro que desea salir?',

@@ -12,15 +12,20 @@ import { BsPersonAdd } from 'react-icons/bs';
 import { AiOutlineUserDelete } from 'react-icons/ai';
 
 export default function Course({ course, edit, reviewList, token, handleNavigate }) {
+  // Host del servidor desde las variables de entorno y contexto de usuario
   const hostServer = import.meta.env.VITE_REACT_APP_SERVER_HOST;
   const api = `${hostServer}/api/course`;
   const { handleClose } = useAppContext();
+
+  // Estados locales
   const [teachers, setTeachers] = useState([]);
   const [professors, setProfessors] = useState([]);
   const [error, setError] = useState(false);
   const [imageCourse, setImageCourse] = useState(null);
   const [urlImageCourse, setUrlImageCourse] = useState(course ? course.urlImg : null);
   let urlImg = '';
+
+  // Formulario inicial para la creación del curso
   const initialForm = {
     id: course ? course.id : '',
     code: course ? course.code : '',
@@ -33,6 +38,7 @@ export default function Course({ course, edit, reviewList, token, handleNavigate
     prominent: course ? course.prominent : false
   };
 
+  // Función para agregar un profesor al curso
   const addProfessor = () => {
     const newProfessor = {
       id: professors.length + 1,
@@ -45,10 +51,12 @@ export default function Course({ course, edit, reviewList, token, handleNavigate
     ]);
   };
 
+  // Manejo de cambios en la imagen del curso
   const handleImg = (e) => {
     setImageCourse(e.target.files[0]);
   };
 
+  // Hook de formulario personalizado
   let {
     formData,
     onInputChange,
@@ -56,8 +64,10 @@ export default function Course({ course, edit, reviewList, token, handleNavigate
     errorsInput
   } = useForm(initialForm, validationSchema);
 
+  // Desestructuración de los valores del formulario
   const { code, name, description, cost, condition, duration, qualification, prominent } = formData;
 
+  // Hook de fetch personalizado
   let {
     dataServer,
     createData,
@@ -65,6 +75,7 @@ export default function Course({ course, edit, reviewList, token, handleNavigate
     deleteTeacher
   } = useFetch(null);
 
+  // Manejo del submit del formulario
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (token) {
@@ -105,6 +116,7 @@ export default function Course({ course, edit, reviewList, token, handleNavigate
     }
   };
 
+  // Manejo de cambios en el formulario
   const handleInputChange = (id, field, value) => {
     setProfessors((prevProfessors) => {
       const nameExist = prevProfessors.find((professor) => professor.professor === value);
@@ -141,6 +153,7 @@ export default function Course({ course, edit, reviewList, token, handleNavigate
     });
   };
 
+  // Manejo del el envío de la imagen del curso
   const handleSubmitImg = async () => {
     const formData = new FormData();
     formData.append('name-field-file', imageCourse);
@@ -163,6 +176,7 @@ export default function Course({ course, edit, reviewList, token, handleNavigate
     };
   };
 
+  // Efecto que maneja la respuesta del servidor
   useEffect(() => {
     if (dataServer?.status == null) {
       return;
@@ -203,6 +217,7 @@ export default function Course({ course, edit, reviewList, token, handleNavigate
     }
   }, [dataServer]);
 
+  // Función para obtener los profesores
   const getProfessors = async () => {
     const api = `${hostServer}/api/professors`;
     const response = await fetch(api);
@@ -212,6 +227,7 @@ export default function Course({ course, edit, reviewList, token, handleNavigate
     }
   };
 
+  // Función para manejar la eliminación de un profesor del curso
   const handleDeleteTeacher = async (id) => {
     if (token) {
       const url = `${hostServer}/api/course/deleteteacher`;
@@ -250,11 +266,13 @@ export default function Course({ course, edit, reviewList, token, handleNavigate
     }
   };
 
+  // Efecto para obtener los profesores al montar el componente
   useEffect(() => {
     getProfessors();
     edit ? setProfessors(course.professors) : null;
   }, []);
 
+  // Mensaje de error en caso de fallo
   const errorMessage = () => {
     return (
       <div className='error-message'>
