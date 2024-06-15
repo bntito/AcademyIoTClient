@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { SiHtmlacademy } from "react-icons/si";
 import { IoMenu } from "react-icons/io5";
 
 import './header.css';
@@ -10,7 +11,7 @@ function Header({ menuview }) {
     <>
     <header className='header-header'>
       <div className='logo'>
-        <h2 className='h2-header'>Academia <b className='iot'>IoT</b></h2>
+        <h2 className='h2-header'><SiHtmlacademy className='logo-academy'/>{' '}Academia <b className='iot'>IoT</b></h2>
       </div>
       <div className='subtitle-menu-icon-container'>
         <div className='menu-icon-container'>
