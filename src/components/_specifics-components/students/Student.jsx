@@ -35,13 +35,16 @@ export default function Student({ student, edit, reviewList, token, userId, hand
     password: ''
   };
 
+  // Campos para omitir la validación
+  const fieldsToSkipValidation = ['password'];
+
   // Hook de formulario personalizado
   let {
     formData,
     onInputChange,
     validateForm,
     errorsInput
-  } = useForm(initialForm, validationSchema);
+  } = useForm(initialForm, validationSchema, fieldsToSkipValidation);
 
   // Desestructuración de los valores del formulario
   const { dni, name, lastname, email, address, birthday, city, phone, condition, password } = formData;

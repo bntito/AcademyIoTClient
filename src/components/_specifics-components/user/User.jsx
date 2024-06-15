@@ -44,13 +44,16 @@ export default function User({ user, edit, reviewList, token, handleNavigate }) 
     status: user ? user.status : ''
   };
 
+  // Campos para omitir la validación
+  const fieldsToSkipValidation = ['password', 'confirmPassword'];
+
   // Hook de formulario personalizado
   let {
     formData,
     onInputChange,
     validateForm,
     errorsInput
-  } = useForm(initialForm, validationSchema);
+  } = useForm(initialForm, validationSchema, fieldsToSkipValidation);
 
   // Desestructuración de los valores del formulario
   const { name, lastname, email, password, confirmPassword, address, city, phone, role, status } = formData;

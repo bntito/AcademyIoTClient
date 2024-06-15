@@ -57,7 +57,7 @@ export default function User() {
     validateForm,
     errorsInput,
     clearForm
-  } = useForm(initialForm, validationSchema, fieldsToSkipValidation);
+  } = useForm(initialForm, validationSchema);
 
   // Desestructuración de los valores del formulario
   const { name, lastname, role, address, city, phone, status } = formData;

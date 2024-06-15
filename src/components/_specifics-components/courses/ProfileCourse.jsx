@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useFetch } from '../../../hooks/useFetch';
 import { useForm } from '../../../hooks/useForm';
 
@@ -10,16 +11,19 @@ import validationSchema from '../../../services/validations/validationSchema';
 
 import Swal from 'sweetalert2';
 import { BsPersonAdd } from "react-icons/bs";
+import { AiOutlineUserDelete } from 'react-icons/ai';
 
 export default function ProfileCourse() {
   // Host del servidor desde las variables de entorno y contexto de usuario
   const hostServer = import.meta.env.VITE_REACT_APP_SERVER_HOST;
   const api = `${hostServer}/api/course`;
+  const navigate = useNavigate();
   const { usersContext } = useUsersContext();
   const token = usersContext.token;
 
   // Estados locales
   const [teachers, setTeachers] = useState([]);
+  const [professors, setProfessors] = useState([]);
   const [error, setError] = useState(false);
   const [edit, setEdit] = useState(false);
   const [course, setCourse] = useState({});
@@ -36,11 +40,9 @@ export default function ProfileCourse() {
     cost: course && course.cost ? course.cost : '',
     condition: course && course.condition ? course.condition : '',
     duration: course && course.duration ? course.duration : '',
-    qualification: course && course.qualification ? course.qualification : ''
+    qualification: course && course.qualification ? course.qualification : '',
+    prominent: course && course.prominent ? course.prominent : false
   };
-
-  // Estado para almacenar los profesores asignados al curso
-  const [professors, setProfessors] = useState([]);
 
   // Función para agregar un profesor al curso
   const addProfessor = () => {
@@ -70,13 +72,14 @@ export default function ProfileCourse() {
   } = useForm(initialForm, validationSchema);
 
   // Desestructuración de los valores del formulario
-  const { code, name, description, cost, condition, duration, qualification } = formData;
+  const { code, name, description, cost, condition, duration, qualification, prominent } = formData;
 
   // Hook de fetch personalizado
   let {
     dataServer,
     getData,
-    updateData
+    updateData,
+    deleteTeacher
   } = useFetch(null);
 
   // Manejo del submit del formulario
@@ -89,7 +92,7 @@ export default function ProfileCourse() {
       formData = {
         ...formData,
         token,
-        urlImg,
+        urlImg: urlImg || course.urlImg,
         professors
       };
       let urlServer = `${api}`;
@@ -102,6 +105,7 @@ export default function ProfileCourse() {
         showConfirmButton: false,
         timer: 3000
       });
+      navigate('/login');
     }
   };
 
@@ -175,12 +179,54 @@ export default function ProfileCourse() {
     }
   };
 
+  // Función para manejar la eliminación de un profesor del curso
+  const handleDeleteTeacher = async (id) => {
+    if (token) {
+      const url = `${hostServer}/api/course/deleteteacher`;
+      const teacherId = id;
+      const courseId = course.id;
+      Swal.fire({
+        title: 'Está seguro?',
+        text: 'Desea eliminar profesor del curso?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: ' #d33',
+        confirmButtonText: 'Sí, Eliminar'
+      })
+      .then((result) => {
+        if(result.isConfirmed) {
+          const del = async () => {
+            const resp = await deleteTeacher(url, teacherId, courseId, token);
+            await Swal.fire({
+              title: 'Eliminado!',
+              text: dataServer?.dataServerResult.message,
+              icon: 'success'
+            });
+          };
+          del();
+          navigate('/coursesList');
+        }
+      });
+    } else {
+      Swal.fire({
+        position: 'top',
+        icon: 'info',
+        title: 'Debe loguearse para utilizar esta función',
+        showConfirmButton: false,
+        timer: 2000
+      });
+    }
+  };
+
   // Función para obtener los cursos por código
   const getCourses = async (event) => {
     let url = `${api}/code/${event.target.value}`;
     const resp = await getData(url);
     if (async () => resp) {
       setCourse(resp?.dataServerResult?.dataApi);
+      setUrlImageCourse(resp?.dataServerResult?.dataApi.urlImg);
+      setProfessors(resp?.dataServerResult.dataApi.professors)
     } else {
       Swal.fire({
         position: 'top',
@@ -289,10 +335,10 @@ export default function ProfileCourse() {
                 </div>
                 <div>
                   <div>
-                    <label htmlFor='name'>Nombres</label>
+                    <label htmlFor='name'>Nombre del Curso</label>
                     <input 
                       type='text'
-                      placeholder='Ingrese Nombres'
+                      placeholder='Ingrese Nombre'
                       name='name'
                       value={name}
                       onChange={onInputChange}
@@ -404,12 +450,12 @@ export default function ProfileCourse() {
                     }
                   </div>
                 </div>
-                <div>
+                <div className='div-flex mt-3'>
                   <label htmlFor='file'></label>
                   <label htmlFor='file-input'>
                     <span>Subir Fotos</span>
                   </label>
-                  <div className='container-flex-column'>
+                  <div className='container-flex-column div-upload mt-4'>
                     <label htmlFor='file-input'>
                       <input 
                         type='file'
@@ -440,8 +486,8 @@ export default function ProfileCourse() {
                 </div>
               </div>
             </section>
-            <section >
-            <div className='mt-2'>
+            <section>
+              <div className='mt-2'>
                 <label htmlFor='teacher'>Asignación de Profesores</label>
                   <BsPersonAdd
                     onClick={addProfessor}
@@ -450,9 +496,16 @@ export default function ProfileCourse() {
                 <div className='div-flex gap-2 mt-3'>
                   {
                     professors.map((professor, index) => (
-                      <div 
+                      <div
                         key={index}
+                        className='container-teacher'
                       >
+                        <div>
+                          <AiOutlineUserDelete
+                            onClick={() => handleDeleteTeacher(professor.id, course.id)}
+                            className='delete-teacher'
+                          />                        
+                        </div>
                         <label htmlFor={`label-name-${professor.id}`}>Profesor</label>
                         <select
                           name={`label-name-${professor.id}`}
@@ -478,13 +531,26 @@ export default function ProfileCourse() {
                       </div>
                     ))
                   }
-                </div>
+                </div>  
               </div>
             </section>
-            <div className='m-auto div-70 mt-5'>
-              <button 
-                onClick={handleSubmit}
-                className='btn btn-primary w-100'>Actualizar</button>
+            <div className='div-prominent mt-4'>
+              <label htmlFor='prominent'>Curso Destacado</label>
+              <input 
+                type='checkbox'
+                name='prominent'
+                checked={prominent}
+                onChange={onInputChange}
+              />
+            </div>
+            <div className='w-300px mt-5'>
+              {
+                edit ? (
+                  <button type='submit' className='btn btn-primary w-100'>Actualizar</button>
+                ) : (
+                  <button type='submit' className='btn btn-primary w-100'>Agregar</button>
+                )
+              }
             </div>
           </form>
         </div>

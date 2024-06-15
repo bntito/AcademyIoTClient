@@ -17,11 +17,13 @@ export default function ProfileProfessor() {
   const api = `${hostServer}/api/professor`;
   const { usersContext } = useUsersContext();
   const token = usersContext.token;
+  const userId = usersContext.id;
   const [error, setError] = useState(false);
   const [edit, setEdit] = useState(false);
 
   // Estados locales
   const [professor, setProfessor] = useState({});
+  const [confirmPassword, setConfirmPassword] = useState();
 
   // Estado inicial del formulario
   const initialForm = {
@@ -30,13 +32,15 @@ export default function ProfileProfessor() {
     name: professor && professor.name ? professor.name : '',
     lastname: professor && professor.lastname ? professor.lastname : '',
     email: professor && professor.email ? professor.email : '',
-    password: professor && professor.password ? professor.password : '',
-    confirmPassword: '',
     address: professor && professor.address ? professor.address : '',
     city: professor && professor.city ? professor.city : '',
     phone: professor && professor.phone ? professor.phone : '',
-    condition: professor && professor.condition ? professor.condition : ''
+    condition: professor && professor.condition ? professor.condition : '',
+    password: ''
   };
+
+  // Campos para omitir la validación
+  const fieldsToSkipValidation = ['password'];
 
   // Hook de formulario personalizado
   let {
@@ -46,10 +50,10 @@ export default function ProfileProfessor() {
     errorsInput,
     clearForm,
     fillForm
-  } = useForm(initialForm, validationSchema);
+  } = useForm(initialForm, validationSchema, fieldsToSkipValidation);
 
   // Desestructuración de los valores del formulario
-  const { dni, name, lastname, email, password, confirmPassword, address, city, phone, condition } = formData;
+  const { dni, name, lastname, email, address, city, phone, condition, password } = formData;
 
   // Hook de fetch personalizado
   let {
@@ -58,25 +62,83 @@ export default function ProfileProfessor() {
     updateData
   } = useFetch(null);
 
-  // Manejo del submit del formulario
-  const handleSubmit = async (e) => {
+  // Función para confirmar la contraseña del usuario
+  const confirmUserPassword = async (e) => {
     e.preventDefault();
-    const numError = validateForm();
-    if (!numError) {
-      formData = {
-        ...formData,
-        token
-      };
-      let url = `${api}`;
-      await updateData(url, professor.id, formData);
-    } else {
+    const url = `${hostServer}/api/users/${userId}`;
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          userId: userId,
+          name: name,
+          lastname: lastname,
+          password: password
+        })
+      });
+      const result = await response.json();
+      if (response.ok) {
+        setConfirmPassword(true);
+      } else {
+        Swal.fire({
+          position: 'top',
+          icon: 'info',
+          title: result.message,
+          showCloseButton: false,
+          timer: 2000
+        });
+        setConfirmPassword(false);
+      }
+    } catch (error) {
       Swal.fire({
         position: 'top',
         icon: 'info',
-        title: 'Debes corregir la información para poder registrarla',
+        title: result,
+        showCloseButton: false,
+        timer: 2000
+      });
+      setConfirmPassword(false);
+    };
+  };
+
+
+  // Manejo del submit del formulario
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await confirmUserPassword(e);
+    if (token) {
+      const numError = validateForm();
+      if (!numError) {
+        formData = {
+          ...formData,
+          token
+        };
+        if (!confirmPassword) {
+          return;
+        }
+        let url = `${api}`;
+        await updateData(url, professor.id, formData);
+      } else {
+        Swal.fire({
+          position: 'top',
+          icon: 'info',
+          title: 'Debes corregir la información para poder registrarla',
+          showConfirmButton: false,
+          timer: 2000
+        });
+      }
+    } else {
+      Swal.fire({
+        position: 'top',
+        icon: 'warning',
+        title: 'Debe loguearse para utilizar esta función',
         showConfirmButton: false,
         timer: 2000
       });
+      navigate('/login'); 
     }
   };
 
@@ -155,12 +217,12 @@ export default function ProfileProfessor() {
             onSubmit={handleSubmit}
           >
             <div>
-              <div className='div-70'>
+              <div className='div-30'>
                 <label htmlFor='dni'>Número de Documento</label>
                 <input 
                   type='text'
                   name='dni'
-                  placeholder='Búsqueda por Documento'
+                  placeholder='Indique Número de Documento'
                   value={dni}
                   onBlur={getProfessor}
                   onChange={onInputChange}
@@ -175,12 +237,13 @@ export default function ProfileProfessor() {
                 }
               </div>
             </div>
-            <div className='div-flex gap-2 media850-col'>
-              <div className='w-100'>
+            <div className='div-flex gap-2'>
+              <div className='w-50'>
                 <label htmlFor=''>Nombres</label>
                 <input 
                   type='text'
                   name='name'
+                  placeholder='Indique Nombres'
                   value={name}
                   onChange={onInputChange}
                   className='form-control'
@@ -193,11 +256,12 @@ export default function ProfileProfessor() {
                   )
                 }
               </div>
-              <div className='w-100'>
+              <div className='w-50'>
                 <label htmlFor=''>Apellidos</label>
                 <input 
                   type='text'
                   name='lastname'
+                  placeholder='Indique Apellidos'
                   value={lastname}
                   onChange={onInputChange}
                   className='form-control'
@@ -211,12 +275,13 @@ export default function ProfileProfessor() {
                 }
               </div>
             </div>
-            <div className='div-flex gap-2 media850-col'>
-              <div className='w-100'>
+            <div className='div-flex gap-2'>
+              <div className='w-50'>
                 <label htmlFor=''>Correo electrónico</label>
                 <input 
                   type='email'
                   name='email'
+                  placeholder='Indique Correo Electrónico'
                   value={email}
                   onChange={onInputChange}
                   className='form-control'
@@ -229,11 +294,12 @@ export default function ProfileProfessor() {
                   )
                 }
               </div>
-              <div className='w-100'>
+              <div className='w-50'>
                 <label htmlFor=''>Número de Celular</label>
                 <input 
                   type='text'
                   name='phone'
+                  placeholder='Indique Número de Celular'
                   value={phone}
                   onChange={onInputChange}
                   className='form-control'
@@ -247,48 +313,13 @@ export default function ProfileProfessor() {
                 }
               </div>              
             </div>
-            <div className='div-flex gap-2 media850-col'>
-              <div className='w-100'>
-                <label htmlFor=''>Contraseña</label>
-                <input 
-                  type='password'
-                  name='password'
-                  value={password}
-                  onChange={onInputChange}
-                  className='form-control'
-                />
-                {
-                  errorsInput.password && (
-                    <ValidateErrors
-                      errors={errorsInput.password}
-                    />
-                  )
-                }
-              </div>
-              <div className='w-100'>
-                <label htmlFor=''>Confirmación de Contraseña</label>
-                <input 
-                  type='text'
-                  name='confirmPassword'
-                  value={confirmPassword}
-                  onChange={onInputChange}
-                  className='form-control'
-                />
-                {
-                  errorsInput.confirmPassword && (
-                    <ValidateErrors
-                      errors={errorsInput.confirmPassword}
-                    />
-                  )
-                }
-              </div>              
-            </div>
             <div className='div-70 mx-auto'>
               <div>
                 <label htmlFor=''>Dirección</label>
                 <input 
                   type='text'
                   name='address'
+                  placeholder='Indique Dirección'
                   value={address}
                   onChange={onInputChange}
                   className='form-control'
@@ -323,6 +354,21 @@ export default function ProfileProfessor() {
                 </select>
               </div>
             </div>
+            <div className='w-50 mx-auto mt-3'>
+              <div>
+                <label htmlFor=''>Contraseña de Usuario</label>
+                <input 
+                  type="password"
+                  autoComplete='on'
+                  name='password'
+                  placeholder='Indique su contraseña'
+                  value={password}
+                  onChange={onInputChange}
+                  onBlur={confirmUserPassword}
+                  className='form-control'
+                />
+              </div>
+            </div>
             <div className='div-flex div-center mt-3'>
               <div>
                 <label htmlFor=''>Estatus</label>
@@ -338,10 +384,14 @@ export default function ProfileProfessor() {
                 </select>
               </div>              
             </div>
-            <div className='m-auto div-70 mt-5'>
-              <button 
-                onClick={handleSubmit}
-                className='btn btn-primary w-100'>Actualizar</button>
+            <div className='w-300px mt-5'>
+              {
+                edit ? (
+                  <button type='submit' className='btn btn-primary w-100'>Actualizar</button>
+                ) : (
+                  <button type='submit' className='btn btn-primary w-100'>Agregar</button>
+                )
+              }
             </div>
           </form>
         </div>
