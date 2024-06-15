@@ -21,7 +21,7 @@ const validationSchema = {
   ],
   dni: [
     (value) => value.trim() === "" ? "El número de documento es obligatorio" : undefined,
-    // (value) => !/^\d{1,3}(\.\d{3}){2}-\d{1}$/.test(value) ? "El formato del DNI debe ser X.XXX.XXX-X" : undefined
+    (value) => !/^\d{1,3}(\.\d{3}){2}-\d{1}$/.test(value) ? "El formato del DNI debe ser X.XXX.XXX-X" : undefined
   ],  
   lastname: [
     (value) => value.trim() === "" ? "El apellido es obligatorio" : undefined,
@@ -34,7 +34,7 @@ const validationSchema = {
   phone: [
     (value) => value.trim() === "" ? "El número de teléfono es obligatorio" : undefined,
     (value) => value.length < 9 ? "El número de teléfono debe tener al menos 9 dígitos" : undefined,
-    // (value) => !/^0\d{2}-\d{3}-\d{3}$/.test(value) ? "El formato del número de teléfono debe ser 0XX-XXX-XXX" : undefined
+    (value) => !/^0\d{2}-\d{3}-\d{3}$/.test(value) ? "El formato del número de teléfono debe ser 0XX-XXX-XXX" : undefined
   ],
   password: [
     (value) => value.trim() === "" ? "La contraseña es obligatoria" : undefined,
