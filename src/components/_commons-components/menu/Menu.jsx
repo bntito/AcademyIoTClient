@@ -108,9 +108,9 @@ function Menu({ closeMenu }) {
       icon: <SiGoogleclassroom />,
       title: 'Cursos',
       subItems: [
-        { icon: <BiBookAdd />, title: 'Registro', route: '/addCourse', roles: ['isAdmin'] },
-        { icon: <MdOutlineFormatListBulleted />, title: 'Listado', route: '/coursesList', roles: ['isStudent', 'isTeacher', 'isAdmin'] },
-        { icon: <RiProfileLine />, title: 'Perfil', route: '/courseProfile', roles: ['isAdmin'] },
+        { icon: <BiBookAdd />, title: 'Registro', route: '/addCourse', roles: [] },
+        { icon: <MdOutlineFormatListBulleted />, title: 'Listado', route: '/coursesList', roles: [] },
+        { icon: <RiProfileLine />, title: 'Perfil', route: '/courseProfile', roles: [] },
         { icon: <GiSixEyes />, title: 'Ver cursos', route: '/coursesView', roles: [] }
       ],
       roles: []
@@ -119,21 +119,21 @@ function Menu({ closeMenu }) {
       icon: <PiStudentFill />,
       title: 'Estudiantes',
       subItems: [
-        { icon: <BiBookAdd />, title: 'Registro', route: '/addStudent', roles: ['isStudent', 'isAdmin'] },
+        { icon: <BiBookAdd />, title: 'Registro', route: '/addStudent', roles: [] },
         { icon: <MdOutlineFormatListBulleted />, title: 'Listado', route: '/studentsList', roles: [] },
-        { icon: <RiProfileLine />, title: 'Perfil', route: '/studentProfile', roles: ['isStudent', 'isAdmin'] }
+        { icon: <RiProfileLine />, title: 'Perfil', route: '/studentProfile', roles: [] }
       ],
-      roles: ['isStudent', 'isTeacher', 'isAdmin']
+      roles: []
     },
     {
       icon: <FaChalkboardTeacher />,
       title: 'Profesores',
       subItems: [
-        { icon: <BiBookAdd />, title: 'Registro', route: '/addProfessor', roles: ['isTeacher', 'isAdmin'] },
+        { icon: <BiBookAdd />, title: 'Registro', route: '/addProfessor', roles: [] },
         { icon: <MdOutlineFormatListBulleted />, title: 'Listado', route: '/professorsList', roles: [] },
-        { icon: <RiProfileLine />, title: 'Perfil', route: '/professorProfile', roles: ['isTeacher', 'isAdmin'] }
+        { icon: <RiProfileLine />, title: 'Perfil', route: '/professorProfile', roles: [] }
       ],
-      roles: ['isStudent', 'isTeacher', 'isAdmin']
+      roles: []
     },
     {
       icon: <MdOutlineAdminPanelSettings />,
@@ -147,7 +147,7 @@ function Menu({ closeMenu }) {
         { icon: <LuContact2 />, title: 'Contactos', route: '/contactList', roles: [] },
         { icon: <TbReportMoney />, title: 'Salarios', route: '/salaries', roles: [] }
       ],
-      roles: ['isAdmin']
+      roles: []
     },
     {
       icon: <MdAppRegistration />,
@@ -156,7 +156,7 @@ function Menu({ closeMenu }) {
         { icon: <BiBookAdd />, title: 'Registro', route: '/addEnrollments', roles: ['isTeacher', 'isAdmin'] },
         { icon: <MdOutlineFormatListBulleted />, title: 'Listado', route: '/enrollmentsList', roles: [] }
       ],
-      roles: ['isStudent', 'isTeacher', 'isAdmin']
+      roles: []
     },
     {
       icon: <MdOutlineFormatListBulleted />,
@@ -165,19 +165,19 @@ function Menu({ closeMenu }) {
         { icon: <FaClipboardList />, title: 'Cursos', route: '/coursesList', roles: [] },
         { icon: <CgUserList />, title: 'Estudiantes', route: '/studentsList', roles: [] },
         { icon: <FaListUl />, title: 'Profesores', route: '/professorsList', roles: [] },
-        { icon: <TbRelationManyToMany />, title: 'Estudiantes por curso', route: '/enrollmentsList', roles: ['isAdmin'] },
+        { icon: <TbRelationManyToMany />, title: 'Estudiantes por curso', route: '/enrollmentsList', roles: [] },
         { icon: <TbRelationManyToMany />, title: 'Relación', route: '/relations', roles: [] }
       ],
-      roles: ['isStudent', 'isTeacher', 'isAdmin']
+      roles: []
     },
     {
       icon: <FaRegUser />,
       title: 'Usuarios',
       subItems: [
         { icon: <IoLogInOutline />, title: 'Inicio Sesión', route: '/login', roles: [] },
-        { icon: <BiLogOut />, title: 'Cerrar Sesión', route: '/logout', roles: ['isStudent', 'isTeacher', 'isAdmin'] },
-        { icon: <TbPasswordUser />, title: 'Contraseñas', route: '/passwordchange', roles: ['isStudent', 'isTeacher', 'isAdmin'] },
-        { icon: <MdOutlineFormatListBulleted />, title: 'Listado', route: '/usersList', roles: ['isAdmin'] },
+        { icon: <BiLogOut />, title: 'Cerrar Sesión', route: '/logout', roles: [] },
+        { icon: <TbPasswordUser />, title: 'Contraseñas', route: '/passwordchange', roles: [] },
+        { icon: <MdOutlineFormatListBulleted />, title: 'Listado', route: '/usersList', roles: [] },
         { icon: <FaUsers />, title: 'Usuarios', route: '/addUser', roles: [] },
         { icon: <FaUserCheck />, title: 'Registrarse', route: '/signup', roles: [] }
       ],
@@ -188,7 +188,7 @@ function Menu({ closeMenu }) {
       title: 'Contacto',
       subItems: [
         { icon: <BiBookAdd />, title: 'Registro', route: '/addContact', roles: [] },
-        { icon: <MdOutlineFormatListBulleted />, title: 'Listado', route: '/contactList', roles: ['isTeacher', 'isAdmin'] }
+        { icon: <MdOutlineFormatListBulleted />, title: 'Listado', route: '/contactList', roles: [] }
       ],
       roles: []
     },
